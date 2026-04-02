@@ -8,1141 +8,155 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        .intro-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            animation: introFadeOut 0.8s ease-out forwards;
-            animation-delay: 9.2s;
-        }
-
-        @keyframes introFadeOut {
-            0% { opacity: 1; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; display: none; }
-        }
-
-        .intro-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .intro-coin {
-            position: absolute;
-            font-size: 38px;
-            animation: introCoinTap 1.8s infinite;
-            pointer-events: none;
-        }
-        @keyframes introCoinTap {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.5); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        .intro-blast {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #00f2ff, #ff00c8);
-            border-radius: 50%;
-            animation: introBlast 1s linear forwards;
-            pointer-events: none;
-        }
-        @keyframes introBlast {
-            from { transform: scale(0); opacity: 1; }
-            to { transform: scale(6); opacity: 0; }
-        }
-
-        .intro-chat {
-            position: absolute;
-            padding: 12px 16px;
-            font-size: 14px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            animation: introChatMove 7s linear forwards;
-            pointer-events: none;
-            font-family: 'Poppins', sans-serif;
-            white-space: nowrap;
-        }
-        @keyframes introChatMove {
-            from { transform: translateY(100vh); opacity: 0; }
-            to { transform: translateY(-20vh); opacity: 1; }
-        }
-
-        .intro-gift {
-            position: absolute;
-            font-size: 34px;
-            animation: introGiftFly 6s linear forwards;
-            pointer-events: none;
-        }
-        @keyframes introGiftFly {
-            from { transform: translateY(100vh); opacity: 0; }
-            to { transform: translateY(-10vh); opacity: 0.8; }
-        }
-
-        .intro-card {
-            position: relative;
-            z-index: 5;
-            backdrop-filter: blur(25px);
-            background: rgba(255, 255, 255, 0.08);
-            padding: 35px 25px;
-            border-radius: 32px;
-            text-align: center;
-            width: 90%;
-            max-width: 380px;
-            margin: auto;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            animation: introCardGlow 0.6s ease-out;
-        }
-
-        @keyframes introCardGlow {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .intro-logo {
-            font-size: 48px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #f39c12, #e67e22, #ff00c8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-            animation: introLogoShine 2s ease-in-out infinite;
-        }
-
-        @keyframes introLogoShine {
-            0%, 100% { text-shadow: 0 0 5px rgba(243, 156, 18, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(243, 156, 18, 0.8); }
-        }
-
-        .intro-line {
-            margin-top: 15px;
-            font-size: 14px;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: introFadeUp 0.6s forwards;
-            color: #ddd;
-        }
-        .intro-line:nth-child(2) { animation-delay: 0.2s; }
-        .intro-line:nth-child(3) { animation-delay: 0.5s; }
-        .intro-line:nth-child(4) { animation-delay: 0.8s; }
-        .intro-line:nth-child(5) { animation-delay: 1.1s; }
-
-        @keyframes introFadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .intro-progress {
-            margin-top: 30px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .intro-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #f39c12, #e67e22, #ff00c8);
-            border-radius: 10px;
-            animation: introLoad 10s linear forwards;
-        }
-        @keyframes introLoad {
-            to { width: 100%; }
-        }
-
-        .intro-tag {
-            margin-top: 20px;
-            font-size: 11px;
-            color: #888;
-            letter-spacing: 1px;
-        }
-
-        .glass-card {
-            background: rgba(18, 22, 35, 0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 193, 7, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            border-color: rgba(255, 193, 7, 0.5);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.5);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 193, 7, 0.2);
-            border-color: #f39c12;
-        }
-
-        .error-message {
-            color: #ff4444;
-            font-size: 12px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            display: block;
-            text-align: left;
-        }
-
-        .input-error {
-            border-color: #ff4444 !important;
-            box-shadow: 0 0 5px rgba(255, 68, 68, 0.3) !important;
-        }
-
-        .input-success {
-            border-color: #2ecc71 !important;
-        }
-
-        .coin-container {
-            width: 220px;
-            height: 220px;
-            margin: 0 auto;
-            cursor: pointer;
-            position: relative;
-        }
-
-        canvas {
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(243, 156, 18, 0.4);
-            transition: transform 0.1s ease;
-        }
-
-        canvas:active {
-            transform: scale(0.95);
-        }
-
-        .chat-message {
-            background: rgba(30, 35, 55, 0.6);
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            border-left: 3px solid #f39c12;
-            transition: all 0.2s;
-        }
-
-        .chat-message:hover {
-            background: rgba(40, 45, 65, 0.8);
-            transform: translateX(4px);
-        }
-
-        .username-click {
-            color: #f39c12;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .username-click:hover {
-            text-shadow: 0 0 8px #f39c12;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.08));
-            border-radius: 20px;
-            padding: 16px;
-            text-align: center;
-            border: 1px solid rgba(243, 156, 18, 0.3);
-            transition: all 0.3s;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-card:hover {
-            border-color: rgba(243, 156, 18, 0.8);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.2);
-        }
-
-        .input-modern {
-            background: rgba(10, 12, 25, 0.8);
-            border: 1px solid rgba(243, 156, 18, 0.3);
-            border-radius: 40px;
-            padding: 12px 20px;
-            color: white;
-            font-size: 14px;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .input-modern:focus {
-            outline: none;
-            border-color: #f39c12;
-            box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes coinTapPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
-            50% { transform: scale(1.08); box-shadow: 0 0 0 20px rgba(243, 156, 18, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
-        }
-
-        .coin-tap-effect {
-            animation: coinTapPulse 0.3s ease-out;
-        }
-
-        .floating-plus {
-            position: absolute;
-            font-size: 28px;
-            font-weight: bold;
-            color: #f39c12;
-            text-shadow: 0 0 10px #ffaa33;
-            pointer-events: none;
-            z-index: 100;
-            animation: floatUp 0.8s ease-out forwards;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -70%) scale(1.2);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -100%) scale(0.8);
-            }
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1d2f;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #f39c12;
-            border-radius: 10px;
-        }
-
-        .login-options {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .login-tab {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .login-tab.active {
-            border-bottom: 2px solid #f39c12;
-            font-weight: 600;
-            color: #f39c12;
-        }
-
-        .already-user {
-            text-align: center;
-            margin-top: 20px;
-            color: #888;
-        }
-
-        .already-user a {
-            color: #f39c12;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgot-link {
-            display: block;
-            text-align: right;
-            margin-top: -15px;
-            margin-bottom: 20px;
-            color: #f39c12;
-            text-decoration: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        .profile-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .profile-stat-item {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(230, 126, 34, 0.05));
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid rgba(243, 156, 18, 0.2);
-        }
-
-        .profile-stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #f39c12;
-        }
-
-        .profile-stat-label {
-            font-size: 12px;
-            color: #888;
-            margin-top: 5px;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .history-item:last-child {
-            border-bottom: none;
-        }
-
-        .history-date {
-            font-size: 12px;
-            color: #888;
-        }
-
-        .history-taps {
-            color: #f39c12;
-            font-weight: bold;
-        }
-
-        .empty-history {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-        }
-
-        .gift-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid rgba(243, 156, 18, 0.2);
-        }
-
-        .gift-item:hover {
-            transform: translateY(-2px);
-            border-color: #f39c12;
-            background: rgba(243, 156, 18, 0.1);
-        }
-        
-        .package-card {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(230, 126, 34, 0.05));
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 193, 7, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .package-card:hover {
-            transform: translateY(-5px);
-            border-color: #f39c12;
-            box-shadow: 0 15px 40px rgba(243, 156, 18, 0.3);
-        }
-        
-        .package-card.selected {
-            border-color: #f39c12;
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(230, 126, 34, 0.15));
-            box-shadow: 0 0 30px rgba(243, 156, 18, 0.5);
-            transform: scale(1.02);
-        }
-        
-        .package-card.selected::before {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            color: #2ecc71;
-            font-weight: bold;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
-            50% { box-shadow: 0 0 0 15px rgba(243, 156, 18, 0); }
-        }
-        
-        .package-card.pulse {
-            animation: pulseGlow 0.5s ease-out;
-        }
-        
-        .payment-info-card {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 193, 7, 0.3);
-        }
-        
-        .method-option {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 193, 7, 0.2);
-        }
-        
-        .method-option:hover, .method-option.selected {
-            background: rgba(255, 193, 7, 0.15);
-            border-color: #f39c12;
-        }
-        
-        .status-pending { color: #f39c12; background: rgba(243, 156, 18, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
-        .status-approved { color: #2ecc71; background: rgba(46, 204, 113, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
-        .status-rejected { color: #e74c3c; background: rgba(231, 76, 60, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
-        
-        .gift-box {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .gift-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(238, 90, 36, 0.4);
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .gift-box.disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            animation: none;
-        }
-        
-        .gift-box.disabled:hover {
-            transform: none;
-        }
-        
-        .timer-text {
-            font-size: 24px;
-            font-weight: bold;
-            font-family: monospace;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
-            border-radius: 40px;
-            display: inline-block;
-        }
-        
-        .scratch-card {
-            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        
-        .scratch-cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(45deg, #888, #888 10px, #aaa 10px, #aaa 20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .scratch-cover.scratched {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .reward-amount {
-            font-size: 48px;
-            font-weight: bold;
-            color: #f39c12;
-            animation: bounce 0.5s ease-out;
-        }
-        
-        @keyframes bounce {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes shine {
-            0% { background-position: -100px; }
-            100% { background-position: 200px; }
-        }
-        
-        .animated-text {
-            background: linear-gradient(90deg, #f39c12, #e67e22, #f39c12);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shine 2s linear infinite;
-        }
-        
-        .timer-alert-modal {
-            text-align: center;
-            padding: 20px;
-        }
-        .timer-alert-icon {
-            font-size: 64px;
-            color: #f39c12;
-            margin-bottom: 20px;
-            animation: pulse 1s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        .timer-alert-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #f39c12;
-            margin-bottom: 15px;
-        }
-        .timer-alert-message {
-            font-size: 18px;
-            color: #ddd;
-            margin-bottom: 10px;
-        }
-        .timer-alert-time {
-            font-size: 32px;
-            font-weight: bold;
-            font-family: monospace;
-            background: rgba(0,0,0,0.5);
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 15px 0;
-            letter-spacing: 2px;
-        }
-        .timer-alert-sub {
-            font-size: 14px;
-            color: #888;
-            margin-top: 10px;
-        }
-        
-        .auth-footer {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 193, 7, 0.2);
-            text-align: center;
-        }
-        .copyright-text {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-        .company-logo {
-            font-size: 20px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-            letter-spacing: 2px;
-        }
-        .tagline-text {
-            font-size: 11px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .loading-coins {
-            font-size: 28px;
-            font-weight: bold;
-            color: #888;
-            animation: pulse 1s ease-in-out infinite;
-        }
-        
-        .like-btn {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-        .like-btn:hover {
-            background: rgba(231, 76, 60, 0.4);
-        }
-        .like-btn.liked {
-            background: #e74c3c;
-            color: white;
-        }
-        .action-buttons-container {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .action-popup {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, #1a1f2e, #0f1222);
-            backdrop-filter: blur(20px);
-            border-radius: 60px;
-            padding: 14px 28px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-weight: 600;
-            z-index: 1100;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 193, 7, 0.3);
-            animation: slideUpPopup 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-            font-size: 15px;
-            letter-spacing: 0.3px;
-        }
-
-        .action-popup.like-popup {
-            background: linear-gradient(135deg, #2a1a2a, #1a0f1a);
-            border-left: 4px solid #e74c3c;
-        }
-
-        .action-popup.follow-popup {
-            background: linear-gradient(135deg, #1a2a2a, #0f1a1a);
-            border-left: 4px solid #2ecc71;
-        }
-
-        .action-popup.unfollow-popup {
-            background: linear-gradient(135deg, #2a2a1a, #1a1a0f);
-            border-left: 4px solid #95a5a6;
-        }
-
-        .action-popup i {
-            font-size: 24px;
-        }
-
-        .action-popup.like-popup i { color: #e74c3c; }
-        .action-popup.follow-popup i { color: #2ecc71; }
-        .action-popup.unfollow-popup i { color: #95a5a6; }
-
-        @keyframes slideUpPopup {
-            0% { transform: translateX(-50%) translateY(100px); opacity: 0; }
-            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-
-        .action-popup.fade-out {
-            animation: fadeOutPopup 0.3s forwards;
-        }
-
-        @keyframes fadeOutPopup {
-            to { transform: translateX(-50%) translateY(50px); opacity: 0; }
-        }
-
-        .forgot-password-modal {
-            max-width: 450px;
-            width: 90%;
-            background: linear-gradient(135deg, rgba(25, 30, 45, 0.98), rgba(15, 18, 30, 0.98));
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 193, 7, 0.4);
-            overflow: hidden;
-            animation: modalGlow 0.5s ease-out;
-        }
-
-        @keyframes modalGlow {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .forgot-header {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.2), rgba(230, 126, 34, 0.1));
-            padding: 25px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 193, 7, 0.2);
-        }
-
-        .forgot-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.4); }
-            50% { box-shadow: 0 0 0 15px rgba(243, 156, 18, 0); }
-        }
-
-        .forgot-icon i {
-            font-size: 32px;
-            color: white;
-        }
-
-        .forgot-header h3 {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .forgot-header p {
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        .forgot-body {
-            padding: 30px;
-        }
-
-        .email-input-wrapper {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .email-input-wrapper i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #f39c12;
-            font-size: 18px;
-        }
-
-        .forgot-input {
-            width: 100%;
-            padding: 14px 20px 14px 50px;
-            background: rgba(10, 12, 25, 0.8);
-            border: 1px solid rgba(243, 156, 18, 0.3);
-            border-radius: 50px;
-            color: white;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .forgot-input:focus {
-            outline: none;
-            border-color: #f39c12;
-            box-shadow: 0 0 15px rgba(243, 156, 18, 0.2);
-        }
-
-        .forgot-input.error {
-            border-color: #ff4444;
-            animation: shake 0.4s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .status-message {
-            padding: 12px;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 13px;
-            margin-bottom: 20px;
-            display: none;
-            animation: fadeSlide 0.3s ease;
-        }
-
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .status-message.success {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-            display: block;
-        }
-
-        .status-message.error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #ff4444;
-            color: #ff8888;
-            display: block;
-        }
-
-        .forgot-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .forgot-actions button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-        }
-
-        .btn-send {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            color: white;
-        }
-
-        .btn-send:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
-        }
-
-        .btn-send:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn-cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-cancel:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        
-        /* Gift Selection Grid Styles */
-        .gift-selection-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .gift-option {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.1));
-            border-radius: 16px;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(243, 156, 18, 0.3);
-        }
-        
-        .gift-option:hover {
-            transform: translateY(-3px);
-            border-color: #f39c12;
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.3), rgba(230, 126, 34, 0.2));
-            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
-        }
-        
-        .gift-option.selected {
-            border-color: #f39c12;
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.4), rgba(230, 126, 34, 0.3));
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
-        }
-        
-        .gift-icon {
-            font-size: 40px;
-            margin-bottom: 8px;
-        }
-        
-        .gift-name {
-            font-size: 12px;
-            color: #ddd;
-            margin-bottom: 5px;
-        }
-        
-        .gift-price {
-            font-size: 14px;
-            font-weight: bold;
-            color: #f39c12;
-        }
-        
-        .gift-confirmation {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 16px;
-        }
-        
-        .gift-confirmation p {
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .gift-confirmation-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .gift-confirmation-buttons button {
-            padding: 10px 25px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-confirm {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            border: none;
-            color: white;
-        }
-        
-        .btn-confirm:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
-        }
-        
-        .btn-cancel-gift {
-            background: rgba(231, 76, 60, 0.8);
-            border: none;
-            color: white;
-        }
-        
-        .btn-cancel-gift:hover {
-            background: #e74c3c;
-            transform: translateY(-2px);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow: hidden; }
+        .intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; overflow: hidden; animation: introFadeOut 0.8s ease-out forwards; animation-delay: 9.2s; }
+        @keyframes introFadeOut { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; display: none; } }
+        .intro-bg { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+        .intro-coin { position: absolute; font-size: 38px; animation: introCoinTap 1.8s infinite; pointer-events: none; }
+        @keyframes introCoinTap { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.5); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+        .intro-blast { position: absolute; width: 40px; height: 40px; background: radial-gradient(circle, #00f2ff, #ff00c8); border-radius: 50%; animation: introBlast 1s linear forwards; pointer-events: none; }
+        @keyframes introBlast { from { transform: scale(0); opacity: 1; } to { transform: scale(6); opacity: 0; } }
+        .intro-chat { position: absolute; padding: 12px 16px; font-size: 14px; background: rgba(255,255,255,0.15); border-radius: 20px; backdrop-filter: blur(5px); animation: introChatMove 7s linear forwards; pointer-events: none; font-family: 'Poppins', sans-serif; white-space: nowrap; }
+        @keyframes introChatMove { from { transform: translateY(100vh); opacity: 0; } to { transform: translateY(-20vh); opacity: 1; } }
+        .intro-gift { position: absolute; font-size: 34px; animation: introGiftFly 6s linear forwards; pointer-events: none; }
+        @keyframes introGiftFly { from { transform: translateY(100vh); opacity: 0; } to { transform: translateY(-10vh); opacity: 0.8; } }
+        .intro-card { position: relative; z-index: 5; backdrop-filter: blur(25px); background: rgba(255,255,255,0.08); padding: 35px 25px; border-radius: 32px; text-align: center; width: 90%; max-width: 380px; margin: auto; box-shadow: 0 0 50px rgba(0,255,255,0.2); border: 1px solid rgba(255,193,7,0.3); animation: introCardGlow 0.6s ease-out; }
+        @keyframes introCardGlow { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .intro-logo { font-size: 48px; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #f39c12, #e67e22, #ff00c8); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 20px; animation: introLogoShine 2s ease-in-out infinite; }
+        @keyframes introLogoShine { 0%,100% { text-shadow: 0 0 5px rgba(243,156,18,0.5); } 50% { text-shadow: 0 0 20px rgba(243,156,18,0.8); } }
+        .intro-line { margin-top: 15px; font-size: 14px; opacity: 0; transform: translateY(15px); animation: introFadeUp 0.6s forwards; color: #ddd; }
+        .intro-line:nth-child(2) { animation-delay: 0.2s; } .intro-line:nth-child(3) { animation-delay: 0.5s; } .intro-line:nth-child(4) { animation-delay: 0.8s; } .intro-line:nth-child(5) { animation-delay: 1.1s; }
+        @keyframes introFadeUp { to { opacity: 1; transform: translateY(0); } }
+        .intro-progress { margin-top: 30px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; }
+        .intro-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #f39c12, #e67e22, #ff00c8); border-radius: 10px; animation: introLoad 10s linear forwards; }
+        @keyframes introLoad { to { width: 100%; } }
+        .intro-tag { margin-top: 20px; font-size: 11px; color: #888; letter-spacing: 1px; }
+        .glass-card { background: rgba(18,22,35,0.85); backdrop-filter: blur(12px); border-radius: 28px; border: 1px solid rgba(255,193,7,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(255,193,7,0.5); }
+        .btn-primary { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; font-weight: 600; padding: 12px 24px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(243,156,18,0.3); }
+        .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(243,156,18,0.5); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+        .btn-secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,193,7,0.3); color: white; padding: 10px 20px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: rgba(255,193,7,0.2); border-color: #f39c12; }
+        .error-message { color: #ff4444; font-size: 12px; margin-top: 5px; margin-bottom: 10px; display: block; text-align: left; }
+        .input-error { border-color: #ff4444 !important; box-shadow: 0 0 5px rgba(255,68,68,0.3) !important; }
+        .input-success { border-color: #2ecc71 !important; }
+        .coin-container { width: 220px; height: 220px; margin: 0 auto; cursor: pointer; position: relative; }
+        canvas { width: 100% !important; height: 100% !important; border-radius: 50%; box-shadow: 0 0 30px rgba(243,156,18,0.4); transition: transform 0.1s ease; }
+        canvas:active { transform: scale(0.95); }
+        .chat-message { background: rgba(30,35,55,0.6); border-radius: 16px; padding: 12px 16px; margin-bottom: 12px; border-left: 3px solid #f39c12; transition: all 0.2s; }
+        .chat-message:hover { background: rgba(40,45,65,0.8); transform: translateX(4px); }
+        .username-click { color: #f39c12; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .username-click:hover { text-shadow: 0 0 8px #f39c12; }
+        .stat-card { background: linear-gradient(135deg, rgba(243,156,18,0.15), rgba(230,126,34,0.08)); border-radius: 20px; padding: 16px; text-align: center; border: 1px solid rgba(243,156,18,0.3); transition: all 0.3s; cursor: pointer; backdrop-filter: blur(10px); }
+        .stat-card:hover { border-color: rgba(243,156,18,0.8); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(243,156,18,0.2); }
+        .input-modern { background: rgba(10,12,25,0.8); border: 1px solid rgba(243,156,18,0.3); border-radius: 40px; padding: 12px 20px; color: white; font-size: 14px; transition: all 0.3s; width: 100%; }
+        .input-modern:focus { outline: none; border-color: #f39c12; box-shadow: 0 0 10px rgba(243,156,18,0.3); }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes coinTapPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243,156,18,0.7); } 50% { transform: scale(1.08); box-shadow: 0 0 0 20px rgba(243,156,18,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243,156,18,0); } }
+        .coin-tap-effect { animation: coinTapPulse 0.3s ease-out; }
+        .floating-plus { position: absolute; font-size: 28px; font-weight: bold; color: #f39c12; text-shadow: 0 0 10px #ffaa33; pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
+        @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); } 50% { opacity: 1; transform: translate(-50%, -70%) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -100%) scale(0.8); } }
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #1a1d2f; border-radius: 10px; } ::-webkit-scrollbar-thumb { background: #f39c12; border-radius: 10px; }
+        .login-options { display: flex; gap: 10px; margin-bottom: 25px; }
+        .login-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .login-tab.active { border-bottom: 2px solid #f39c12; font-weight: 600; color: #f39c12; }
+        .already-user { text-align: center; margin-top: 20px; color: #888; }
+        .already-user a { color: #f39c12; text-decoration: none; font-weight: 600; }
+        .forgot-link { display: block; text-align: right; margin-top: -15px; margin-bottom: 20px; color: #f39c12; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        .profile-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+        .profile-stat-item { background: linear-gradient(135deg, rgba(243,156,18,0.1), rgba(230,126,34,0.05)); border-radius: 16px; padding: 15px; text-align: center; border: 1px solid rgba(243,156,18,0.2); }
+        .profile-stat-value { font-size: 24px; font-weight: bold; color: #f39c12; }
+        .profile-stat-label { font-size: 12px; color: #888; margin-top: 5px; }
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .history-item:last-child { border-bottom: none; }
+        .history-date { font-size: 12px; color: #888; }
+        .history-taps { color: #f39c12; font-weight: bold; }
+        .empty-history { text-align: center; padding: 40px; color: #888; }
+        .status-pending { color: #f39c12; background: rgba(243,156,18,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
+        .status-approved { color: #2ecc71; background: rgba(46,204,113,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
+        .status-rejected { color: #e74c3c; background: rgba(231,76,60,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
+        .gift-box { background: linear-gradient(135deg, #ff6b6b, #ee5a24); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; animation: float 3s ease-in-out infinite; }
+        .gift-box:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(238,90,36,0.4); }
+        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .gift-box.disabled { opacity: 0.7; cursor: not-allowed; animation: none; }
+        .timer-text { font-size: 24px; font-weight: bold; font-family: monospace; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 40px; display: inline-block; }
+        .scratch-card { background: linear-gradient(135deg, #2c3e50, #1a1a2e); border-radius: 20px; padding: 30px; text-align: center; position: relative; cursor: pointer; overflow: hidden; }
+        .scratch-cover { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, #888, #888 10px, #aaa 10px, #aaa 20px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .scratch-cover.scratched { opacity: 0; pointer-events: none; }
+        .reward-amount { font-size: 48px; font-weight: bold; color: #f39c12; animation: bounce 0.5s ease-out; }
+        @keyframes bounce { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes shine { 0% { background-position: -100px; } 100% { background-position: 200px; } }
+        .animated-text { background: linear-gradient(90deg, #f39c12, #e67e22, #f39c12); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 2s linear infinite; }
+        .timer-alert-modal { text-align: center; padding: 20px; }
+        .timer-alert-icon { font-size: 64px; color: #f39c12; margin-bottom: 20px; animation: pulse 1s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .timer-alert-title { font-size: 28px; font-weight: bold; color: #f39c12; margin-bottom: 15px; }
+        .timer-alert-message { font-size: 18px; color: #ddd; margin-bottom: 10px; }
+        .timer-alert-time { font-size: 32px; font-weight: bold; font-family: monospace; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 50px; display: inline-block; margin: 15px 0; letter-spacing: 2px; }
+        .auth-footer { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,193,7,0.2); text-align: center; }
+        .copyright-text { font-size: 12px; color: #888; margin-bottom: 8px; }
+        .company-logo { font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #f39c12, #e67e22); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; letter-spacing: 2px; }
+        .like-btn { background: rgba(231,76,60,0.2); border: 1px solid #e74c3c; color: #e74c3c; }
+        .like-btn:hover { background: rgba(231,76,60,0.4); }
+        .like-btn.liked { background: #e74c3c; color: white; }
+        .action-buttons-container { display: flex; gap: 12px; margin-top: 20px; }
+        .action-popup { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: linear-gradient(135deg, #1a1f2e, #0f1222); backdrop-filter: blur(20px); border-radius: 60px; padding: 14px 28px; display: flex; align-items: center; gap: 14px; font-weight: 600; z-index: 1100; box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,193,7,0.3); animation: slideUpPopup 0.4s cubic-bezier(0.34,1.2,0.64,1); font-size: 15px; }
+        .action-popup.like-popup { background: linear-gradient(135deg, #2a1a2a, #1a0f1a); border-left: 4px solid #e74c3c; }
+        .action-popup.follow-popup { background: linear-gradient(135deg, #1a2a2a, #0f1a1a); border-left: 4px solid #2ecc71; }
+        @keyframes slideUpPopup { 0% { transform: translateX(-50%) translateY(100px); opacity: 0; } 100% { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        .action-popup.fade-out { animation: fadeOutPopup 0.3s forwards; }
+        @keyframes fadeOutPopup { to { transform: translateX(-50%) translateY(50px); opacity: 0; } }
+        .gift-selection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
+        .gift-option { background: linear-gradient(135deg, rgba(243,156,18,0.15), rgba(230,126,34,0.1)); border-radius: 16px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(243,156,18,0.3); }
+        .gift-option:hover { transform: translateY(-3px); border-color: #f39c12; background: linear-gradient(135deg, rgba(243,156,18,0.3), rgba(230,126,34,0.2)); }
+        .gift-option.selected { border-color: #f39c12; background: linear-gradient(135deg, rgba(243,156,18,0.4), rgba(230,126,34,0.3)); }
+        .gift-icon { font-size: 40px; margin-bottom: 8px; }
+        .gift-name { font-size: 12px; color: #ddd; margin-bottom: 5px; }
+        .gift-price { font-size: 14px; font-weight: bold; color: #f39c12; }
+        .gift-confirmation { text-align: center; margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.4); border-radius: 16px; }
+        .gift-confirmation-buttons { display: flex; gap: 15px; justify-content: center; }
+        .btn-confirm { background: linear-gradient(135deg, #2ecc71, #27ae60); border: none; color: white; padding: 10px 25px; border-radius: 40px; cursor: pointer; }
+        .btn-cancel-gift { background: rgba(231,76,60,0.8); border: none; color: white; padding: 10px 25px; border-radius: 40px; cursor: pointer; }
+        .withdrawal-confirm-popup { max-width: 500px; width: 90%; background: linear-gradient(135deg, #1a2a2a, #0f2a2a); border-radius: 32px; padding: 30px; text-align: center; border: 2px solid #f39c12; animation: modalZoom 0.4s cubic-bezier(0.34,1.2,0.64,1); }
+        @keyframes modalZoom { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .confirm-details { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin: 20px 0; text-align: left; }
+        .confirm-details p { margin: 10px 0; display: flex; justify-content: space-between; }
+        .confirm-details .label { color: #888; }
+        .confirm-details .value { color: #f39c12; font-weight: bold; }
+        .confirm-actions { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .btn-cancel-popup { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 24px; border-radius: 40px; cursor: pointer; }
+        .withdrawal-success-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #1a2a1a, #0f2a0f); backdrop-filter: blur(20px); border-radius: 32px; padding: 40px; text-align: center; z-index: 2000; min-width: 350px; animation: popupZoomIn 0.4s cubic-bezier(0.34,1.2,0.64,1); border: 2px solid #f39c12; }
+        @keyframes popupZoomIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .tick-animation { width: 80px; height: 80px; background: linear-gradient(135deg, #2ecc71, #27ae60); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; animation: tickBounce 0.5s ease-out; }
+        @keyframes tickBounce { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
+        .tick-animation i { font-size: 48px; color: white; }
+        .withdrawal-details { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 15px; margin: 20px 0; }
+        .status-pending-badge { background: rgba(243,156,18,0.2); color: #f39c12; padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; display: inline-block; }
+        .history-toggle-btn { background: rgba(255,193,7,0.2); border: 1px solid #f39c12; color: #f39c12; padding: 8px 16px; border-radius: 40px; cursor: pointer; font-size: 14px; transition: all 0.3s; margin-bottom: 15px; width: 100%; text-align: center; }
+        .history-toggle-btn:hover { background: rgba(255,193,7,0.3); }
+        .history-container.collapsed { display: none; }
+        .history-container.expanded { display: block; }
+        .package-card { background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(230,126,34,0.05)); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; border: 2px solid rgba(255,193,7,0.3); position: relative; overflow: hidden; }
+        .package-card:hover { transform: translateY(-5px); border-color: #f39c12; }
+        .package-card.selected { border-color: #f39c12; background: linear-gradient(135deg, rgba(255,193,7,0.25), rgba(230,126,34,0.15)); transform: scale(1.02); }
+        .package-card.selected::before { content: '✓'; position: absolute; top: 10px; right: 15px; font-size: 24px; color: #2ecc71; }
+        .payment-info-card { background: rgba(0,0,0,0.4); border-radius: 20px; padding: 20px; margin-top: 20px; border: 1px solid rgba(255,193,7,0.3); }
+        .method-option { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(255,193,7,0.2); display: inline-block; margin-right: 10px; }
+        .method-option:hover, .method-option.selected { background: rgba(255,193,7,0.15); border-color: #f39c12; }
     </style>
 </head>
 <body>
-    <div class="intro-screen" id="introScreen">
-        <div class="intro-bg" id="introBg"></div>
-        <div class="intro-card">
-            <div class="intro-logo">TAKTAK</div>
-            <div class="intro-line">💬 Chatting – Connect and communicate in real-time</div>
-            <div class="intro-line">🎁 Gifting – Send exciting virtual gifts</div>
-            <div class="intro-line">💰 Bonuses – Enjoy daily rewards and surprises</div>
-            <div class="intro-line">⚡ Tap Tap Coins – Participate and collect rewards</div>
-            <div class="intro-progress"><div class="intro-bar"></div></div>
-            <div class="intro-tag">Tap. Connect. Earn.</div>
-        </div>
-    </div>
-
+    <div class="intro-screen" id="introScreen"><div class="intro-bg" id="introBg"></div><div class="intro-card"><div class="intro-logo">TAKTAK</div><div class="intro-line">💬 Chatting – Connect and communicate in real-time</div><div class="intro-line">🎁 Gifting – Send exciting virtual gifts</div><div class="intro-line">💰 Bonuses – Enjoy daily rewards and surprises</div><div class="intro-line">⚡ Tap Tap Coins – Participate and collect rewards</div><div class="intro-progress"><div class="intro-bar"></div></div><div class="intro-tag">Tap. Connect. Earn.</div></div></div>
     <div id="app"></div>
-
     <script type="module">
         import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, push, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -1173,17 +187,16 @@
         let notificationUnsubscribe = null;
         let introAnimationInterval = null;
 
-        // Gift Catalog
         const giftsCatalog = [
-            { name: "❤️ Heart", price: 2500, icon: "❤️", emoji: "❤️" },
-            { name: "🔥 Fire", price: 5000, icon: "🔥", emoji: "🔥" },
-            { name: "👍 Thumbs Up", price: 100, icon: "👍", emoji: "👍" },
-            { name: "💌 Love Letter", price: 5000, icon: "💌", emoji: "💌" },
-            { name: "💋 Kiss", price: 10000, icon: "💋", emoji: "💋" },
-            { name: "🐅 Tiger", price: 30000, icon: "🐅", emoji: "🐅" },
-            { name: "😺 Cat", price: 50000, icon: "😺", emoji: "😺" },
-            { name: "✈️ Plane", price: 100000, icon: "✈️", emoji: "✈️" },
-            { name: "🌹 Rose", price: 200, icon: "🌹", emoji: "🌹" }
+            { name: "❤️ Heart", price: 2500, icon: "❤️" },
+            { name: "🔥 Fire", price: 5000, icon: "🔥" },
+            { name: "👍 Thumbs Up", price: 100, icon: "👍" },
+            { name: "💌 Love Letter", price: 5000, icon: "💌" },
+            { name: "💋 Kiss", price: 10000, icon: "💋" },
+            { name: "🐅 Tiger", price: 30000, icon: "🐅" },
+            { name: "😺 Cat", price: 50000, icon: "😺" },
+            { name: "✈️ Plane", price: 100000, icon: "✈️" },
+            { name: "🌹 Rose", price: 200, icon: "🌹" }
         ];
         
         const coinPackages = [
@@ -1197,9 +210,7 @@
         function startIntroAnimation() {
             const bg = document.getElementById('introBg');
             if (!bg) return;
-            
             const msgs = ["Hi 👋", "Send gift 🎁", "Wow 🔥", "Nice 💬", "Let's play ⚡"];
-            
             const coinInterval = setInterval(() => {
                 if (!document.getElementById('introScreen')) return;
                 let coin = document.createElement("div");
@@ -1208,7 +219,6 @@
                 coin.style.left = Math.random() * 100 + "vw";
                 coin.style.top = Math.random() * 100 + "vh";
                 bg.appendChild(coin);
-                
                 setTimeout(() => {
                     if (!document.getElementById('introScreen')) return;
                     let blast = document.createElement("div");
@@ -1220,7 +230,6 @@
                     setTimeout(() => blast.remove(), 1000);
                 }, 700);
             }, 500);
-            
             const chatInterval = setInterval(() => {
                 if (!document.getElementById('introScreen')) return;
                 let chat = document.createElement("div");
@@ -1230,7 +239,6 @@
                 bg.appendChild(chat);
                 setTimeout(() => chat.remove(), 7000);
             }, 1000);
-            
             const giftInterval = setInterval(() => {
                 if (!document.getElementById('introScreen')) return;
                 let gift = document.createElement("div");
@@ -1240,112 +248,57 @@
                 bg.appendChild(gift);
                 setTimeout(() => gift.remove(), 6000);
             }, 1300);
-            
-            introAnimationInterval = setInterval(() => {}, 10000);
             setTimeout(() => {
                 clearInterval(coinInterval);
                 clearInterval(chatInterval);
                 clearInterval(giftInterval);
-                if (introAnimationInterval) clearInterval(introAnimationInterval);
                 const introScreen = document.getElementById('introScreen');
                 if (introScreen) introScreen.remove();
             }, 10000);
         }
 
-        window.addEventListener('load', () => {
-            startIntroAnimation();
-        });
+        window.addEventListener('load', () => { startIntroAnimation(); });
 
         function showActionPopup(message, type = 'success') {
             const popup = document.createElement('div');
             popup.className = 'action-popup';
-            
-            if (type === 'like') {
-                popup.classList.add('like-popup');
-                popup.innerHTML = `<i class="fas fa-heart"></i> <span>${message}</span>`;
-            } else if (type === 'follow') {
-                popup.classList.add('follow-popup');
-                popup.innerHTML = `<i class="fas fa-user-plus"></i> <span>${message}</span>`;
-            } else if (type === 'unfollow') {
-                popup.classList.add('unfollow-popup');
-                popup.innerHTML = `<i class="fas fa-user-minus"></i> <span>${message}</span>`;
-            } else if (type === 'unlike') {
-                popup.classList.add('unfollow-popup');
-                popup.innerHTML = `<i class="fas fa-heart-broken"></i> <span>${message}</span>`;
-            } else {
-                popup.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
-            }
+            if (type === 'like') { popup.classList.add('like-popup'); popup.innerHTML = `<i class="fas fa-heart"></i> <span>${message}</span>`; }
+            else if (type === 'follow') { popup.classList.add('follow-popup'); popup.innerHTML = `<i class="fas fa-user-plus"></i> <span>${message}</span>`; }
+            else if (type === 'unfollow') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-user-minus"></i> <span>${message}</span>`; }
+            else if (type === 'unlike') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-heart-broken"></i> <span>${message}</span>`; }
+            else { popup.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`; }
             document.body.appendChild(popup);
-            setTimeout(() => {
-                popup.classList.add('fade-out');
-                setTimeout(() => popup.remove(), 300);
-            }, 2800);
+            setTimeout(() => { popup.classList.add('fade-out'); setTimeout(() => popup.remove(), 300); }, 2800);
+        }
+
+        function showWithdrawalSuccessPopup(withdrawalData) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `<div class="withdrawal-success-popup"><div class="tick-animation"><i class="fas fa-check"></i></div><h2 style="color: #2ecc71;">Withdrawal Request Sent!</h2><div class="withdrawal-details"><p><strong>💰 Amount:</strong> ${withdrawalData.amount.toLocaleString()} TAK</p><p><strong>💳 Method:</strong> ${withdrawalData.method}</p><p><strong>📱 Account:</strong> ${withdrawalData.accountNumber}</p><p><strong>👤 Account Holder:</strong> ${withdrawalData.accountName}</p><p><strong>⏳ Status:</strong> <span class="status-pending-badge">Pending</span></p></div><button id="closeWithdrawalPopup" class="btn-primary">Close</button></div>`;
+            document.body.appendChild(modal);
+            document.getElementById('closeWithdrawalPopup').addEventListener('click', () => modal.remove());
         }
 
         function showForgotPasswordModal() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="forgot-password-modal">
-                    <div class="forgot-header">
-                        <div class="forgot-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <h3>Reset Your Password</h3>
-                        <p>Enter your email and we'll send you a reset link</p>
-                    </div>
-                    <div class="forgot-body">
-                        <div class="email-input-wrapper">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="forgotEmailInput" class="forgot-input" placeholder="your@email.com" autocomplete="off">
-                        </div>
-                        <div id="forgotStatusMsg" class="status-message"></div>
-                        <div class="forgot-actions">
-                            <button id="sendResetBtn" class="btn-send"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
-                            <button id="closeForgotModal" class="btn-cancel">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            `;
+            modal.innerHTML = `<div class="forgot-password-modal"><div class="forgot-header"><div class="forgot-icon"><i class="fas fa-key"></i></div><h3>Reset Your Password</h3><p>Enter your email and we'll send you a reset link</p></div><div class="forgot-body"><div class="email-input-wrapper"><i class="fas fa-envelope"></i><input type="email" id="forgotEmailInput" class="forgot-input" placeholder="your@email.com" autocomplete="off"></div><div id="forgotStatusMsg" class="status-message"></div><div class="forgot-actions"><button id="sendResetBtn" class="btn-send"><i class="fas fa-paper-plane"></i> Send Reset Link</button><button id="closeForgotModal" class="btn-cancel">Cancel</button></div></div></div>`;
             document.body.appendChild(modal);
-            
             const emailInput = document.getElementById('forgotEmailInput');
             const statusMsg = document.getElementById('forgotStatusMsg');
             const sendBtn = document.getElementById('sendResetBtn');
-            
             const showStatus = (message, isSuccess) => {
                 statusMsg.className = `status-message ${isSuccess ? 'success' : 'error'}`;
                 statusMsg.innerHTML = isSuccess ? `<i class="fas fa-check-circle"></i> ${message}` : `<i class="fas fa-exclamation-circle"></i> ${message}`;
                 statusMsg.style.display = 'block';
-                setTimeout(() => {
-                    if (statusMsg.style.display === 'block') {
-                        statusMsg.style.opacity = '0';
-                        setTimeout(() => {
-                            statusMsg.style.display = 'none';
-                            statusMsg.style.opacity = '1';
-                        }, 300);
-                    }
-                }, 4000);
+                setTimeout(() => { if (statusMsg.style.display === 'block') { statusMsg.style.opacity = '0'; setTimeout(() => { statusMsg.style.display = 'none'; statusMsg.style.opacity = '1'; }, 300); } }, 4000);
             };
-            
             sendBtn.addEventListener('click', async () => {
                 const email = emailInput.value.trim();
-                if (!email) {
-                    emailInput.classList.add('error');
-                    showStatus('Please enter your email address', false);
-                    setTimeout(() => emailInput.classList.remove('error'), 500);
-                    return;
-                }
-                if (!isValidEmail(email)) {
-                    emailInput.classList.add('error');
-                    showStatus('Please enter a valid email address', false);
-                    setTimeout(() => emailInput.classList.remove('error'), 500);
-                    return;
-                }
-                
+                if (!email) { emailInput.classList.add('error'); showStatus('Please enter your email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; }
+                if (!isValidEmail(email)) { emailInput.classList.add('error'); showStatus('Please enter a valid email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; }
                 sendBtn.disabled = true;
                 sendBtn.innerHTML = '<span class="spinner"></span> Sending...';
-                
                 try {
                     await sendPasswordResetEmail(auth, email);
                     showStatus('✨ Password reset email sent! Check your inbox/spam folder.', true);
@@ -1360,15 +313,11 @@
                     sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
                 }
             });
-            
             document.getElementById('closeForgotModal').addEventListener('click', () => modal.remove());
             emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendBtn.click(); });
         }
 
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+        function isValidEmail(email) { const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return emailRegex.test(email); }
 
         async function giveRewardToUser(targetUserId, actionType, actorUsername) {
             if (!targetUserId || targetUserId === currentUser?.uid) return;
@@ -1376,26 +325,12 @@
                 const userRef = doc(db, "users", targetUserId);
                 await updateDoc(userRef, { takcoin: increment(1) });
                 showActionPopup(`✨ +1 TAKCOIN from ${actorUsername} (${actionType})!`, 'success');
-                await addDoc(collection(db, "rewardHistory"), {
-                    userId: targetUserId,
-                    fromUserId: currentUser.uid,
-                    fromUsername: actorUsername,
-                    actionType: actionType,
-                    reward: 1,
-                    timestamp: serverTimestamp()
-                });
-            } catch (error) {
-                console.error("Error giving reward:", error);
-            }
+                await addDoc(collection(db, "rewardHistory"), { userId: targetUserId, fromUserId: currentUser.uid, fromUsername: actorUsername, actionType: actionType, reward: 1, timestamp: serverTimestamp() });
+            } catch (error) { console.error("Error giving reward:", error); }
         }
 
-        function generateReferralCode(username) {
-            return username.slice(0, 4).toUpperCase() + Math.random().toString(36).substring(2, 8).toUpperCase();
-        }
-
-        function sanitizeUsername(username) {
-            return username.replace(/\s/g, '');
-        }
+        function generateReferralCode(username) { return username.slice(0, 4).toUpperCase() + Math.random().toString(36).substring(2, 8).toUpperCase(); }
+        function sanitizeUsername(username) { return username.replace(/\s/g, ''); }
 
         async function checkEmailExists(email) {
             const usersRef = collection(db, "users");
@@ -1412,22 +347,12 @@
                     currentUserData = docSnap.data();
                     updateBalancesUI();
                 } else {
-                    setDoc(userRef, {
-                        uid: userId,
-                        username: currentUser?.displayName || '',
-                        email: currentUser?.email || '',
-                        takcoin: 0,
-                        totalTaps: 0,
-                        referralCode: generateReferralCode('user'),
-                        createdAt: serverTimestamp()
-                    }).catch(console.error);
+                    setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
                 }
             });
         }
 
-        async function updateUserBalance() {
-            if (currentUserData) updateBalancesUI();
-        }
+        async function updateUserBalance() { if (currentUserData) updateBalancesUI(); }
 
         function updateBalancesUI() {
             if (!currentUserData) return;
@@ -1441,13 +366,7 @@
             try {
                 const userRef = doc(db, "users", currentUser.uid);
                 await updateDoc(userRef, { takcoin: increment(1), totalTaps: increment(1) });
-                await addDoc(collection(db, "tapHistory"), {
-                    userId: currentUser.uid,
-                    username: currentUserData.username,
-                    date: new Date().toLocaleDateString(),
-                    time: new Date().toLocaleTimeString(),
-                    timestamp: serverTimestamp()
-                });
+                await addDoc(collection(db, "tapHistory"), { userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
                 const canvas = document.querySelector('#coinCanvasContainer canvas');
                 if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
@@ -1485,24 +404,9 @@
             animate();
         }
 
-        async function getGiftStatus() {
-            if (!currentUser) return null;
-            try {
-                const giftRef = doc(db, "dailyGifts", currentUser.uid);
-                const giftSnap = await getDoc(giftRef);
-                return giftSnap.exists() ? giftSnap.data() : null;
-            } catch (error) { return null; }
-        }
-
-        async function updateGiftStatus(lastClaimTime, nextAvailableTime) {
-            if (!currentUser) return;
-            await setDoc(doc(db, "dailyGifts", currentUser.uid), { userId: currentUser.uid, username: currentUserData.username, lastClaimTime, nextAvailableTime, updatedAt: serverTimestamp() });
-        }
-
-        function getRandomReward() {
-            const rewards = [40, 50, 55, 60, 70, 80, 90, 100, 120, 150, 180, 200, 220, 250, 280, 300];
-            return rewards[Math.floor(Math.random() * rewards.length)];
-        }
+        async function getGiftStatus() { if (!currentUser) return null; try { const giftRef = doc(db, "dailyGifts", currentUser.uid); const giftSnap = await getDoc(giftRef); return giftSnap.exists() ? giftSnap.data() : null; } catch (error) { return null; } }
+        async function updateGiftStatus(lastClaimTime, nextAvailableTime) { if (!currentUser) return; await setDoc(doc(db, "dailyGifts", currentUser.uid), { userId: currentUser.uid, username: currentUserData.username, lastClaimTime, nextAvailableTime, updatedAt: serverTimestamp() }); }
+        function getRandomReward() { const rewards = [40, 50, 55, 60, 70, 80, 90, 100, 120, 150, 180, 200, 220, 250, 280, 300]; return rewards[Math.floor(Math.random() * rewards.length)]; }
 
         function showTimerAlert(hours, minutes, seconds) {
             const modal = document.createElement('div');
@@ -1587,22 +491,6 @@
             document.getElementById('closeTermsX').addEventListener('click', () => modal.remove());
         }
 
-        function showFollowNotification(username) {
-            const toast = document.createElement('div');
-            toast.className = 'notification-toast';
-            toast.innerHTML = `<div style="display: flex; align-items: center;"><div style="font-size: 24px; margin-right: 12px;">👥</div><div style="flex: 1;"><div style="font-weight: bold; color: #f39c12; margin-bottom: 4px;">New Follower</div><div style="font-size: 13px; color: #eee;">${username} started following you</div></div></div>`;
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.classList.add('fade-out'); setTimeout(() => toast.remove(), 300); }, 7000);
-        }
-
-        function showLikeNotification(username) {
-            const toast = document.createElement('div');
-            toast.className = 'notification-toast';
-            toast.innerHTML = `<div style="display: flex; align-items: center;"><div style="font-size: 24px; margin-right: 12px;">❤️</div><div style="flex: 1;"><div style="font-weight: bold; color: #f39c12; margin-bottom: 4px;">New Like</div><div style="font-size: 13px; color: #eee;">${username} liked your profile</div></div></div>`;
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.classList.add('fade-out'); setTimeout(() => toast.remove(), 300); }, 7000);
-        }
-
         function setupNotificationListener(userId) {
             if (notificationUnsubscribe) notificationUnsubscribe();
             const notificationsRef = ref(rtdb, `notifications/${userId}`);
@@ -1612,8 +500,8 @@
                     Object.keys(data).forEach(key => {
                         const notif = data[key];
                         if (notif && !notif.read) {
-                            if (notif.type === 'follow') showFollowNotification(notif.fromUser);
-                            else if (notif.type === 'like') showLikeNotification(notif.fromUser);
+                            if (notif.type === 'follow') { const toast = document.createElement('div'); toast.className = 'action-popup follow-popup'; toast.innerHTML = `<i class="fas fa-user-plus"></i> ${notif.fromUser} followed you`; document.body.appendChild(toast); setTimeout(() => toast.remove(), 4000); }
+                            else if (notif.type === 'like') { const toast = document.createElement('div'); toast.className = 'action-popup like-popup'; toast.innerHTML = `<i class="fas fa-heart"></i> ${notif.fromUser} liked your profile`; document.body.appendChild(toast); setTimeout(() => toast.remove(), 4000); }
                             const notifRef = ref(rtdb, `notifications/${userId}/${key}`);
                             set(notifRef, { ...notif, read: true });
                         }
@@ -1622,65 +510,19 @@
             });
         }
 
-        // Gift Functions
         async function sendGift(receiverId, receiverUsername, gift) {
-            if (!currentUserData) {
-                showActionPopup("User data not loaded!", 'error');
-                return false;
-            }
-            
+            if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; }
             const senderBalance = currentUserData.takcoin || 0;
-            if (senderBalance < gift.price) {
-                showActionPopup(`❌ Insufficient Balance! Please Purchase TAKCOIN. Need ${gift.price.toLocaleString()} TAK.`, 'error');
-                return false;
-            }
-            
+            if (senderBalance < gift.price) { showActionPopup(`❌ Insufficient Balance! Need ${gift.price.toLocaleString()} TAK.`, 'error'); return false; }
             try {
-                // Deduct from sender
                 await updateDoc(doc(db, "users", currentUser.uid), { takcoin: increment(-gift.price) });
-                
-                // Add to receiver
                 await updateDoc(doc(db, "users", receiverId), { takcoin: increment(gift.price) });
-                
-                // Store gift record
-                await addDoc(collection(db, "gifts"), {
-                    fromUserId: currentUser.uid,
-                    fromUsername: currentUserData.username,
-                    toUserId: receiverId,
-                    toUsername: receiverUsername,
-                    giftName: gift.name,
-                    price: gift.price,
-                    icon: gift.icon,
-                    timestamp: serverTimestamp()
-                });
-                
-                // Store in Realtime Database
-                await set(ref(rtdb, `gift_live/${currentUser.uid}/${receiverId}`), {
-                    fromUser: currentUserData.username,
-                    toUser: receiverUsername,
-                    coins: gift.price,
-                    giftName: gift.name,
-                    icon: gift.icon,
-                    timestamp: Date.now()
-                });
-                
-                // Add chat message
-                await addDoc(collection(db, "chatMessages"), {
-                    userId: "system",
-                    username: "🎁 GIFT SYSTEM",
-                    message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`,
-                    time: new Date().toLocaleTimeString(),
-                    timestamp: serverTimestamp()
-                });
-                
+                await addDoc(collection(db, "gifts"), { fromUserId: currentUser.uid, fromUsername: currentUserData.username, toUserId: receiverId, toUsername: receiverUsername, giftName: gift.name, price: gift.price, icon: gift.icon, timestamp: serverTimestamp() });
+                await set(ref(rtdb, `gift_live/${currentUser.uid}/${receiverId}`), { fromUser: currentUserData.username, toUser: receiverUsername, coins: gift.price, giftName: gift.name, icon: gift.icon, timestamp: Date.now() });
+                await addDoc(collection(db, "chatMessages"), { userId: "system", username: "🎁 GIFT SYSTEM", message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
                 showActionPopup(`✅ Gift sent! ${gift.price.toLocaleString()} TAK deducted.`, 'success');
                 return true;
-                
-            } catch (error) {
-                console.error("Gift error:", error);
-                showActionPopup(`❌ Error: ${error.message || "Failed to send gift"}`, 'error');
-                return false;
-            }
+            } catch (error) { console.error("Gift error:", error); showActionPopup(`❌ Error: ${error.message || "Failed to send gift"}`, 'error'); return false; }
         }
 
         async function getUserGiftStats(userId) {
@@ -1692,9 +534,7 @@
                 const sentTotal = sentSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
                 const receivedTotal = receivedSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
                 return { sentTotal, receivedTotal };
-            } catch (error) {
-                return { sentTotal: 0, receivedTotal: 0 };
-            }
+            } catch (error) { return { sentTotal: 0, receivedTotal: 0 }; }
         }
 
         async function showUserProfile(targetUsername) {
@@ -1706,13 +546,11 @@
                 const userDoc = querySnapshot.docs[0];
                 const userData = userDoc.data();
                 const userId = userDoc.id;
-                
                 const { sentTotal, receivedTotal } = await getUserGiftStats(userId);
                 const followersQuery = query(collection(db, "followers"), where("followingId", "==", userId));
                 const followersSnapshot = await getDocs(followersQuery);
                 const followersCount = followersSnapshot.size;
                 const likesCount = (await getDocs(query(collection(db, "likes"), where("targetUserId", "==", userId)))).size;
-                
                 let isFollowing = false, isLiked = false;
                 if (currentUser && currentUser.uid !== userId) {
                     const followCheckQuery = query(collection(db, "followers"), where("followerId", "==", currentUser.uid), where("followingId", "==", userId));
@@ -1722,63 +560,16 @@
                     const likeCheckSnapshot = await getDocs(likeCheckQuery);
                     isLiked = !likeCheckSnapshot.empty;
                 }
-                
                 const modal = document.createElement('div');
                 modal.className = 'modal-overlay';
-                modal.innerHTML = `
-                    <div class="glass-card" style="width: 90%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <h2 style="color: #f39c12;"><i class="fas fa-user-circle"></i> ${userData.username}</h2>
-                            <button id="closeProfileModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button>
-                        </div>
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <div style="background: linear-gradient(135deg, #f39c12, #e67e22); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-                                <i class="fas fa-user" style="font-size: 40px; color: white;"></i>
-                            </div>
-                        </div>
-                        <div class="profile-stats-grid">
-                            <div class="profile-stat-item"><div class="profile-stat-value">${Math.floor(userData.takcoin || 0).toLocaleString()}</div><div class="profile-stat-label">TAKCOIN</div></div>
-                            <div class="profile-stat-item"><div class="profile-stat-value">${(userData.totalTaps || 0).toLocaleString()}</div><div class="profile-stat-label">Total Taps</div></div>
-                            <div class="profile-stat-item"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">Followers</div></div>
-                            <div class="profile-stat-item"><div class="profile-stat-value">${likesCount}</div><div class="profile-stat-label">Total Likes</div></div>
-                            <div class="profile-stat-item"><div class="profile-stat-value">${receivedTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Received</div></div>
-                            <div class="profile-stat-item"><div class="profile-stat-value">${sentTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Sent</div></div>
-                        </div>
-                        ${targetUsername !== currentUserData?.username ? `
-                        <div class="action-buttons-container">
-                            <button id="likeBtn" class="btn-secondary like-btn ${isLiked ? 'liked' : ''}" style="flex: 1;"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart'}"></i> ${isLiked ? 'Liked' : 'Like'}</button>
-                            <button id="followBtn" class="btn-secondary" style="flex: 1;"><i class="fas ${isFollowing ? 'fa-user-minus' : 'fa-user-plus'}"></i> ${isFollowing ? 'Unfollow' : 'Follow'}</button>
-                        </div>
-                        <button id="sendGiftBtn" class="btn-primary" style="width: 100%; margin-top: 12px;"><i class="fas fa-gift"></i> Send Gift</button>
-                        ` : ''}
-                        <div id="giftSelectionContainer" style="display: none; margin-top: 20px;">
-                            <h4 style="color: #f39c12; text-align: center; margin-bottom: 15px;">✨ Select a Gift ✨</h4>
-                            <div class="gift-selection-grid" id="giftGrid"></div>
-                            <div id="giftConfirmationArea" style="display: none;"></div>
-                        </div>
-                        <button id="closeProfileBtn" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button>
-                    </div>
-                `;
+                modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-user-circle"></i> ${userData.username}</h2><button id="closeProfileModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="text-align: center; margin-bottom: 20px;"><div style="background: linear-gradient(135deg, #f39c12, #e67e22); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;"><i class="fas fa-user" style="font-size: 40px; color: white;"></i></div></div><div class="profile-stats-grid"><div class="profile-stat-item"><div class="profile-stat-value">${Math.floor(userData.takcoin || 0).toLocaleString()}</div><div class="profile-stat-label">TAKCOIN</div></div><div class="profile-stat-item"><div class="profile-stat-value">${(userData.totalTaps || 0).toLocaleString()}</div><div class="profile-stat-label">Total Taps</div></div><div class="profile-stat-item"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">Followers</div></div><div class="profile-stat-item"><div class="profile-stat-value">${likesCount}</div><div class="profile-stat-label">Total Likes</div></div><div class="profile-stat-item"><div class="profile-stat-value">${receivedTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Received</div></div><div class="profile-stat-item"><div class="profile-stat-value">${sentTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Sent</div></div></div>${targetUsername !== currentUserData?.username ? `<div class="action-buttons-container"><button id="likeBtn" class="btn-secondary like-btn ${isLiked ? 'liked' : ''}" style="flex: 1;"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart'}"></i> ${isLiked ? 'Liked' : 'Like'}</button><button id="followBtn" class="btn-secondary" style="flex: 1;"><i class="fas ${isFollowing ? 'fa-user-minus' : 'fa-user-plus'}"></i> ${isFollowing ? 'Unfollow' : 'Follow'}</button></div><button id="sendGiftBtn" class="btn-primary" style="width: 100%; margin-top: 12px;"><i class="fas fa-gift"></i> Send Gift</button>` : ''}<div id="giftSelectionContainer" style="display: none; margin-top: 20px;"><h4 style="color: #f39c12; text-align: center; margin-bottom: 15px;">✨ Select a Gift ✨</h4><div class="gift-selection-grid" id="giftGrid"></div><div id="giftConfirmationArea" style="display: none;"></div></div><button id="closeProfileBtn" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`;
                 document.body.appendChild(modal);
-                
                 const giftContainer = document.getElementById('giftSelectionContainer');
                 const giftGrid = document.getElementById('giftGrid');
                 const confirmationArea = document.getElementById('giftConfirmationArea');
-                
                 if (targetUsername !== currentUserData?.username) {
-                    // Build gift grid
-                    giftGrid.innerHTML = giftsCatalog.map(gift => `
-                        <div class="gift-option" data-price="${gift.price}" data-name="${gift.name}" data-icon="${gift.icon}">
-                            <div class="gift-icon">${gift.icon}</div>
-                            <div class="gift-name">${gift.name}</div>
-                            <div class="gift-price">${gift.price.toLocaleString()} TAK</div>
-                        </div>
-                    `).join('');
-                    
-                    document.getElementById('sendGiftBtn').addEventListener('click', () => {
-                        giftContainer.style.display = 'block';
-                    });
-                    
+                    giftGrid.innerHTML = giftsCatalog.map(gift => `<div class="gift-option" data-price="${gift.price}" data-name="${gift.name}" data-icon="${gift.icon}"><div class="gift-icon">${gift.icon}</div><div class="gift-name">${gift.name}</div><div class="gift-price">${gift.price.toLocaleString()} TAK</div></div>`).join('');
+                    document.getElementById('sendGiftBtn').addEventListener('click', () => { giftContainer.style.display = 'block'; });
                     let selectedGift = null;
                     document.querySelectorAll('.gift-option').forEach(option => {
                         option.addEventListener('click', () => {
@@ -1788,37 +579,12 @@
                             const name = option.dataset.name;
                             const icon = option.dataset.icon;
                             selectedGift = { name, price, icon };
-                            
                             confirmationArea.style.display = 'block';
-                            confirmationArea.innerHTML = `
-                                <div class="gift-confirmation">
-                                    <p>🎁 <strong>${name} ${icon}</strong> worth <strong style="color:#f39c12;">${price.toLocaleString()} TAK</strong></p>
-                                    <p>Are you sure to send this gift to <strong>${targetUsername}</strong>?</p>
-                                    <div class="gift-confirmation-buttons">
-                                        <button id="confirmSendGift" class="btn-confirm">✅ OK</button>
-                                        <button id="cancelSendGift" class="btn-cancel-gift">❌ Cancel</button>
-                                    </div>
-                                </div>
-                            `;
-                            
-                            document.getElementById('confirmSendGift').addEventListener('click', async () => {
-                                const success = await sendGift(userId, targetUsername, selectedGift);
-                                if (success) {
-                                    modal.remove();
-                                } else {
-                                    confirmationArea.style.display = 'none';
-                                    selectedGift = null;
-                                }
-                            });
-                            
-                            document.getElementById('cancelSendGift').addEventListener('click', () => {
-                                confirmationArea.style.display = 'none';
-                                option.classList.remove('selected');
-                                selectedGift = null;
-                            });
+                            confirmationArea.innerHTML = `<div class="gift-confirmation"><p>🎁 <strong>${name} ${icon}</strong> worth <strong style="color:#f39c12;">${price.toLocaleString()} TAK</strong></p><p>Are you sure to send this gift to <strong>${targetUsername}</strong>?</p><div class="gift-confirmation-buttons"><button id="confirmSendGift" class="btn-confirm">✅ OK</button><button id="cancelSendGift" class="btn-cancel-gift">❌ Cancel</button></div></div>`;
+                            document.getElementById('confirmSendGift').addEventListener('click', async () => { const success = await sendGift(userId, targetUsername, selectedGift); if (success) { modal.remove(); } else { confirmationArea.style.display = 'none'; selectedGift = null; } });
+                            document.getElementById('cancelSendGift').addEventListener('click', () => { confirmationArea.style.display = 'none'; option.classList.remove('selected'); selectedGift = null; });
                         });
                     });
-                    
                     document.getElementById('followBtn').addEventListener('click', async () => {
                         const followBtn = document.getElementById('followBtn');
                         const followRef = collection(db, "followers");
@@ -1840,7 +606,6 @@
                             isFollowing = true;
                         }
                     });
-                    
                     document.getElementById('likeBtn').addEventListener('click', async () => {
                         const likeBtn = document.getElementById('likeBtn');
                         const likesRef = collection(db, "likes");
@@ -1869,7 +634,6 @@
                         }
                     });
                 }
-                
                 const closeBtns = ['closeProfileModal', 'closeProfileBtn'];
                 closeBtns.forEach(id => { const btn = document.getElementById(id); if(btn) btn.addEventListener('click', () => modal.remove()); });
             } catch (error) { console.error("Error loading profile:", error); showActionPopup("Error loading profile.", 'error'); }
@@ -1938,13 +702,122 @@
             modal.querySelector('#closeSuccessBtn')?.addEventListener('click', () => modal.remove());
         }
         
-        function showWithdrawalModal() {
+        // ========== WITHDRAWAL MODAL WITH REAL-TIME STATUS UPDATES & REFUND SYSTEM ==========
+        async function showWithdrawalModal() {
             let selectedMethod = null;
+            let historyExpanded = true;
             const methods = ['Easypaisa', 'Jazzcash'];
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;"><h2 style="color: #f39c12;"><i class="fas fa-money-bill-wave"></i> Withdraw Funds</h2><button id="closeWithdrawModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="margin-bottom: 20px;"><div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 15px; margin-bottom: 20px;"><p><i class="fas fa-coins" style="color: #f39c12;"></i> <strong>Available Balance:</strong> <span style="font-size: 20px; color: #f39c12;">${Math.floor(currentUserData?.takcoin || 0).toLocaleString()} TAK</span></p><p><i class="fas fa-info-circle"></i> <strong>Minimum Withdrawal:</strong> 120,000 TAK</p><p><i class="fas fa-percent"></i> <strong>Processing Fee:</strong> 2%</p></div></div><div style="margin-bottom: 20px;"><h3 style="color: #f39c12; margin-bottom: 12px;">📱 Select Payment Method</h3><div id="methodOptions" style="display: flex; gap: 15px;">${methods.map(m => `<div class="method-option" data-method="${m}"><i class="fas ${m === 'Easypaisa' ? 'fa-mobile-alt' : 'fa-mobile'}"></i> ${m}</div>`).join('')}</div></div><div id="withdrawForm" style="display: none;"><div style="margin-bottom: 15px;"><label><i class="fas fa-coins"></i> Withdrawal Amount (TAK):</label><input type="number" id="withdrawAmount" class="input-modern" placeholder="Enter amount (min 120,000 TAK)" style="margin-top: 5px;"><div id="amountError" class="error-message" style="display: none;"></div></div><div style="margin-bottom: 15px;"><label><i class="fas fa-user"></i> Account Holder Name:</label><input type="text" id="accountName" class="input-modern" placeholder="Enter account holder name" style="margin-top: 5px;"></div><div style="margin-bottom: 20px;"><label><i class="fas fa-phone"></i> Account Number/Phone:</label><input type="text" id="accountNumber" class="input-modern" placeholder="Enter account number or phone" style="margin-top: 5px;"></div><button id="requestWithdrawBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Request Withdrawal</button></div><div id="withdrawHistorySection" style="margin-top: 25px;"><h3 style="color: #f39c12; margin-bottom: 12px;"><i class="fas fa-history"></i> Withdrawal History</h3><div id="withdrawHistoryList" style="max-height: 300px; overflow-y: auto;"><div class="empty-history">Loading history...</div></div></div></div>`;
+            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;">
+                    <h2 style="color: #f39c12;"><i class="fas fa-money-bill-wave"></i> Withdraw Funds</h2>
+                    <button id="closeWithdrawModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 15px; margin-bottom: 20px;">
+                        <p><i class="fas fa-coins" style="color: #f39c12;"></i> <strong>Available Balance:</strong> <span style="font-size: 20px; color: #f39c12;">${Math.floor(currentUserData?.takcoin || 0).toLocaleString()} TAK</span></p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Minimum Withdrawal:</strong> 120,000 TAK</p>
+                        <p><i class="fas fa-percent"></i> <strong>Processing Fee:</strong> 2%</p>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #f39c12; margin-bottom: 12px;">📱 Select Payment Method</h3>
+                    <div id="methodOptions" style="display: flex; gap: 15px;">${methods.map(m => `<div class="method-option" data-method="${m}"><i class="fas ${m === 'Easypaisa' ? 'fa-mobile-alt' : 'fa-mobile'}"></i> ${m}</div>`).join('')}</div>
+                </div>
+                <div id="withdrawForm" style="display: none;">
+                    <div style="margin-bottom: 15px;">
+                        <label><i class="fas fa-coins"></i> Withdrawal Amount (TAK):</label>
+                        <input type="number" id="withdrawAmount" class="input-modern" placeholder="Enter amount (min 120,000 TAK)" style="margin-top: 5px;">
+                        <div id="amountError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label><i class="fas fa-user"></i> Account Holder Name:</label>
+                        <input type="text" id="accountName" class="input-modern" placeholder="Enter account holder name" style="margin-top: 5px;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label><i class="fas fa-phone"></i> Account Number/Phone:</label>
+                        <input type="text" id="accountNumber" class="input-modern" placeholder="Enter account number or phone" style="margin-top: 5px;">
+                    </div>
+                    <button id="requestWithdrawBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Request Withdrawal</button>
+                </div>
+                <div style="margin-top: 25px;">
+                    <div id="historyToggleBtn" class="history-toggle-btn"><i class="fas fa-history"></i> Withdrawal History <i class="fas fa-chevron-down" id="historyToggleIcon"></i></div>
+                    <div id="historyContainer" class="history-container expanded">
+                        <div id="withdrawHistoryList" style="max-height: 300px; overflow-y: auto;">
+                            <div class="empty-history">Loading history...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
             document.body.appendChild(modal);
+            
+            const historyContainer = modal.querySelector('#historyContainer');
+            const historyToggleIcon = modal.querySelector('#historyToggleIcon');
+            const historyToggleBtn = modal.querySelector('#historyToggleBtn');
+            
+            historyToggleBtn.addEventListener('click', () => {
+                historyExpanded = !historyExpanded;
+                if (historyExpanded) {
+                    historyContainer.classList.remove('collapsed');
+                    historyContainer.classList.add('expanded');
+                    historyToggleIcon.classList.remove('fa-chevron-up');
+                    historyToggleIcon.classList.add('fa-chevron-down');
+                } else {
+                    historyContainer.classList.remove('expanded');
+                    historyContainer.classList.add('collapsed');
+                    historyToggleIcon.classList.remove('fa-chevron-down');
+                    historyToggleIcon.classList.add('fa-chevron-up');
+                }
+            });
+            
+            const withdrawHistoryList = modal.querySelector('#withdrawHistoryList');
+            
+            // REAL-TIME withdrawals listener - NO orderBy to ensure status updates work!
+            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid));
+            
+            console.log("📊 Setting up REAL-TIME withdrawal history listener for:", currentUser.uid);
+            
+            const unsubscribe = onSnapshot(withdrawQuery, (snapshot) => {
+                console.log("🔥 WITHDRAWAL REAL-TIME UPDATE! Total docs:", snapshot.size);
+                
+                if (snapshot.empty) { 
+                    withdrawHistoryList.innerHTML = '<div class="empty-history">No withdrawal requests yet</div>'; 
+                    return; 
+                }
+                
+                const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                docs.sort((a, b) => {
+                    const timeA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : 0;
+                    const timeB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : 0;
+                    return timeB - timeA;
+                });
+                
+                withdrawHistoryList.innerHTML = docs.map(data => { 
+                    const date = data.timestamp?.toDate ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
+                    
+                    // FIX 1: Case-insensitive status comparison
+                    const status = (data.status || '').toLowerCase();
+                    let statusClass = 'status-pending';
+                    let statusText = '⏳ Pending';
+                    
+                    if (status === 'approved') {
+                        statusClass = 'status-approved';
+                        statusText = '✅ Approved';
+                    } else if (status === 'rejected') {
+                        statusClass = 'status-rejected';
+                        statusText = '❌ Rejected';
+                    }
+                    
+                    return `<div class="history-item"><div><div><strong>${data.amount?.toLocaleString() || 0} TAK</strong></div><div class="history-date">📅 ${date}</div><div class="history-date">💳 ${data.method || 'N/A'} | 👤 ${data.accountName || 'N/A'}</div></div><div><span class="${statusClass}">${statusText}</span></div></div>`;
+                }).join('');
+                
+                withdrawHistoryList.scrollTop = 0;
+            }, (error) => {
+                console.error("❌ Error in withdrawal listener:", error);
+                withdrawHistoryList.innerHTML = '<div class="empty-history">Error loading history. Check console.</div>';
+            });
+            
             const methodOptions = modal.querySelectorAll('.method-option');
             const withdrawForm = modal.querySelector('#withdrawForm');
             const withdrawAmount = modal.querySelector('#withdrawAmount');
@@ -1952,34 +825,152 @@
             const accountNumber = modal.querySelector('#accountNumber');
             const requestBtn = modal.querySelector('#requestWithdrawBtn');
             const amountError = modal.querySelector('#amountError');
-            const withdrawHistoryList = modal.querySelector('#withdrawHistoryList');
-            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid), orderBy("timestamp", "desc"));
-            const unsubscribe = onSnapshot(withdrawQuery, (snapshot) => {
-                if (snapshot.empty) { withdrawHistoryList.innerHTML = '<div class="empty-history">No withdrawal requests yet</div>'; return; }
-                withdrawHistoryList.innerHTML = snapshot.docs.map(doc => { const data = doc.data(); const date = data.timestamp?.toDate ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now'; return `<div class="history-item"><div><div><strong>${data.amount.toLocaleString()} TAK</strong></div><div class="history-date">${date}</div><div>${data.method}</div><div>${data.accountName}</div></div><div><span class="status-pending">⏳ Pending</span></div></div>`; }).join('');
+            
+            methodOptions.forEach(opt => { 
+                opt.addEventListener('click', () => { 
+                    methodOptions.forEach(o => o.classList.remove('selected')); 
+                    opt.classList.add('selected'); 
+                    selectedMethod = opt.dataset.method; 
+                    withdrawForm.style.display = 'block'; 
+                }); 
             });
-            methodOptions.forEach(opt => { opt.addEventListener('click', () => { methodOptions.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); selectedMethod = opt.dataset.method; withdrawForm.style.display = 'block'; }); });
+            
             requestBtn.addEventListener('click', async () => {
                 const amount = parseFloat(withdrawAmount.value);
                 const name = accountName.value.trim();
                 const accNum = accountNumber.value.trim();
                 amountError.style.display = 'none';
+                
                 if (!selectedMethod) { showActionPopup('Please select payment method', 'error'); return; }
                 if (!amount || amount < 120000) { amountError.textContent = 'Minimum withdrawal is 120,000 TAK'; amountError.style.display = 'block'; return; }
                 if (amount > (currentUserData?.takcoin || 0)) { amountError.textContent = 'Insufficient balance!'; amountError.style.display = 'block'; return; }
                 if (!name) { showActionPopup('Please enter account holder name', 'error'); return; }
                 if (!accNum) { showActionPopup('Please enter account number/phone', 'error'); return; }
+                
                 const fee = Math.floor(amount * 0.02);
-                if (confirm(`Confirm Withdrawal:\nAmount: ${amount.toLocaleString()} TAK\nFee (2%): ${fee.toLocaleString()} TAK\nNet Amount: ${(amount - fee).toLocaleString()} TAK\nMethod: ${selectedMethod}\nAccount: ${name} (${accNum})\n\nAre you sure?`)) {
+                const netAmount = amount - fee;
+                
+                const confirmModal = document.createElement('div');
+                confirmModal.className = 'modal-overlay';
+                confirmModal.innerHTML = `<div class="withdrawal-confirm-popup"><div><i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #f39c12;"></i></div><h2 style="color: #f39c12;">Confirm Withdrawal</h2><div class="confirm-details"><p><span class="label">💰 Amount:</span> <span class="value">${amount.toLocaleString()} TAK</span></p><p><span class="label">💸 Fee (2%):</span> <span class="value">${fee.toLocaleString()} TAK</span></p><p><span class="label">💵 Net Amount:</span> <span class="value">${netAmount.toLocaleString()} TAK</span></p><p><span class="label">📱 Method:</span> <span class="value">${selectedMethod}</span></p><p><span class="label">👤 Account:</span> <span class="value">${name} (${accNum})</span></p></div><div class="confirm-actions"><button id="confirmWithdrawBtn" class="btn-primary">Confirm</button><button id="cancelWithdrawBtn" class="btn-cancel-popup">Cancel</button></div></div>`;
+                document.body.appendChild(confirmModal);
+                
+                document.getElementById('confirmWithdrawBtn').addEventListener('click', async () => {
+                    confirmModal.remove();
                     try {
-                        await updateDoc(doc(db, "users", currentUser.uid), { takcoin: increment(-amount) });
-                        await addDoc(collection(db, "withdrawals"), { userId: currentUser.uid, username: currentUserData.username, amount: amount, fee: fee, netAmount: amount - fee, method: selectedMethod, accountName: name, accountNumber: accNum, status: "pending", timestamp: serverTimestamp() });
-                        showActionPopup(`✅ Withdrawal request submitted! ${amount.toLocaleString()} TAK deducted.`, 'success');
-                        modal.remove(); unsubscribe();
-                    } catch (error) { showActionPopup("Error processing withdrawal.", 'error'); }
-                }
+                        await runTransaction(db, async (transaction) => {
+                            const userRef = doc(db, "users", currentUser.uid);
+                            const userDoc = await transaction.get(userRef);
+                            if (!userDoc.exists()) throw new Error("User not found!");
+                            const currentBalance = userDoc.data().takcoin || 0;
+                            if (currentBalance < amount) throw new Error("Insufficient balance!");
+                            transaction.update(userRef, { takcoin: currentBalance - amount });
+                            
+                            const withdrawalData = {
+                                userId: currentUser.uid,
+                                username: currentUserData.username,
+                                amount: amount,
+                                fee: fee,
+                                netAmount: netAmount,
+                                method: selectedMethod,
+                                accountName: name,
+                                accountNumber: accNum,
+                                status: "pending",
+                                timestamp: serverTimestamp(),
+                                refunded: false
+                            };
+                            const withdrawalRef = doc(collection(db, "withdrawals"));
+                            transaction.set(withdrawalRef, withdrawalData);
+                            
+                            console.log("✅ Withdrawal saved to Firestore:", withdrawalData);
+                            showWithdrawalSuccessPopup(withdrawalData);
+                        });
+                        
+                        withdrawAmount.value = '';
+                        accountName.value = '';
+                        accountNumber.value = '';
+                        methodOptions.forEach(o => o.classList.remove('selected'));
+                        selectedMethod = null;
+                        withdrawForm.style.display = 'none';
+                        
+                        showActionPopup(`✅ Withdrawal of ${amount.toLocaleString()} TAK requested! Check history.`, 'success');
+                        
+                    } catch (error) {
+                        console.error("Withdrawal error:", error);
+                        showActionPopup(error.message || "Error processing withdrawal.", 'error');
+                    }
+                });
+                
+                document.getElementById('cancelWithdrawBtn').addEventListener('click', () => { confirmModal.remove(); });
             });
+            
             modal.querySelector('#closeWithdrawModal').addEventListener('click', () => { unsubscribe(); modal.remove(); });
+        }
+
+        // FIX 2 & 3: Global withdrawal status listener with REFUND system
+        // This runs in the background and handles refunds when status changes to 'rejected'
+        function setupWithdrawalRefundListener(userId) {
+            if (!userId) return;
+            
+            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", userId));
+            
+            const unsubscribeRefund = onSnapshot(withdrawQuery, async (snapshot) => {
+                snapshot.docChanges().forEach(async (change) => {
+                    if (change.type === 'modified') {
+                        const withdrawalData = change.doc.data();
+                        const withdrawalId = change.doc.id;
+                        
+                        // Case-insensitive status check
+                        const status = (withdrawalData.status || '').toLowerCase();
+                        
+                        // FIX 2: Refund system - when rejected and not yet refunded
+                        if (status === 'rejected' && withdrawalData.refunded !== true) {
+                            console.log("💰 Processing refund for withdrawal:", withdrawalId, "Amount:", withdrawalData.amount);
+                            
+                            try {
+                                await runTransaction(db, async (transaction) => {
+                                    // Get current user balance
+                                    const userRef = doc(db, "users", userId);
+                                    const userDoc = await transaction.get(userRef);
+                                    if (!userDoc.exists()) throw new Error("User not found!");
+                                    
+                                    const currentBalance = userDoc.data().takcoin || 0;
+                                    const refundAmount = withdrawalData.amount || 0;
+                                    
+                                    // Add refund amount back to user's balance
+                                    transaction.update(userRef, { takcoin: currentBalance + refundAmount });
+                                    
+                                    // Mark withdrawal as refunded to prevent duplicate refunds
+                                    const withdrawalRef = doc(db, "withdrawals", withdrawalId);
+                                    transaction.update(withdrawalRef, { refunded: true, refundedAt: serverTimestamp() });
+                                    
+                                    // Log refund action
+                                    await addDoc(collection(db, "refundLogs"), {
+                                        withdrawalId: withdrawalId,
+                                        userId: userId,
+                                        amount: refundAmount,
+                                        reason: "Withdrawal rejected - automatic refund",
+                                        refundedAt: serverTimestamp(),
+                                        previousStatus: withdrawalData.status
+                                    });
+                                });
+                                
+                                showActionPopup(`💰 Refund of ${withdrawalData.amount?.toLocaleString()} TAK has been credited to your balance!`, 'success');
+                                console.log("✅ Refund processed successfully for:", withdrawalId);
+                                
+                            } catch (error) {
+                                console.error("❌ Refund error:", error);
+                                showActionPopup("Error processing refund. Please contact support.", 'error');
+                            }
+                        }
+                    }
+                });
+            }, (error) => {
+                console.error("❌ Withdrawal refund listener error:", error);
+            });
+            
+            // Store unsubscribe function for cleanup
+            window.withdrawalRefundUnsubscribe = unsubscribeRefund;
         }
 
         async function renderDashboard() {
@@ -1994,11 +985,11 @@
             document.getElementById('withdrawButton').addEventListener('click', showWithdrawalModal);
             document.getElementById('sendMessageBtn').addEventListener('click', async () => { const input = document.getElementById('chatInput'); const message = input.value.trim(); if(!message) return; await addDoc(collection(db, "chatMessages"), { userId: currentUser.uid, username: currentUserData.username, message: message, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() }); input.value = ''; });
             document.getElementById('chatInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') document.getElementById('sendMessageBtn').click(); });
-            document.getElementById('logoutButton').addEventListener('click', () => { auth.signOut(); currentUser = null; currentUserData = null; if(giftTimerInterval) clearInterval(giftTimerInterval); if(userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; } if(notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; } renderAuth(); });
+            document.getElementById('logoutButton').addEventListener('click', () => { auth.signOut(); currentUser = null; currentUserData = null; if(giftTimerInterval) clearInterval(giftTimerInterval); if(userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; } if(notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; } if(window.withdrawalRefundUnsubscribe) { window.withdrawalRefundUnsubscribe(); window.withdrawalRefundUnsubscribe = null; } renderAuth(); });
             document.getElementById('profileBtn').addEventListener('click', () => showUserProfile(currentUserData.username));
             document.getElementById('historyButton').addEventListener('click', showTapHistoryModal);
             document.getElementById('buyCoinBtn').addEventListener('click', showPurchaseModal);
-            if (currentUser && !userDataUnsubscribe) { setupUserDataListener(currentUser.uid); setupNotificationListener(currentUser.uid); }
+            if (currentUser && !userDataUnsubscribe) { setupUserDataListener(currentUser.uid); setupNotificationListener(currentUser.uid); setupWithdrawalRefundListener(currentUser.uid); }
         }
 
         function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
@@ -2079,12 +1070,14 @@
                 if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
                 setupUserDataListener(user.uid);
                 setupNotificationListener(user.uid);
+                setupWithdrawalRefundListener(user.uid);
                 setTimeout(() => {
                     if (currentUserData) { renderDashboard(); } else { setTimeout(() => { if (currentUserData) { renderDashboard(); } else { renderAuth(); } }, 1000); }
                 }, 500);
             } else { 
                 if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
                 if (notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; }
+                if (window.withdrawalRefundUnsubscribe) { window.withdrawalRefundUnsubscribe(); window.withdrawalRefundUnsubscribe = null; }
                 renderAuth(); 
             } 
         });
