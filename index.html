@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>TAKTAK | Next-Gen Tap-to-Earn Platform</title>
     
-    <!-- Non-module scripts (Fixed for WebView) -->
+    <!-- Unity Ads Web SDK -->
+    <script src="https://cdn.unityads.unity3d.com/unity-ads-web/unity-ads-web.js"></script>
+    
+    <!-- Non-module Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Firebase Compat (Non-module) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
@@ -18,7 +23,15 @@
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow: hidden; }
+        body { 
+            background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            color: #fff; 
+            overflow-y: auto !important;  /* ← SCROLL FIX */
+            overflow-x: hidden;
+            padding-bottom: 70px;  /* ← Banner ke liye space */
+        }
         .intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; overflow: hidden; animation: introFadeOut 0.8s ease-out forwards; animation-delay: 9.2s; }
         @keyframes introFadeOut { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; display: none; } }
         .intro-bg { position: absolute; width: 100%; height: 100%; pointer-events: none; }
@@ -158,7 +171,6 @@
         .method-option { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(255,193,7,0.2); display: inline-block; margin-right: 10px; }
         .method-option:hover, .method-option.selected { background: rgba(255,193,7,0.15); border-color: #f39c12; }
         
-        /* Notification Bell Styles */
         .notification-bell { position: relative; cursor: pointer; padding: 10px 15px !important; }
         .notification-badge { position: absolute; top: -5px; right: -5px; background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; min-width: 18px; text-align: center; }
         .notifications-panel { position: fixed; top: 70px; right: 20px; width: 380px; max-height: 500px; background: rgba(18,22,35,0.95); backdrop-filter: blur(20px); border-radius: 16px; border: 1px solid rgba(255,193,7,0.3); z-index: 1001; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.4); animation: slideDown 0.3s ease-out; }
@@ -179,7 +191,6 @@
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: translateX(100%); } }
         .header-right { display: flex; gap: 10px; align-items: center; }
         
-        /* Tab Styles for Terms Modal */
         .terms-tabs { display: flex; border-bottom: 1px solid rgba(243,156,18,0.3); margin-bottom: 20px; }
         .terms-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: transparent; border: none; color: #888; font-weight: 600; transition: all 0.3s; }
         .terms-tab.active { color: #f39c12; border-bottom: 2px solid #f39c12; }
@@ -191,10 +202,65 @@
     </style>
 </head>
 <body>
+    <!-- Unity Banner Container -->
+    <div id="unity-banner-container" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 999; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border-top: 1px solid rgba(243,156,18,0.3);"></div>
+    
     <div class="intro-screen" id="introScreen"><div class="intro-bg" id="introBg"></div><div class="intro-card"><div class="intro-logo">TAKTAK</div><div class="intro-line">💬 Chatting – Connect and communicate in real-time</div><div class="intro-line">🎁 Gifting – Send exciting virtual gifts</div><div class="intro-line">💰 Bonuses – Enjoy daily rewards and surprises</div><div class="intro-line">⚡ Tap Tap Coins – Participate and collect rewards</div><div class="intro-progress"><div class="intro-bar"></div></div><div class="intro-tag">Tap. Connect. Earn.</div></div></div>
     <div id="app"></div>
+    
     <script>
-        // ==================== FIREBASE INITIALIZATION (FIXED) ====================
+        // ==================== UNITY ADS CONFIGURATION ====================
+        const UNITY_GAME_ID = "6082450";
+        const UNITY_BANNER_ID = "Banner_Android";
+        const UNITY_INTERSTITIAL_ID = "Interstitial_Android";
+        const UNITY_REWARDED_ID = "Rewarded_Android";
+        
+        let unityAdsInitialized = false;
+        let tapCounter = 0;
+        
+        function initUnityAds() {
+            if (typeof unityAds === 'undefined') {
+                console.error("Unity Ads SDK not loaded");
+                return;
+            }
+            
+            unityAds.initialize({
+                gameId: UNITY_GAME_ID,
+                testMode: true,
+                onComplete: function() {
+                    console.log("✅ Unity Ads Initialized");
+                    unityAdsInitialized = true;
+                    
+                    unityAds.loadBanner({
+                        placementId: UNITY_BANNER_ID,
+                        containerId: "unity-banner-container"
+                    });
+                    
+                    unityAds.loadAd({
+                        placementId: UNITY_INTERSTITIAL_ID,
+                        onComplete: function() { console.log("Interstitial ready"); },
+                        onFailed: function() { console.log("Interstitial failed"); }
+                    });
+                },
+                onFailed: function(error) { console.error("Unity Ads Init Failed:", error); }
+            });
+        }
+        
+        function showInterstitialIfReady() {
+            if (unityAdsInitialized) {
+                unityAds.showAd({
+                    placementId: UNITY_INTERSTITIAL_ID,
+                    onComplete: function() {
+                        unityAds.loadAd({ placementId: UNITY_INTERSTITIAL_ID });
+                    },
+                    onFailed: function() {
+                        unityAds.loadAd({ placementId: UNITY_INTERSTITIAL_ID });
+                    }
+                });
+            }
+        }
+        
+        // ==================== FIREBASE CONFIG ====================
         firebase.initializeApp({
             apiKey: "AIzaSyA1yoLIfur8CQQe2qNa7K3jLqAGzwybUus",
             authDomain: "taktakcoin-6110e.firebaseapp.com",
@@ -210,7 +276,6 @@
         const rtdb = firebase.database();
         const auth = firebase.auth();
         
-        // Firestore helpers
         const serverTimestamp = () => firebase.firestore.FieldValue.serverTimestamp();
         const increment = (val) => firebase.firestore.FieldValue.increment(val);
         
@@ -223,7 +288,6 @@
         let giftTimerInterval = null;
         let userDataUnsubscribe = null;
         let notificationUnsubscribe = null;
-        let introAnimationInterval = null;
         let notificationsPanelOpen = false;
 
         const giftsCatalog = [
@@ -296,7 +360,10 @@
             }, 10000);
         }
 
-        window.addEventListener('load', () => { startIntroAnimation(); });
+        window.addEventListener('load', () => { 
+            startIntroAnimation(); 
+            initUnityAds();
+        });
 
         function showNotificationToast(message, type = 'gift') {
             const toast = document.createElement('div');
@@ -418,6 +485,14 @@
                 const userRef = db.collection("users").doc(currentUser.uid);
                 await userRef.update({ takcoin: increment(1), totalTaps: increment(1) });
                 await db.collection("tapHistory").add({ userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
+                
+                // Unity Ads Tap Counter
+                tapCounter++;
+                if (tapCounter >= 200) {
+                    showInterstitialIfReady();
+                    tapCounter = 0;
+                }
+                
                 const canvas = document.querySelector('#coinCanvasContainer canvas');
                 if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
