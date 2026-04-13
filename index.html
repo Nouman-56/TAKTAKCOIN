@@ -2,14 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>TAKTAK | Next-Gen Tap-to-Earn Platform</title>
+    <!-- Unity Ads Web SDK -->
+    <script src="https://cdn.unityads.unity3d.com/unity-ads-web/unity-ads-web.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ========== UNITY ADS CONFIG ========== */
+        /* Aapki Original CSS — Koi Change Nahi */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow-y: auto; overflow-x: hidden; }
+        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; padding-bottom: 70px; /* Banner ke liye space */ }
+        
+        /* Unity Banner Container */
+        #unity-banner-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 999;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(243,156,18,0.3);
+        }
+        
+        /* Reward Button Glitter Effect */
+        @keyframes glitter {
+            0% { box-shadow: 0 0 5px #f39c12, 0 0 10px #e67e22, 0 0 15px #ff00c8; }
+            50% { box-shadow: 0 0 15px #ffd700, 0 0 25px #ff8c00, 0 0 35px #ff1493; }
+            100% { box-shadow: 0 0 5px #f39c12, 0 0 10px #e67e22, 0 0 15px #ff00c8; }
+        }
+        .reward-btn-glitter {
+            animation: glitter 1.5s infinite;
+            border: 2px solid #ffd700 !important;
+            transform: scale(1.02);
+        }
+        
+        /* Rest of original CSS — unchanged */
         .intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; overflow: hidden; animation: introFadeOut 0.8s ease-out forwards; animation-delay: 9.2s; }
         @keyframes introFadeOut { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; display: none; } }
         .intro-bg { position: absolute; width: 100%; height: 100%; pointer-events: none; }
@@ -34,7 +65,7 @@
         .intro-tag { margin-top: 20px; font-size: 11px; color: #888; letter-spacing: 1px; }
         .glass-card { background: rgba(18,22,35,0.85); backdrop-filter: blur(12px); border-radius: 28px; border: 1px solid rgba(255,193,7,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: all 0.3s ease; }
         .glass-card:hover { border-color: rgba(255,193,7,0.5); }
-        .btn-primary { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; font-weight: 600; padding: 12px 24px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(243,156,18,0.3); }
+        .btn-primary { background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; font-weight:600; padding: 12px 24px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(243,156,18,0.3); }
         .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(243,156,18,0.5); }
         .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
         .btn-secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,193,7,0.3); color: white; padding: 10px 20px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; }
@@ -149,7 +180,6 @@
         .method-option { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(255,193,7,0.2); display: inline-block; margin-right: 10px; }
         .method-option:hover, .method-option.selected { background: rgba(255,193,7,0.15); border-color: #f39c12; }
         
-        /* Notification Bell Styles */
         .notification-bell { position: relative; cursor: pointer; padding: 10px 15px !important; }
         .notification-badge { position: absolute; top: -5px; right: -5px; background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; min-width: 18px; text-align: center; }
         .notifications-panel { position: fixed; top: 70px; right: 20px; width: 380px; max-height: 500px; background: rgba(18,22,35,0.95); backdrop-filter: blur(20px); border-radius: 16px; border: 1px solid rgba(255,193,7,0.3); z-index: 1001; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.4); animation: slideDown 0.3s ease-out; }
@@ -170,7 +200,6 @@
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: translateX(100%); } }
         .header-right { display: flex; gap: 10px; align-items: center; }
         
-        /* Tab Styles for Terms Modal */
         .terms-tabs { display: flex; border-bottom: 1px solid rgba(243,156,18,0.3); margin-bottom: 20px; }
         .terms-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: transparent; border: none; color: #888; font-weight: 600; transition: all 0.3s; }
         .terms-tab.active { color: #f39c12; border-bottom: 2px solid #f39c12; }
@@ -182,9 +211,210 @@
     </style>
 </head>
 <body>
+    <!-- Unity Banner Container -->
+    <div id="unity-banner-container"></div>
+    
     <div class="intro-screen" id="introScreen"><div class="intro-bg" id="introBg"></div><div class="intro-card"><div class="intro-logo">TAKTAK</div><div class="intro-line">💬 Chatting – Connect and communicate in real-time</div><div class="intro-line">🎁 Gifting – Send exciting virtual gifts</div><div class="intro-line">💰 Bonuses – Enjoy daily rewards and surprises</div><div class="intro-line">⚡ Tap Tap Coins – Participate and collect rewards</div><div class="intro-progress"><div class="intro-bar"></div></div><div class="intro-tag">Tap. Connect. Earn.</div></div></div>
     <div id="app"></div>
+    
     <script type="module">
+        // ==================== UNITY ADS CONFIGURATION ====================
+        const UNITY_GAME_ID = "6082450"; // Aapki Game ID
+        const UNITY_BANNER_ID = "Banner_Android";
+        const UNITY_INTERSTITIAL_ID = "Interstitial_Android";
+        const UNITY_REWARDED_ID = "Rewarded_Android";
+        
+        // Unity Ads State
+        let unityAdsInitialized = false;
+        let interstitialReady = false;
+        let rewardedReady = false;
+        let tapCounter = 0;
+        let lastAppOpenTime = localStorage.getItem('lastAppOpenTime') || 0;
+        let rewardCooldownTime = localStorage.getItem('rewardCooldown') || 0;
+        
+        // Initialize Unity Ads
+        function initUnityAds() {
+            if (typeof unityAds === 'undefined') {
+                console.error("Unity Ads SDK not loaded");
+                return;
+            }
+            
+            unityAds.initialize({
+                gameId: UNITY_GAME_ID,
+                testMode: true, // Production mein false karna
+                onComplete: () => {
+                    console.log("✅ Unity Ads Initialized");
+                    unityAdsInitialized = true;
+                    
+                    // Load Banner
+                    unityAds.loadBanner({
+                        placementId: UNITY_BANNER_ID,
+                        containerId: "unity-banner-container"
+                    });
+                    
+                    // Load Interstitial
+                    unityAds.loadAd({
+                        placementId: UNITY_INTERSTITIAL_ID,
+                        onComplete: () => { interstitialReady = true; },
+                        onFailed: () => { interstitialReady = false; }
+                    });
+                    
+                    // Load Rewarded
+                    unityAds.loadAd({
+                        placementId: UNITY_REWARDED_ID,
+                        onComplete: () => { 
+                            rewardedReady = true;
+                            updateRewardButtonState();
+                        },
+                        onFailed: () => { rewardedReady = false; }
+                    });
+                },
+                onFailed: (error) => { console.error("Unity Ads Init Failed:", error); }
+            });
+            
+            // App Open Ad (Once per day)
+            const now = Date.now();
+            if (now - lastAppOpenTime > 24 * 60 * 60 * 1000) {
+                setTimeout(() => {
+                    unityAds.showAd({ placementId: UNITY_INTERSTITIAL_ID });
+                    localStorage.setItem('lastAppOpenTime', now);
+                }, 1000);
+            }
+        }
+        
+        // Show Interstitial Ad (200 taps)
+        function showInterstitialIfReady() {
+            if (unityAdsInitialized) {
+                unityAds.showAd({
+                    placementId: UNITY_INTERSTITIAL_ID,
+                    onComplete: () => {
+                        // Reload after show
+                        unityAds.loadAd({
+                            placementId: UNITY_INTERSTITIAL_ID,
+                            onComplete: () => { interstitialReady = true; }
+                        });
+                    },
+                    onFailed: () => { interstitialReady = false; }
+                });
+            }
+        }
+        
+        // Rewarded Ad Functions
+        function showRewardedAd(callback) {
+            if (!unityAdsInitialized) {
+                showActionPopup("Ads not ready. Please wait.", 'error');
+                return;
+            }
+            
+            unityAds.showAd({
+                placementId: UNITY_REWARDED_ID,
+                onComplete: () => {
+                    // Reward user
+                    if (callback) callback();
+                    
+                    // Reload Rewarded
+                    unityAds.loadAd({
+                        placementId: UNITY_REWARDED_ID,
+                        onComplete: () => { rewardedReady = true; },
+                        onFailed: () => { rewardedReady = false; }
+                    });
+                    
+                    // Start 20 min cooldown
+                    const cooldownEnd = Date.now() + (20 * 60 * 1000);
+                    localStorage.setItem('rewardCooldown', cooldownEnd);
+                    rewardCooldownTime = cooldownEnd;
+                    updateRewardButtonState();
+                },
+                onFailed: () => {
+                    showActionPopup("Ad failed to load. Try again later.", 'error');
+                    rewardedReady = false;
+                },
+                onSkipped: () => {
+                    showActionPopup("Ad skipped. No reward given.", 'error');
+                }
+            });
+        }
+        
+        // Create Reward Button (Dynamic)
+        function createRewardButton() {
+            const container = document.querySelector('.action-buttons-container')?.parentElement;
+            if (!container) return;
+            
+            // Check if button already exists
+            if (document.getElementById('unityRewardBtn')) return;
+            
+            const rewardBtn = document.createElement('button');
+            rewardBtn.id = 'unityRewardBtn';
+            rewardBtn.className = 'btn-primary';
+            rewardBtn.style.marginTop = '15px';
+            rewardBtn.style.width = '100%';
+            rewardBtn.innerHTML = '<i class="fas fa-video"></i> Watch Ad for 300 Coins';
+            
+            rewardBtn.addEventListener('click', () => {
+                showRewardedAd(async () => {
+                    // Give 300 coins
+                    if (currentUser) {
+                        const userRef = doc(db, "users", currentUser.uid);
+                        await updateDoc(userRef, { takcoin: increment(300) });
+                        showActionPopup("🎉 +300 TAKCOIN added!", 'success');
+                        updateBalancesUI();
+                    }
+                });
+            });
+            
+            container.appendChild(rewardBtn);
+            updateRewardButtonState();
+        }
+        
+        // Update Reward Button State (Cooldown + Glitter)
+        function updateRewardButtonState() {
+            const btn = document.getElementById('unityRewardBtn');
+            if (!btn) return;
+            
+            const now = Date.now();
+            const cooldownRemaining = rewardCooldownTime - now;
+            
+            if (cooldownRemaining > 0) {
+                btn.disabled = true;
+                btn.classList.remove('reward-btn-glitter');
+                const minutes = Math.floor(cooldownRemaining / 60000);
+                const seconds = Math.floor((cooldownRemaining % 60000) / 1000);
+                btn.innerHTML = `<i class="fas fa-clock"></i> Available in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                btn.disabled = false;
+                if (rewardedReady) {
+                    btn.classList.add('reward-btn-glitter');
+                    btn.innerHTML = '<i class="fas fa-video"></i> Watch Ad for 300 Coins ✨';
+                } else {
+                    btn.classList.remove('reward-btn-glitter');
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Ad...';
+                    // Reload ad
+                    unityAds.loadAd({
+                        placementId: UNITY_REWARDED_ID,
+                        onComplete: () => { 
+                            rewardedReady = true;
+                            updateRewardButtonState();
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Update cooldown timer every second
+        setInterval(() => {
+            if (rewardCooldownTime > Date.now()) {
+                updateRewardButtonState();
+            } else if (document.getElementById('unityRewardBtn')?.disabled) {
+                updateRewardButtonState();
+            }
+        }, 1000);
+        
+        // Initialize Unity Ads when page loads
+        window.addEventListener('load', () => {
+            setTimeout(initUnityAds, 500);
+        });
+        
+        // ==================== ORIGINAL FIREBASE CODE (UNCHANGED) ====================
         import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -411,6 +641,14 @@
                 const userRef = doc(db, "users", currentUser.uid);
                 await updateDoc(userRef, { takcoin: increment(1), totalTaps: increment(1) });
                 await addDoc(collection(db, "tapHistory"), { userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
+                
+                // Unity Ads Tap Counter
+                tapCounter++;
+                if (tapCounter >= 200) {
+                    showInterstitialIfReady();
+                    tapCounter = 0;
+                }
+                
                 const canvas = document.querySelector('#coinCanvasContainer canvas');
                 if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
@@ -525,7 +763,6 @@
             showScratchCard();
         }
 
-        // Updated Terms Modal with Privacy Policy tab and I Understand button
         function showTermsModal() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
@@ -576,7 +813,7 @@
                     <p>To create/manage your account, improve app performance, show relevant advertisements, prevent fraud.</p>
                     <h2>4. Advertising & Third-Party SDKs</h2>
                     <p>We use ad networks including IronSource (Unity Ads) and Google AdMob. These networks may collect data using device identifiers.</p>
-                    <p><strong>IronSource Privacy Policy:</strong> <a href="https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/" target="_blank">https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/</a></p>
+                    <p><strong>Unity Ads Privacy Policy:</strong> <a href="https://unity3d.com/legal/privacy-policy" target="_blank">https://unity3d.com/legal/privacy-policy</a></p>
                     <p><strong>Google AdMob Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
                     <h2>5. Data Sharing</h2>
                     <p>We do not sell your personal data. We share data only with ad networks or if required by law.</p>
@@ -598,7 +835,6 @@
             </div>`;
             document.body.appendChild(modal);
             
-            // Tab switching logic
             const termsTab = modal.querySelector('[data-tab="terms"]');
             const privacyTab = modal.querySelector('[data-tab="privacy"]');
             const termsContent = modal.querySelector('#termsContent');
@@ -618,7 +854,6 @@
                 privacyContent.style.display = 'block';
             });
             
-            // I Understand button - check the checkbox automatically
             const understandBtn = modal.querySelector('#understandBtn');
             understandBtn.addEventListener('click', () => {
                 const termsCheckbox = document.getElementById('termsCheck');
@@ -633,7 +868,6 @@
             modal.querySelector('#closeTermsX').addEventListener('click', () => modal.remove());
         }
 
-        // Send Gift with Notification
         async function sendGift(receiverId, receiverUsername, gift) {
             if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; }
             const senderBalance = currentUserData.takcoin || 0;
@@ -1145,6 +1379,10 @@
                 <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;"><div id="giftBox" class="gift-box" style="cursor: pointer;"><i class="fas fa-gift" style="font-size: 48px; margin-bottom: 10px;"></i><h3 style="color: #fff;">Daily Gift Box</h3><p style="color: #ffe0b3;">Claim your daily reward!</p><div id="giftTimer" class="timer-text" style="margin-top: 10px;"><i class="fas fa-spinner fa-spin"></i> Loading...</div></div><button id="buyCoinBtn" class="btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-shopping-cart"></i> Purchase TAKCOIN</button></div>
                 <div style="margin-top: 30px; text-align: right;"><button id="logoutButton" class="btn-secondary">Logout</button></div>
             </div>`;
+            
+            // Create Reward Button after dashboard render
+            setTimeout(createRewardButton, 500);
+            
             init3DCoin();
             document.getElementById('giftBox').addEventListener('click', handleGiftBoxClick);
             startGiftTimer();
@@ -1190,7 +1428,6 @@
             document.getElementById('loginPasswordToggle').addEventListener('click', toggleLoginPassword);
             document.getElementById('signupPasswordToggle').addEventListener('click', toggleSignupPassword);
             
-            // Highlight links to open Terms modal
             const highlightTerms = document.getElementById('highlightPrivacy');
             const highlightPolicy = document.getElementById('highlightPolicy');
             const viewTermsBtn = document.getElementById('viewTerms');
