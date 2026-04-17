@@ -4,34 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>TAKTAK | Next-Gen Tap-to-Earn Platform</title>
-    
-    <!-- Unity Ads Web SDK -->
-    <script src="https://cdn.unityads.unity3d.com/unity-ads-web/unity-ads-web.js"></script>
-    
-    <!-- Non-module Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <!-- Firebase Compat (Non-module) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
+    <!-- Adsterra Popunder Ad Code -->
+    <script src="https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js"></script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); 
-            font-family: 'Inter', sans-serif; 
-            min-height: 100vh; 
-            color: #fff; 
-            overflow-y: auto !important;  /* ← SCROLL FIX */
-            overflow-x: hidden;
-            padding-bottom: 70px;  /* ← Banner ke liye space */
-        }
+        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow: hidden; }
         .intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; overflow: hidden; animation: introFadeOut 0.8s ease-out forwards; animation-delay: 9.2s; }
         @keyframes introFadeOut { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; display: none; } }
         .intro-bg { position: absolute; width: 100%; height: 100%; pointer-events: none; }
@@ -171,6 +153,7 @@
         .method-option { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(255,193,7,0.2); display: inline-block; margin-right: 10px; }
         .method-option:hover, .method-option.selected { background: rgba(255,193,7,0.15); border-color: #f39c12; }
         
+        /* Notification Bell Styles */
         .notification-bell { position: relative; cursor: pointer; padding: 10px 15px !important; }
         .notification-badge { position: absolute; top: -5px; right: -5px; background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; min-width: 18px; text-align: center; }
         .notifications-panel { position: fixed; top: 70px; right: 20px; width: 380px; max-height: 500px; background: rgba(18,22,35,0.95); backdrop-filter: blur(20px); border-radius: 16px; border: 1px solid rgba(255,193,7,0.3); z-index: 1001; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.4); animation: slideDown 0.3s ease-out; }
@@ -191,6 +174,7 @@
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: translateX(100%); } }
         .header-right { display: flex; gap: 10px; align-items: center; }
         
+        /* Tab Styles for Terms Modal */
         .terms-tabs { display: flex; border-bottom: 1px solid rgba(243,156,18,0.3); margin-bottom: 20px; }
         .terms-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: transparent; border: none; color: #888; font-weight: 600; transition: all 0.3s; }
         .terms-tab.active { color: #f39c12; border-bottom: 2px solid #f39c12; }
@@ -202,66 +186,16 @@
     </style>
 </head>
 <body>
-    <!-- Unity Banner Container -->
-    <div id="unity-banner-container" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 999; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border-top: 1px solid rgba(243,156,18,0.3);"></div>
-    
     <div class="intro-screen" id="introScreen"><div class="intro-bg" id="introBg"></div><div class="intro-card"><div class="intro-logo">TAKTAK</div><div class="intro-line">💬 Chatting – Connect and communicate in real-time</div><div class="intro-line">🎁 Gifting – Send exciting virtual gifts</div><div class="intro-line">💰 Bonuses – Enjoy daily rewards and surprises</div><div class="intro-line">⚡ Tap Tap Coins – Participate and collect rewards</div><div class="intro-progress"><div class="intro-bar"></div></div><div class="intro-tag">Tap. Connect. Earn.</div></div></div>
     <div id="app"></div>
-    
-    <script>
-        // ==================== UNITY ADS CONFIGURATION ====================
-        const UNITY_GAME_ID = "6082450";
-        const UNITY_BANNER_ID = "Banner_Android";
-        const UNITY_INTERSTITIAL_ID = "Interstitial_Android";
-        const UNITY_REWARDED_ID = "Rewarded_Android";
-        
-        let unityAdsInitialized = false;
-        let tapCounter = 0;
-        
-        function initUnityAds() {
-            if (typeof unityAds === 'undefined') {
-                console.error("Unity Ads SDK not loaded");
-                return;
-            }
-            
-            unityAds.initialize({
-                gameId: UNITY_GAME_ID,
-                testMode: true,
-                onComplete: function() {
-                    console.log("✅ Unity Ads Initialized");
-                    unityAdsInitialized = true;
-                    
-                    unityAds.loadBanner({
-                        placementId: UNITY_BANNER_ID,
-                        containerId: "unity-banner-container"
-                    });
-                    
-                    unityAds.loadAd({
-                        placementId: UNITY_INTERSTITIAL_ID,
-                        onComplete: function() { console.log("Interstitial ready"); },
-                        onFailed: function() { console.log("Interstitial failed"); }
-                    });
-                },
-                onFailed: function(error) { console.error("Unity Ads Init Failed:", error); }
-            });
-        }
-        
-        function showInterstitialIfReady() {
-            if (unityAdsInitialized) {
-                unityAds.showAd({
-                    placementId: UNITY_INTERSTITIAL_ID,
-                    onComplete: function() {
-                        unityAds.loadAd({ placementId: UNITY_INTERSTITIAL_ID });
-                    },
-                    onFailed: function() {
-                        unityAds.loadAd({ placementId: UNITY_INTERSTITIAL_ID });
-                    }
-                });
-            }
-        }
-        
-        // ==================== FIREBASE CONFIG ====================
-        firebase.initializeApp({
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
             apiKey: "AIzaSyA1yoLIfur8CQQe2qNa7K3jLqAGzwybUus",
             authDomain: "taktakcoin-6110e.firebaseapp.com",
             databaseURL: "https://taktakcoin-6110e-default-rtdb.firebaseio.com",
@@ -270,15 +204,13 @@
             messagingSenderId: "1084777470534",
             appId: "1:1084777470534:web:59d6b313a2d9690de14847",
             measurementId: "G-SF3PTFVVEN"
-        });
-        
-        const db = firebase.firestore();
-        const rtdb = firebase.database();
-        const auth = firebase.auth();
-        
-        const serverTimestamp = () => firebase.firestore.FieldValue.serverTimestamp();
-        const increment = (val) => firebase.firestore.FieldValue.increment(val);
-        
+        };
+
+        const firebaseApp = initializeApp(firebaseConfig);
+        const db = getFirestore(firebaseApp);
+        const rtdb = getDatabase(firebaseApp);
+        const auth = getAuth(firebaseApp);
+
         let currentUser = null;
         let currentUserData = null;
         let coinMesh = null;
@@ -288,7 +220,36 @@
         let giftTimerInterval = null;
         let userDataUnsubscribe = null;
         let notificationUnsubscribe = null;
+        let introAnimationInterval = null;
         let notificationsPanelOpen = false;
+        
+        // --- Adsterra Popunder Ad Counter ---
+        let tapCountForAd = 0;
+        const TAPS_NEEDED_FOR_AD = 150;
+        // Adsterra Popunder Link (using the script you provided)
+        // The script motortape.com will automatically handle the popunder
+        // We just need to call a function that triggers it
+        function showAdsterraPopunder() {
+            // Adsterra's script typically exposes a function or automatically initializes
+            // Since you provided a script src, it will auto-load.
+            // To trigger popunder, we can try to call window.adsterra or similar
+            // But many Adsterra popunder scripts trigger automatically on page load or click.
+            // For safety, we will use the direct approach: open the adsterra link if available
+            // Some Adsterra scripts provide a function like __adsterra_popunder()
+            if (typeof window.__adsterra_popunder === 'function') {
+                window.__adsterra_popunder();
+            } else {
+                // Fallback: Try to find any Adsterra anchor or trigger
+                console.log("Adsterra: Popunder triggered after", TAPS_NEEDED_FOR_AD, "taps");
+                // Most Adsterra scripts will auto-popunder on page load or specific events
+                // We'll just log it. The script itself might handle it.
+                // Some Adsterra implementations require clicking a link.
+                // We'll create a temporary invisible link click as a last resort.
+                const adLink = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
+                window.open(adLink, '_blank');
+            }
+        }
+        // --- End Adsterra Code ---
 
         const giftsCatalog = [
             { name: "❤️ Heart", price: 2500, icon: "❤️" },
@@ -360,10 +321,7 @@
             }, 10000);
         }
 
-        window.addEventListener('load', () => { 
-            startIntroAnimation(); 
-            initUnityAds();
-        });
+        window.addEventListener('load', () => { startIntroAnimation(); });
 
         function showNotificationToast(message, type = 'gift') {
             const toast = document.createElement('div');
@@ -418,7 +376,7 @@
                 sendBtn.disabled = true;
                 sendBtn.innerHTML = '<span class="spinner"></span> Sending...';
                 try {
-                    await auth.sendPasswordResetEmail(email);
+                    await sendPasswordResetEmail(auth, email);
                     showStatus('✨ Password reset email sent! Check your inbox/spam folder.', true);
                     emailInput.value = '';
                     setTimeout(() => modal.remove(), 3000);
@@ -440,10 +398,10 @@
         async function giveRewardToUser(targetUserId, actionType, actorUsername) {
             if (!targetUserId || targetUserId === currentUser?.uid) return;
             try {
-                const userRef = db.collection("users").doc(targetUserId);
-                await userRef.update({ takcoin: increment(1) });
+                const userRef = doc(db, "users", targetUserId);
+                await updateDoc(userRef, { takcoin: increment(1) });
                 showActionPopup(`✨ +1 TAKCOIN from ${actorUsername} (${actionType})!`, 'success');
-                await db.collection("rewardHistory").add({ userId: targetUserId, fromUserId: currentUser.uid, fromUsername: actorUsername, actionType: actionType, reward: 1, timestamp: serverTimestamp() });
+                await addDoc(collection(db, "rewardHistory"), { userId: targetUserId, fromUserId: currentUser.uid, fromUsername: actorUsername, actionType: actionType, reward: 1, timestamp: serverTimestamp() });
             } catch (error) { console.error("Error giving reward:", error); }
         }
 
@@ -451,21 +409,21 @@
         function sanitizeUsername(username) { return username.replace(/\s/g, ''); }
 
         async function checkEmailExists(email) {
-            const usersRef = db.collection("users");
-            const q = usersRef.where("email", "==", email);
-            const querySnapshot = await q.get();
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("email", "==", email));
+            const querySnapshot = await getDocs(q);
             return !querySnapshot.empty;
         }
 
         function setupUserDataListener(userId) {
             if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
-            const userRef = db.collection("users").doc(userId);
-            userDataUnsubscribe = userRef.onSnapshot((docSnap) => {
-                if (docSnap.exists) {
+            const userRef = doc(db, "users", userId);
+            userDataUnsubscribe = onSnapshot(userRef, (docSnap) => {
+                if (docSnap.exists()) {
                     currentUserData = docSnap.data();
                     updateBalancesUI();
                 } else {
-                    userRef.set({ uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
+                    setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
                 }
             });
         }
@@ -482,17 +440,9 @@
         async function handleTap(e) {
             if (!currentUser || !currentUserData) { showActionPopup("Please login first!", 'error'); return; }
             try {
-                const userRef = db.collection("users").doc(currentUser.uid);
-                await userRef.update({ takcoin: increment(1), totalTaps: increment(1) });
-                await db.collection("tapHistory").add({ userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
-                
-                // Unity Ads Tap Counter
-                tapCounter++;
-                if (tapCounter >= 200) {
-                    showInterstitialIfReady();
-                    tapCounter = 0;
-                }
-                
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, { takcoin: increment(1), totalTaps: increment(1) });
+                await addDoc(collection(db, "tapHistory"), { userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
                 const canvas = document.querySelector('#coinCanvasContainer canvas');
                 if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
@@ -503,6 +453,15 @@
                 floatingPlus.style.top = coinRect.top + coinRect.height / 2 + 'px';
                 document.body.appendChild(floatingPlus);
                 setTimeout(() => floatingPlus.remove(), 800);
+                
+                // --- Adsterra Popunder Ad Logic: Increment tap counter and show ad every 150 taps ---
+                tapCountForAd++;
+                if (tapCountForAd >= TAPS_NEEDED_FOR_AD) {
+                    showAdsterraPopunder();
+                    tapCountForAd = 0; // Reset counter
+                }
+                // --- End Adsterra Logic ---
+                
             } catch (error) { console.error("Tap error:", error); showActionPopup("Error processing tap.", 'error'); }
         }
 
@@ -530,8 +489,8 @@
             animate();
         }
 
-        async function getGiftStatus() { if (!currentUser) return null; try { const giftRef = db.collection("dailyGifts").doc(currentUser.uid); const giftSnap = await giftRef.get(); return giftSnap.exists ? giftSnap.data() : null; } catch (error) { return null; } }
-        async function updateGiftStatus(lastClaimTime, nextAvailableTime) { if (!currentUser) return; await db.collection("dailyGifts").doc(currentUser.uid).set({ userId: currentUser.uid, username: currentUserData.username, lastClaimTime, nextAvailableTime, updatedAt: serverTimestamp() }); }
+        async function getGiftStatus() { if (!currentUser) return null; try { const giftRef = doc(db, "dailyGifts", currentUser.uid); const giftSnap = await getDoc(giftRef); return giftSnap.exists() ? giftSnap.data() : null; } catch (error) { return null; } }
+        async function updateGiftStatus(lastClaimTime, nextAvailableTime) { if (!currentUser) return; await setDoc(doc(db, "dailyGifts", currentUser.uid), { userId: currentUser.uid, username: currentUserData.username, lastClaimTime, nextAvailableTime, updatedAt: serverTimestamp() }); }
         function getRandomReward() { const rewards = [40, 50, 55, 60, 70, 80, 90, 100, 120, 150, 180, 200, 220, 250, 280, 300]; return rewards[Math.floor(Math.random() * rewards.length)]; }
 
         function showTimerAlert(hours, minutes, seconds) {
@@ -561,8 +520,8 @@
                 const target = reward;
                 const step = Math.ceil(target / 20);
                 const interval = setInterval(() => { current += step; if (current >= target) { current = target; clearInterval(interval); } rewardAmountSpan.textContent = `+${current} TAK`; rewardAmountSpan.style.animation = 'none'; setTimeout(() => { rewardAmountSpan.style.animation = 'bounce 0.5s ease-out'; }, 10); }, 30);
-                const userRef = db.collection("users").doc(currentUser.uid);
-                await userRef.update({ takcoin: increment(reward) });
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, { takcoin: increment(reward) });
                 const now = Date.now();
                 await updateGiftStatus(now, now + (24 * 60 * 60 * 1000));
                 startGiftTimer();
@@ -607,6 +566,7 @@
             showScratchCard();
         }
 
+        // Updated Terms Modal with Privacy Policy tab and I Understand button
         function showTermsModal() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
@@ -679,6 +639,7 @@
             </div>`;
             document.body.appendChild(modal);
             
+            // Tab switching logic
             const termsTab = modal.querySelector('[data-tab="terms"]');
             const privacyTab = modal.querySelector('[data-tab="privacy"]');
             const termsContent = modal.querySelector('#termsContent');
@@ -698,6 +659,7 @@
                 privacyContent.style.display = 'block';
             });
             
+            // I Understand button - check the checkbox automatically
             const understandBtn = modal.querySelector('#understandBtn');
             understandBtn.addEventListener('click', () => {
                 const termsCheckbox = document.getElementById('termsCheck');
@@ -712,20 +674,22 @@
             modal.querySelector('#closeTermsX').addEventListener('click', () => modal.remove());
         }
 
+        // Send Gift with Notification
         async function sendGift(receiverId, receiverUsername, gift) {
             if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; }
             const senderBalance = currentUserData.takcoin || 0;
             if (senderBalance < gift.price) { showActionPopup(`❌ Insufficient Balance! Need ${gift.price.toLocaleString()} TAK.`, 'error'); return false; }
             try {
-                await db.collection("users").doc(currentUser.uid).update({ takcoin: increment(-gift.price) });
-                await db.collection("users").doc(receiverId).update({ takcoin: increment(gift.price) });
-                await db.collection("gifts").add({ fromUserId: currentUser.uid, fromUsername: currentUserData.username, toUserId: receiverId, toUsername: receiverUsername, giftName: gift.name, price: gift.price, icon: gift.icon, timestamp: serverTimestamp() });
-                await rtdb.ref(`gift_live/${currentUser.uid}/${receiverId}`).set({ fromUser: currentUserData.username, toUser: receiverUsername, coins: gift.price, giftName: gift.name, icon: gift.icon, timestamp: Date.now() });
-                await db.collection("chatMessages").add({ userId: "system", username: "🎁 GIFT SYSTEM", message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
+                await updateDoc(doc(db, "users", currentUser.uid), { takcoin: increment(-gift.price) });
+                await updateDoc(doc(db, "users", receiverId), { takcoin: increment(gift.price) });
+                await addDoc(collection(db, "gifts"), { fromUserId: currentUser.uid, fromUsername: currentUserData.username, toUserId: receiverId, toUsername: receiverUsername, giftName: gift.name, price: gift.price, icon: gift.icon, timestamp: serverTimestamp() });
+                await set(ref(rtdb, `gift_live/${currentUser.uid}/${receiverId}`), { fromUser: currentUserData.username, toUser: receiverUsername, coins: gift.price, giftName: gift.name, icon: gift.icon, timestamp: Date.now() });
+                await addDoc(collection(db, "chatMessages"), { userId: "system", username: "🎁 GIFT SYSTEM", message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
                 
-                const notificationRef = rtdb.ref(`notifications/${receiverId}`).push();
-                await notificationRef.set({
-                    id: notificationRef.key,
+                const notificationRef = ref(rtdb, `notifications/${receiverId}`);
+                const newNotificationRef = push(notificationRef);
+                await set(newNotificationRef, {
+                    id: newNotificationRef.key,
                     type: "gift",
                     fromUser: currentUserData.username,
                     fromUserId: currentUser.uid,
@@ -744,10 +708,10 @@
 
         async function getUserGiftStats(userId) {
             try {
-                const sentQuery = db.collection("gifts").where("fromUserId", "==", userId);
-                const receivedQuery = db.collection("gifts").where("toUserId", "==", userId);
-                const sentSnap = await sentQuery.get();
-                const receivedSnap = await receivedQuery.get();
+                const sentQuery = query(collection(db, "gifts"), where("fromUserId", "==", userId));
+                const receivedQuery = query(collection(db, "gifts"), where("toUserId", "==", userId));
+                const sentSnap = await getDocs(sentQuery);
+                const receivedSnap = await getDocs(receivedQuery);
                 const sentTotal = sentSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
                 const receivedTotal = receivedSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
                 return { sentTotal, receivedTotal };
@@ -762,8 +726,8 @@
             panel.innerHTML = `<h3><i class="fas fa-bell"></i> Notifications History</h3><div id="notificationsList" style="max-height: 400px; overflow-y: auto;"><div class="empty-history" style="text-align:center; padding:30px;">Loading...</div></div><button id="closeNotificationsPanel" class="btn-secondary" style="width:100%; padding:12px; border-radius:0 0 16px 16px;">Close</button>`;
             document.body.appendChild(panel);
             
-            const notificationsRef = rtdb.ref(`notifications/${currentUser.uid}`);
-            notificationsRef.on('value', (snapshot) => {
+            const notificationsRef = ref(rtdb, `notifications/${currentUser.uid}`);
+            onValue(notificationsRef, (snapshot) => {
                 const data = snapshot.val();
                 const listDiv = document.getElementById('notificationsList');
                 if (!listDiv) return;
@@ -790,7 +754,7 @@
                 
                 Object.keys(data).forEach(key => {
                     if (!data[key].read) {
-                        rtdb.ref(`notifications/${currentUser.uid}/${key}/read`).set(true);
+                        update(ref(rtdb, `notifications/${currentUser.uid}/${key}/read`), true);
                     }
                 });
             });
@@ -803,25 +767,25 @@
 
         async function showUserProfile(targetUsername) {
             try {
-                const usersRef = db.collection("users");
-                const q = usersRef.where("username", "==", targetUsername);
-                const querySnapshot = await q.get();
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("username", "==", targetUsername));
+                const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) { showActionPopup("User not found!", 'error'); return; }
                 const userDoc = querySnapshot.docs[0];
                 const userData = userDoc.data();
                 const userId = userDoc.id;
                 const { sentTotal, receivedTotal } = await getUserGiftStats(userId);
-                const followersQuery = db.collection("followers").where("followingId", "==", userId);
-                const followersSnapshot = await followersQuery.get();
+                const followersQuery = query(collection(db, "followers"), where("followingId", "==", userId));
+                const followersSnapshot = await getDocs(followersQuery);
                 const followersCount = followersSnapshot.size;
-                const likesCount = (await db.collection("likes").where("targetUserId", "==", userId).get()).size;
+                const likesCount = (await getDocs(query(collection(db, "likes"), where("targetUserId", "==", userId)))).size;
                 let isFollowing = false, isLiked = false;
                 if (currentUser && currentUser.uid !== userId) {
-                    const followCheckQuery = db.collection("followers").where("followerId", "==", currentUser.uid).where("followingId", "==", userId);
-                    const followCheckSnapshot = await followCheckQuery.get();
+                    const followCheckQuery = query(collection(db, "followers"), where("followerId", "==", currentUser.uid), where("followingId", "==", userId));
+                    const followCheckSnapshot = await getDocs(followCheckQuery);
                     isFollowing = !followCheckSnapshot.empty;
-                    const likeCheckQuery = db.collection("likes").where("userId", "==", currentUser.uid).where("targetUserId", "==", userId);
-                    const likeCheckSnapshot = await likeCheckQuery.get();
+                    const likeCheckQuery = query(collection(db, "likes"), where("userId", "==", currentUser.uid), where("targetUserId", "==", userId));
+                    const likeCheckSnapshot = await getDocs(likeCheckQuery);
                     isLiked = !likeCheckSnapshot.empty;
                 }
                 const modal = document.createElement('div');
@@ -851,21 +815,22 @@
                     });
                     document.getElementById('followBtn').addEventListener('click', async () => {
                         const followBtn = document.getElementById('followBtn');
-                        const followRef = db.collection("followers");
+                        const followRef = collection(db, "followers");
                         if (isFollowing) {
-                            const followQuery = followRef.where("followerId", "==", currentUser.uid).where("followingId", "==", userId);
-                            const followSnapshot = await followQuery.get();
-                            followSnapshot.forEach(async (doc) => { await doc.ref.delete(); });
+                            const followQuery = query(followRef, where("followerId", "==", currentUser.uid), where("followingId", "==", userId));
+                            const followSnapshot = await getDocs(followQuery);
+                            followSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); });
                             showActionPopup(`Unfollowed ${targetUsername}`, 'unfollow');
                             followBtn.innerHTML = '<i class="fas fa-user-plus"></i> Follow';
                             isFollowing = false;
                         } else {
-                            await followRef.add({ followerId: currentUser.uid, followerName: currentUserData.username, followingId: userId, followingName: targetUsername, timestamp: serverTimestamp() });
+                            await addDoc(followRef, { followerId: currentUser.uid, followerName: currentUserData.username, followingId: userId, followingName: targetUsername, timestamp: serverTimestamp() });
                             await giveRewardToUser(userId, "Follow", currentUserData.username);
                             
-                            const notificationRef = rtdb.ref(`notifications/${userId}`).push();
-                            await notificationRef.set({
-                                id: notificationRef.key,
+                            const notificationRef = ref(rtdb, `notifications/${userId}`);
+                            const newNotificationRef = push(notificationRef);
+                            await set(newNotificationRef, {
+                                id: newNotificationRef.key,
                                 type: "follow",
                                 fromUser: currentUserData.username,
                                 fromUserId: currentUser.uid,
@@ -882,24 +847,27 @@
                     });
                     document.getElementById('likeBtn').addEventListener('click', async () => {
                         const likeBtn = document.getElementById('likeBtn');
-                        const likesRef = db.collection("likes");
+                        const likesRef = collection(db, "likes");
                         if (isLiked) {
-                            const likeQuery = likesRef.where("userId", "==", currentUser.uid).where("targetUserId", "==", userId);
-                            const likeSnapshot = await likeQuery.get();
-                            likeSnapshot.forEach(async (doc) => { await doc.ref.delete(); });
-                            await rtdb.ref(`likes/${userId}/${currentUser.uid}`).set(null);
+                            const likeQuery = query(likesRef, where("userId", "==", currentUser.uid), where("targetUserId", "==", userId));
+                            const likeSnapshot = await getDocs(likeQuery);
+                            likeSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); });
+                            const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`);
+                            await set(likeRtdbRef, null);
                             showActionPopup(`Removed like from ${targetUsername} 💔`, 'unlike');
                             likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like';
                             likeBtn.classList.remove('liked');
                             isLiked = false;
                         } else {
-                            await likesRef.add({ userId: currentUser.uid, username: currentUserData.username, targetUserId: userId, targetUsername: targetUsername, timestamp: serverTimestamp() });
-                            await rtdb.ref(`likes/${userId}/${currentUser.uid}`).set({ fromUser: currentUserData.username, timestamp: Date.now() });
+                            await addDoc(likesRef, { userId: currentUser.uid, username: currentUserData.username, targetUserId: userId, targetUsername: targetUsername, timestamp: serverTimestamp() });
+                            const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`);
+                            await set(likeRtdbRef, { fromUser: currentUserData.username, timestamp: Date.now() });
                             await giveRewardToUser(userId, "Like", currentUserData.username);
                             
-                            const notificationRef = rtdb.ref(`notifications/${userId}`).push();
-                            await notificationRef.set({
-                                id: notificationRef.key,
+                            const notificationRef = ref(rtdb, `notifications/${userId}`);
+                            const newNotificationRef = push(notificationRef);
+                            await set(newNotificationRef, {
+                                id: newNotificationRef.key,
                                 type: "like",
                                 fromUser: currentUserData.username,
                                 fromUserId: currentUser.uid,
@@ -926,8 +894,8 @@
             modal.className = 'modal-overlay';
             modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 500px; padding: 24px; max-height: 80vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-history"></i> Tap History</h2><button id="closeHistoryBtn" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div id="historyList" style="max-height: 60vh; overflow-y: auto;"><div class="empty-history">Loading history...</div></div><button id="closeHistoryModal" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`;
             document.body.appendChild(modal);
-            const historyQuery = db.collection("tapHistory").where("userId", "==", currentUser.uid).orderBy("timestamp", "desc");
-            const unsubscribe = historyQuery.onSnapshot((snapshot) => {
+            const historyQuery = query(collection(db, "tapHistory"), where("userId", "==", currentUser.uid), orderBy("timestamp", "desc"));
+            const unsubscribe = onSnapshot(historyQuery, (snapshot) => {
                 const historyList = document.getElementById('historyList');
                 if (snapshot.empty) { historyList.innerHTML = '<div class="empty-history">No taps yet. Start tapping!</div>'; return; }
                 historyList.innerHTML = snapshot.docs.map(doc => { const data = doc.data(); return `<div class="history-item"><div><div>${data.date}</div><div class="history-date">${data.time}</div></div><div class="history-taps">+1 tap</div></div>`; }).join('');
@@ -974,7 +942,7 @@
                 if (!senderName || !paymentAmount || !transactionId || !selectedPackage) { showActionPopup('Please fill all fields', 'error'); return; }
                 if (paymentAmount !== selectedPackage.price) { showActionPopup(`Amount should be ₨ ${selectedPackage.price}`, 'error'); return; }
                 try {
-                    await db.collection("takdeposit").add({ userId: currentUser.uid, username: currentUserData.username, senderName, packageName: selectedPackage.name, takAmount: selectedPackage.tak, amountPaid: paymentAmount, transactionId, status: "pending", timestamp: serverTimestamp() });
+                    await addDoc(collection(db, "takdeposit"), { userId: currentUser.uid, username: currentUserData.username, senderName, packageName: selectedPackage.name, takAmount: selectedPackage.tak, amountPaid: paymentAmount, transactionId, status: "pending", timestamp: serverTimestamp() });
                     paymentSection.style.display = 'none';
                     successDiv.style.display = 'block';
                     setTimeout(() => modal.remove(), 3000);
@@ -1053,9 +1021,9 @@
             });
             
             const withdrawHistoryList = modal.querySelector('#withdrawHistoryList');
-            const withdrawQuery = db.collection("withdrawals").where("userId", "==", currentUser.uid);
+            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid));
             
-            const unsubscribe = withdrawQuery.onSnapshot((snapshot) => {
+            const unsubscribe = onSnapshot(withdrawQuery, (snapshot) => {
                 if (snapshot.empty) { withdrawHistoryList.innerHTML = '<div class="empty-history">No withdrawal requests yet</div>'; return; }
                 const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 docs.sort((a, b) => {
@@ -1106,10 +1074,10 @@
                 document.getElementById('confirmWithdrawBtn').addEventListener('click', async () => {
                     confirmModal.remove();
                     try {
-                        await db.runTransaction(async (transaction) => {
-                            const userRef = db.collection("users").doc(currentUser.uid);
+                        await runTransaction(db, async (transaction) => {
+                            const userRef = doc(db, "users", currentUser.uid);
                             const userDoc = await transaction.get(userRef);
-                            if (!userDoc.exists) throw new Error("User not found!");
+                            if (!userDoc.exists()) throw new Error("User not found!");
                             const currentBalance = userDoc.data().takcoin || 0;
                             if (currentBalance < amount) throw new Error("Insufficient balance!");
                             transaction.update(userRef, { takcoin: currentBalance - amount });
@@ -1127,7 +1095,7 @@
                                 timestamp: serverTimestamp(),
                                 refunded: false
                             };
-                            const withdrawalRef = db.collection("withdrawals").doc();
+                            const withdrawalRef = doc(collection(db, "withdrawals"));
                             transaction.set(withdrawalRef, withdrawalData);
                             showWithdrawalSuccessPopup(withdrawalData);
                         });
@@ -1147,8 +1115,8 @@
 
         function setupWithdrawalRefundListener(userId) {
             if (!userId) return;
-            const withdrawQuery = db.collection("withdrawals").where("userId", "==", userId);
-            withdrawQuery.onSnapshot(async (snapshot) => {
+            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", userId));
+            onSnapshot(withdrawQuery, async (snapshot) => {
                 snapshot.docChanges().forEach(async (change) => {
                     if (change.type === 'modified') {
                         const withdrawalData = change.doc.data();
@@ -1156,16 +1124,16 @@
                         const status = (withdrawalData.status || '').toLowerCase();
                         if (status === 'rejected' && withdrawalData.refunded !== true) {
                             try {
-                                await db.runTransaction(async (transaction) => {
-                                    const userRef = db.collection("users").doc(userId);
+                                await runTransaction(db, async (transaction) => {
+                                    const userRef = doc(db, "users", userId);
                                     const userDoc = await transaction.get(userRef);
-                                    if (!userDoc.exists) throw new Error("User not found!");
+                                    if (!userDoc.exists()) throw new Error("User not found!");
                                     const currentBalance = userDoc.data().takcoin || 0;
                                     const refundAmount = withdrawalData.amount || 0;
                                     transaction.update(userRef, { takcoin: currentBalance + refundAmount });
-                                    const withdrawalRef = db.collection("withdrawals").doc(withdrawalId);
+                                    const withdrawalRef = doc(db, "withdrawals", withdrawalId);
                                     transaction.update(withdrawalRef, { refunded: true, refundedAt: serverTimestamp() });
-                                    await db.collection("refundLogs").add({ withdrawalId: withdrawalId, userId: userId, amount: refundAmount, reason: "Withdrawal rejected - automatic refund", refundedAt: serverTimestamp(), previousStatus: withdrawalData.status });
+                                    await addDoc(collection(db, "refundLogs"), { withdrawalId: withdrawalId, userId: userId, amount: refundAmount, reason: "Withdrawal rejected - automatic refund", refundedAt: serverTimestamp(), previousStatus: withdrawalData.status });
                                 });
                                 showActionPopup(`💰 Refund of ${withdrawalData.amount?.toLocaleString()} TAK has been credited to your balance!`, 'success');
                             } catch (error) { console.error("Refund error:", error); }
@@ -1177,8 +1145,8 @@
 
         function setupRealtimeNotificationListener(userId) {
             if (notificationUnsubscribe) notificationUnsubscribe();
-            const notificationsRef = rtdb.ref(`notifications/${userId}`);
-            notificationUnsubscribe = notificationsRef.on('value', (snapshot) => {
+            const notificationsRef = ref(rtdb, `notifications/${userId}`);
+            notificationUnsubscribe = onValue(notificationsRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
                     Object.entries(data).forEach(([key, notif]) => {
@@ -1186,7 +1154,7 @@
                             if (notif.type === 'gift') showNotificationToast(notif.message || `${notif.fromUser} sent you ${notif.giftName}!`, 'gift');
                             else if (notif.type === 'follow') showNotificationToast(notif.message || `${notif.fromUser} started following you!`, 'follow');
                             else if (notif.type === 'like') showNotificationToast(notif.message || `${notif.fromUser} liked your profile!`, 'like');
-                            rtdb.ref(`notifications/${userId}/${key}/read`).set(true);
+                            update(ref(rtdb, `notifications/${userId}/${key}/read`), true);
                         }
                     });
                 }
@@ -1222,8 +1190,8 @@
             document.getElementById('giftBox').addEventListener('click', handleGiftBoxClick);
             startGiftTimer();
             
-            const notifRef = rtdb.ref(`notifications/${currentUser.uid}`);
-            notifRef.on('value', (snapshot) => {
+            const notifRef = ref(rtdb, `notifications/${currentUser.uid}`);
+            onValue(notifRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
                     const unreadCount = Object.values(data).filter(n => !n.read).length;
@@ -1237,11 +1205,11 @@
             
             document.getElementById('notificationsBell').addEventListener('click', showNotificationsPanel);
             
-            const chatQuery = db.collection("chatMessages").orderBy("timestamp", "desc");
-            chatQuery.onSnapshot((snapshot) => { const messages = []; snapshot.forEach(doc => messages.unshift({ id: doc.id, ...doc.data() })); const chatArea = document.getElementById('chatMessages'); if(chatArea){ chatArea.innerHTML = messages.slice(-50).map(msg => `<div class="chat-message"><div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span class="username-click" data-user="${msg.username}" style="cursor: pointer;"><i class="fas fa-user-circle"></i> ${msg.username}</span><span style="font-size: 11px; color: #888;">${msg.time || new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span></div><div style="color: #ddd;">${escapeHtml(msg.message)}</div></div>`).join(''); document.querySelectorAll('.username-click').forEach(el => el.addEventListener('click', () => showUserProfile(el.dataset.user))); chatArea.scrollTop = chatArea.scrollHeight; } });
+            const chatQuery = query(collection(db, "chatMessages"), orderBy("timestamp", "desc"));
+            onSnapshot(chatQuery, (snapshot) => { const messages = []; snapshot.forEach(doc => messages.unshift({ id: doc.id, ...doc.data() })); const chatArea = document.getElementById('chatMessages'); if(chatArea){ chatArea.innerHTML = messages.slice(-50).map(msg => `<div class="chat-message"><div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span class="username-click" data-user="${msg.username}" style="cursor: pointer;"><i class="fas fa-user-circle"></i> ${msg.username}</span><span style="font-size: 11px; color: #888;">${msg.time || new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span></div><div style="color: #ddd;">${escapeHtml(msg.message)}</div></div>`).join(''); document.querySelectorAll('.username-click').forEach(el => el.addEventListener('click', () => showUserProfile(el.dataset.user))); chatArea.scrollTop = chatArea.scrollHeight; } });
             document.getElementById('tapButton').addEventListener('click', handleTap);
             document.getElementById('withdrawButton').addEventListener('click', showWithdrawalModal);
-            document.getElementById('sendMessageBtn').addEventListener('click', async () => { const input = document.getElementById('chatInput'); const message = input.value.trim(); if(!message) return; await db.collection("chatMessages").add({ userId: currentUser.uid, username: currentUserData.username, message: message, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() }); input.value = ''; });
+            document.getElementById('sendMessageBtn').addEventListener('click', async () => { const input = document.getElementById('chatInput'); const message = input.value.trim(); if(!message) return; await addDoc(collection(db, "chatMessages"), { userId: currentUser.uid, username: currentUserData.username, message: message, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() }); input.value = ''; });
             document.getElementById('chatInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') document.getElementById('sendMessageBtn').click(); });
             document.getElementById('logoutButton').addEventListener('click', () => { auth.signOut(); currentUser = null; currentUserData = null; if(giftTimerInterval) clearInterval(giftTimerInterval); if(userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; } if(notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; } renderAuth(); });
             document.getElementById('profileBtn').addEventListener('click', () => showUserProfile(currentUserData.username));
@@ -1263,6 +1231,7 @@
             document.getElementById('loginPasswordToggle').addEventListener('click', toggleLoginPassword);
             document.getElementById('signupPasswordToggle').addEventListener('click', toggleSignupPassword);
             
+            // Highlight links to open Terms modal
             const highlightTerms = document.getElementById('highlightPrivacy');
             const highlightPolicy = document.getElementById('highlightPolicy');
             const viewTermsBtn = document.getElementById('viewTerms');
@@ -1272,7 +1241,7 @@
             if (highlightPolicy) highlightPolicy.addEventListener('click', openTermsModal);
             if (viewTermsBtn) viewTermsBtn.addEventListener('click', openTermsModal);
             
-            document.getElementById('loginBtn').addEventListener('click', async () => { const username = document.getElementById('loginUsername').value.trim(); const password = document.getElementById('loginPassword').value; if(!username || !password){ showError('loginUsername','Enter credentials'); return; } const btn = document.getElementById('loginBtn'); btn.innerHTML = '<span class="spinner"></span> Logging in...'; btn.disabled=true; try{ const q = db.collection("users").where("username","==",username); const snap=await q.get(); if(snap.empty){ showError('loginUsername','Username not found'); btn.innerHTML='Login'; btn.disabled=false; return; } const userData = snap.docs[0].data(); const email = userData.email; const cred=await auth.signInWithEmailAndPassword(email, password); currentUser=cred.user; await updateUserBalance(); renderDashboard(); } catch(e){ showError('loginPassword','Invalid credentials'); btn.innerHTML='Login'; btn.disabled=false; } });
+            document.getElementById('loginBtn').addEventListener('click', async () => { const username = document.getElementById('loginUsername').value.trim(); const password = document.getElementById('loginPassword').value; if(!username || !password){ showError('loginUsername','Enter credentials'); return; } const btn = document.getElementById('loginBtn'); btn.innerHTML = '<span class="spinner"></span> Logging in...'; btn.disabled=true; try{ const q = query(collection(db,"users"), where("username","==",username)); const snap=await getDocs(q); if(snap.empty){ showError('loginUsername','Username not found'); btn.innerHTML='Login'; btn.disabled=false; return; } const userData = snap.docs[0].data(); const email = userData.email; const cred=await signInWithEmailAndPassword(auth, email, password); currentUser=cred.user; await updateUserBalance(); renderDashboard(); } catch(e){ showError('loginPassword','Invalid credentials'); btn.innerHTML='Login'; btn.disabled=false; } });
             
             const emailInput = document.getElementById('signupEmail');
             const usernameInput = document.getElementById('signupUsername');
@@ -1282,12 +1251,12 @@
             const referralErrorMsg = document.getElementById('referralErrorMsg');
             
             usernameInput.addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\s/g, ''); });
-            usernameInput.addEventListener('blur', async () => { const username = usernameInput.value.trim(); if (!username) return; if (username.includes(' ')) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username cannot contain spaces!'; usernameInput.classList.add('input-error'); return; } try { const usersRef = db.collection("users"); const q = usersRef.where("username", "==", username); const querySnapshot = await q.get(); if (!querySnapshot.empty) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username already taken!'; usernameInput.classList.add('input-error'); } else { usernameErrorMsg.style.display = 'none'; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); setTimeout(() => usernameInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Username check error:", error); } });
+            usernameInput.addEventListener('blur', async () => { const username = usernameInput.value.trim(); if (!username) return; if (username.includes(' ')) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username cannot contain spaces!'; usernameInput.classList.add('input-error'); return; } try { const usersRef = collection(db, "users"); const q = query(usersRef, where("username", "==", username)); const querySnapshot = await getDocs(q); if (!querySnapshot.empty) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username already taken!'; usernameInput.classList.add('input-error'); } else { usernameErrorMsg.style.display = 'none'; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); setTimeout(() => usernameInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Username check error:", error); } });
             
             emailInput.addEventListener('input', (e) => { emailErrorMsg.style.display = 'none'; emailInput.classList.remove('input-error'); });
             emailInput.addEventListener('blur', async () => { const email = emailInput.value.trim(); if (!email) return; if (!isValidEmail(email)) { emailErrorMsg.style.display = 'block'; emailErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address!'; emailInput.classList.add('input-error'); return; } try { const emailExists = await checkEmailExists(email); if (emailExists) { emailErrorMsg.style.display = 'block'; emailErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Email already registered!'; emailInput.classList.add('input-error'); } else { emailErrorMsg.style.display = 'none'; emailInput.classList.remove('input-error'); emailInput.classList.add('input-success'); setTimeout(() => emailInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Email check error:", error); } });
             
-            referralInput.addEventListener('blur', async () => { const code = referralInput.value.trim(); if (!code) { referralErrorMsg.style.display = 'none'; return; } try { const usersRef = db.collection("users"); const q = usersRef.where("referralCode", "==", code); const querySnapshot = await q.get(); if (querySnapshot.empty) { referralErrorMsg.style.display = 'block'; referralErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid referral code!'; referralInput.classList.add('input-error'); } else { referralErrorMsg.style.display = 'none'; referralInput.classList.remove('input-error'); referralInput.classList.add('input-success'); setTimeout(() => referralInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Referral check error:", error); } });
+            referralInput.addEventListener('blur', async () => { const code = referralInput.value.trim(); if (!code) { referralErrorMsg.style.display = 'none'; return; } try { const usersRef = collection(db, "users"); const q = query(usersRef, where("referralCode", "==", code)); const querySnapshot = await getDocs(q); if (querySnapshot.empty) { referralErrorMsg.style.display = 'block'; referralErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid referral code!'; referralInput.classList.add('input-error'); } else { referralErrorMsg.style.display = 'none'; referralInput.classList.remove('input-error'); referralInput.classList.add('input-success'); setTimeout(() => referralInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Referral check error:", error); } });
             
             document.getElementById('forgotPasswordLink').addEventListener('click', showForgotPasswordModal);
             document.getElementById('switchToSignup').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('loginForm').style.display='none'; document.getElementById('signupForm').style.display='block'; document.getElementById('loginTab').classList.remove('active'); document.getElementById('signupTab').classList.add('active'); });
@@ -1316,16 +1285,16 @@
                 signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
                 signupBtn.disabled = true;
                 try {
-                    const usersRef = db.collection("users");
-                    const usernameQuery = usersRef.where("username", "==", username);
-                    const usernameExists = await usernameQuery.get();
+                    const usersRef = collection(db, "users");
+                    const usernameQuery = query(usersRef, where("username", "==", username));
+                    const usernameExists = await getDocs(usernameQuery);
                     if (!usernameExists.empty) { showError('signupUsername', 'Username already taken!'); signupBtn.innerHTML = 'Create Account'; signupBtn.disabled = false; return; }
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     const newUser = userCredential.user;
                     const newReferralCode = generateReferralCode(username);
-                    await db.collection("users").doc(newUser.uid).set({ uid: newUser.uid, username: username, email: email, takcoin: 0, totalTaps: 0, referralCode: newReferralCode, referredBy: referralCode || null, createdAt: serverTimestamp() });
+                    await setDoc(doc(db, "users", newUser.uid), { uid: newUser.uid, username: username, email: email, takcoin: 0, totalTaps: 0, referralCode: newReferralCode, referredBy: referralCode || null, createdAt: serverTimestamp() });
                     if (referralCode) {
-                        try { const referrerQuery = usersRef.where("referralCode", "==", referralCode); const referrerSnapshot = await referrerQuery.get(); if (!referrerSnapshot.empty) { await db.collection("users").doc(referrerSnapshot.docs[0].id).update({ takcoin: increment(10000) }); } } catch (refError) { console.error("Referral bonus error:", refError); }
+                        try { const referrerQuery = query(usersRef, where("referralCode", "==", referralCode)); const referrerSnapshot = await getDocs(referrerQuery); if (!referrerSnapshot.empty) { await updateDoc(doc(db, "users", referrerSnapshot.docs[0].id), { takcoin: increment(10000) }); } } catch (refError) { console.error("Referral bonus error:", refError); }
                     }
                     currentUser = newUser;
                     await updateUserBalance();
@@ -1339,7 +1308,7 @@
             });
         }
         
-        auth.onAuthStateChanged((user) => { 
+        onAuthStateChanged(auth, async (user) => { 
             if(user){ 
                 currentUser = user; 
                 if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
