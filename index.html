@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- Adsterra Popunder Ad Code -->
-    <script src="https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js"></script>
+    <!-- Adsterra Popunder Ad Code - REMOVED from head to prevent auto-execution -->
+    <!-- Script will be loaded dynamically only after 150 taps -->
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow: hidden; }
+        body { background: linear-gradient(135deg, #0a0f1e 0%, #0a0515 100%); font-family: 'Inter', sans-serif; min-height: 100vh; color: #fff; overflow: auto; }
         .intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f0c29 0%, #1a1a3a 50%, #0a0515 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; overflow: hidden; animation: introFadeOut 0.8s ease-out forwards; animation-delay: 9.2s; }
         @keyframes introFadeOut { 0% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; display: none; } }
         .intro-bg { position: absolute; width: 100%; height: 100%; pointer-events: none; }
@@ -226,27 +226,25 @@
         // --- Adsterra Popunder Ad Counter ---
         let tapCountForAd = 0;
         const TAPS_NEEDED_FOR_AD = 150;
-        // Adsterra Popunder Link (using the script you provided)
-        // The script motortape.com will automatically handle the popunder
-        // We just need to call a function that triggers it
+        const AD_SCRIPT_URL = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
+        
+        // Adsterra Popunder function - Sirf 150 taps ke baad chalega
         function showAdsterraPopunder() {
-            // Adsterra's script typically exposes a function or automatically initializes
-            // Since you provided a script src, it will auto-load.
-            // To trigger popunder, we can try to call window.adsterra or similar
-            // But many Adsterra popunder scripts trigger automatically on page load or click.
-            // For safety, we will use the direct approach: open the adsterra link if available
-            // Some Adsterra scripts provide a function like __adsterra_popunder()
-            if (typeof window.__adsterra_popunder === 'function') {
-                window.__adsterra_popunder();
-            } else {
-                // Fallback: Try to find any Adsterra anchor or trigger
-                console.log("Adsterra: Popunder triggered after", TAPS_NEEDED_FOR_AD, "taps");
-                // Most Adsterra scripts will auto-popunder on page load or specific events
-                // We'll just log it. The script itself might handle it.
-                // Some Adsterra implementations require clicking a link.
-                // We'll create a temporary invisible link click as a last resort.
-                const adLink = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
-                window.open(adLink, '_blank');
+            try {
+                // Remove any existing ad script first
+                const oldScript = document.getElementById('adsterra-script');
+                if (oldScript) oldScript.remove();
+                
+                // Create and append new script element
+                const script = document.createElement('script');
+                script.id = 'adsterra-script';
+                script.src = AD_SCRIPT_URL;
+                script.async = true;
+                document.body.appendChild(script);
+                
+                console.log("✅ Adsterra: Popunder shown after", TAPS_NEEDED_FOR_AD, "taps");
+            } catch(e) {
+                console.log("Ad error:", e);
             }
         }
         // --- End Adsterra Code ---
@@ -454,13 +452,12 @@
                 document.body.appendChild(floatingPlus);
                 setTimeout(() => floatingPlus.remove(), 800);
                 
-                // --- Adsterra Popunder Ad Logic: Increment tap counter and show ad every 150 taps ---
+                // Ad sirf 150 taps ke baad chalegi
                 tapCountForAd++;
                 if (tapCountForAd >= TAPS_NEEDED_FOR_AD) {
                     showAdsterraPopunder();
-                    tapCountForAd = 0; // Reset counter
+                    tapCountForAd = 0; // Reset counter after showing ad
                 }
-                // --- End Adsterra Logic ---
                 
             } catch (error) { console.error("Tap error:", error); showActionPopup("Error processing tap.", 'error'); }
         }
