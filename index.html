@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- Adsterra Popunder Ad Code - REMOVED from head to prevent auto-execution -->
-    <!-- Script will be loaded dynamically only after 150 taps -->
+    <!-- Adsterra Popunder Ad Code -->
+    <script src="https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js"></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -153,7 +153,6 @@
         .method-option { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(255,193,7,0.2); display: inline-block; margin-right: 10px; }
         .method-option:hover, .method-option.selected { background: rgba(255,193,7,0.15); border-color: #f39c12; }
         
-        /* Notification Bell Styles */
         .notification-bell { position: relative; cursor: pointer; padding: 10px 15px !important; }
         .notification-badge { position: absolute; top: -5px; right: -5px; background: #e74c3c; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; min-width: 18px; text-align: center; }
         .notifications-panel { position: fixed; top: 70px; right: 20px; width: 380px; max-height: 500px; background: rgba(18,22,35,0.95); backdrop-filter: blur(20px); border-radius: 16px; border: 1px solid rgba(255,193,7,0.3); z-index: 1001; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.4); animation: slideDown 0.3s ease-out; }
@@ -174,7 +173,6 @@
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; transform: translateX(100%); } }
         .header-right { display: flex; gap: 10px; align-items: center; }
         
-        /* Tab Styles for Terms Modal */
         .terms-tabs { display: flex; border-bottom: 1px solid rgba(243,156,18,0.3); margin-bottom: 20px; }
         .terms-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: transparent; border: none; color: #888; font-weight: 600; transition: all 0.3s; }
         .terms-tab.active { color: #f39c12; border-bottom: 2px solid #f39c12; }
@@ -183,6 +181,42 @@
         .terms-content p { color: #ccc; line-height: 1.6; margin-bottom: 12px; }
         .terms-content a { color: #f39c12; text-decoration: underline; }
         .highlight-policy { color: #f39c12; font-weight: bold; text-decoration: underline; cursor: pointer; }
+        
+        /* Referral Balance Styles */
+        .referral-balance-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        .referral-info-icon {
+            color: #f39c12;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .referral-info-icon:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+        .referral-rules-modal {
+            text-align: left;
+            padding: 20px;
+        }
+        .referral-rules-modal h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+        .referral-rules-modal p {
+            color: #ddd;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .referral-rules-modal .highlight {
+            color: #f39c12;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -220,34 +254,131 @@
         let giftTimerInterval = null;
         let userDataUnsubscribe = null;
         let notificationUnsubscribe = null;
-        let introAnimationInterval = null;
         let notificationsPanelOpen = false;
         
         // --- Adsterra Popunder Ad Counter ---
         let tapCountForAd = 0;
         const TAPS_NEEDED_FOR_AD = 150;
-        const AD_SCRIPT_URL = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
         
-        // Adsterra Popunder function - Sirf 150 taps ke baad chalega
         function showAdsterraPopunder() {
             try {
-                // Remove any existing ad script first
-                const oldScript = document.getElementById('adsterra-script');
-                if (oldScript) oldScript.remove();
-                
-                // Create and append new script element
-                const script = document.createElement('script');
-                script.id = 'adsterra-script';
-                script.src = AD_SCRIPT_URL;
-                script.async = true;
-                document.body.appendChild(script);
-                
-                console.log("✅ Adsterra: Popunder shown after", TAPS_NEEDED_FOR_AD, "taps");
+                const adLink = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
+                window.open(adLink, '_blank');
+                console.log("Adsterra: Popunder shown after", TAPS_NEEDED_FOR_AD, "taps");
             } catch(e) {
                 console.log("Ad error:", e);
             }
         }
-        // --- End Adsterra Code ---
+
+        // ==================== REFERRAL SYSTEM ====================
+        const REFERRAL_BONUS_TOTAL = 10000;
+        const UNLOCK_PER_TAPS = 1000;
+        const UNLOCK_AMOUNT = 1000;
+        
+        function showReferralRules() {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="glass-card" style="width: 90%; max-width: 450px; padding: 30px;">
+                    <div class="referral-rules-modal">
+                        <h3><i class="fas fa-info-circle"></i> Referral Bonus Rules</h3>
+                        <p><span class="highlight">Don't worry, this balance belongs to you.</span> However, there are some rules you need to follow.</p>
+                        <p>When the user you referred taps <span class="highlight">1,000 TAKCOIN</span>, then <span class="highlight">1,000 TAKCOIN</span> will be added to your main balance.</p>
+                        <p>Similarly, the full <span class="highlight">10,000 TAKCOIN</span> will be added to your account as the referred user continues tapping (1,000 coins per 1,000 taps).</p>
+                        <p><i class="fas fa-gift" style="color: #f39c12;"></i> Keep referring to earn more!</p>
+                    </div>
+                    <button id="closeReferralRules" class="btn-primary" style="width: 100%; margin-top: 20px;">Got it!</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('closeReferralRules').addEventListener('click', () => modal.remove());
+        }
+        
+        async function processReferralBonus(referrerId, referredUserId) {
+            try {
+                const referralData = {
+                    referrerId: referrerId,
+                    referredUserId: referredUserId,
+                    totalBonus: REFERRAL_BONUS_TOTAL,
+                    lockedAmount: REFERRAL_BONUS_TOTAL,
+                    unlockedAmount: 0,
+                    status: 'active',
+                    createdAt: serverTimestamp(),
+                    lastUnlockAt: 0
+                };
+                
+                await addDoc(collection(db, "referralBonuses"), referralData);
+                
+                await updateDoc(doc(db, "users", referrerId), {
+                    referralBalance: increment(REFERRAL_BONUS_TOTAL)
+                });
+                
+                console.log('✅ Referral bonus created for:', referrerId);
+            } catch (error) {
+                console.error('Error processing referral:', error);
+            }
+        }
+        
+        async function checkAndUnlockReferralBonus(userId, totalTaps) {
+            try {
+                const bonusesQuery = query(
+                    collection(db, "referralBonuses"),
+                    where("referredUserId", "==", userId),
+                    where("status", "==", "active")
+                );
+                
+                const snapshot = await getDocs(bonusesQuery);
+                
+                snapshot.forEach(async (docSnap) => {
+                    const bonus = docSnap.data();
+                    const tapsSinceLastUnlock = totalTaps - (bonus.lastUnlockAt || 0);
+                    
+                    if (tapsSinceLastUnlock >= UNLOCK_PER_TAPS) {
+                        const unlockCount = Math.floor(tapsSinceLastUnlock / UNLOCK_PER_TAPS);
+                        const amountToUnlock = Math.min(unlockCount * UNLOCK_AMOUNT, bonus.lockedAmount);
+                        
+                        if (amountToUnlock > 0) {
+                            await runTransaction(db, async (transaction) => {
+                                const bonusRef = doc(db, "referralBonuses", docSnap.id);
+                                const userRef = doc(db, "users", bonus.referrerId);
+                                
+                                const userDoc = await transaction.get(userRef);
+                                if (!userDoc.exists()) return;
+                                
+                                const newLocked = bonus.lockedAmount - amountToUnlock;
+                                const newUnlocked = bonus.unlockedAmount + amountToUnlock;
+                                
+                                transaction.update(bonusRef, {
+                                    lockedAmount: newLocked,
+                                    unlockedAmount: newUnlocked,
+                                    lastUnlockAt: totalTaps,
+                                    status: newLocked === 0 ? 'completed' : 'active'
+                                });
+                                
+                                transaction.update(userRef, {
+                                    takcoin: increment(amountToUnlock),
+                                    referralBalance: increment(-amountToUnlock)
+                                });
+                                
+                                if (newLocked === 0) {
+                                    await addDoc(collection(db, "notifications"), {
+                                        userId: bonus.referrerId,
+                                        type: 'referral',
+                                        message: `🎉 Your referral bonus of 10,000 TAKCOIN is now fully unlocked!`,
+                                        read: false,
+                                        timestamp: serverTimestamp()
+                                    });
+                                }
+                            });
+                            
+                            console.log(`✅ Unlocked ${amountToUnlock} coins for referrer:`, bonus.referrerId);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error unlocking referral bonus:', error);
+            }
+        }
 
         const giftsCatalog = [
             { name: "❤️ Heart", price: 2500, icon: "❤️" },
@@ -421,7 +552,7 @@
                     currentUserData = docSnap.data();
                     updateBalancesUI();
                 } else {
-                    setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
+                    setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralBalance: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
                 }
             });
         }
@@ -431,6 +562,7 @@
         function updateBalancesUI() {
             if (!currentUserData) return;
             document.querySelectorAll('.coin-balance').forEach(el => el.textContent = Math.floor(currentUserData.takcoin || 0).toLocaleString());
+            document.querySelectorAll('.referral-balance').forEach(el => el.textContent = Math.floor(currentUserData.referralBalance || 0).toLocaleString());
             document.querySelectorAll('.pkr-balance').forEach(el => el.textContent = ((currentUserData.takcoin || 0) / 1200).toFixed(4));
             document.querySelectorAll('.tap-count').forEach(el => el.textContent = (currentUserData.totalTaps || 0).toLocaleString());
         }
@@ -439,8 +571,18 @@
             if (!currentUser || !currentUserData) { showActionPopup("Please login first!", 'error'); return; }
             try {
                 const userRef = doc(db, "users", currentUser.uid);
-                await updateDoc(userRef, { takcoin: increment(1), totalTaps: increment(1) });
+                const newTotalTaps = (currentUserData.totalTaps || 0) + 1;
+                
+                await updateDoc(userRef, { 
+                    takcoin: increment(1), 
+                    totalTaps: increment(1) 
+                });
+                
                 await addDoc(collection(db, "tapHistory"), { userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
+                
+                // Check referral bonus unlock
+                await checkAndUnlockReferralBonus(currentUser.uid, newTotalTaps);
+                
                 const canvas = document.querySelector('#coinCanvasContainer canvas');
                 if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
@@ -452,11 +594,10 @@
                 document.body.appendChild(floatingPlus);
                 setTimeout(() => floatingPlus.remove(), 800);
                 
-                // Ad sirf 150 taps ke baad chalegi
                 tapCountForAd++;
                 if (tapCountForAd >= TAPS_NEEDED_FOR_AD) {
                     showAdsterraPopunder();
-                    tapCountForAd = 0; // Reset counter after showing ad
+                    tapCountForAd = 0;
                 }
                 
             } catch (error) { console.error("Tap error:", error); showActionPopup("Error processing tap.", 'error'); }
@@ -563,7 +704,6 @@
             showScratchCard();
         }
 
-        // Updated Terms Modal with Privacy Policy tab and I Understand button
         function showTermsModal() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
@@ -636,7 +776,6 @@
             </div>`;
             document.body.appendChild(modal);
             
-            // Tab switching logic
             const termsTab = modal.querySelector('[data-tab="terms"]');
             const privacyTab = modal.querySelector('[data-tab="privacy"]');
             const termsContent = modal.querySelector('#termsContent');
@@ -656,7 +795,6 @@
                 privacyContent.style.display = 'block';
             });
             
-            // I Understand button - check the checkbox automatically
             const understandBtn = modal.querySelector('#understandBtn');
             understandBtn.addEventListener('click', () => {
                 const termsCheckbox = document.getElementById('termsCheck');
@@ -671,7 +809,6 @@
             modal.querySelector('#closeTermsX').addEventListener('click', () => modal.remove());
         }
 
-        // Send Gift with Notification
         async function sendGift(receiverId, receiverUsername, gift) {
             if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; }
             const senderBalance = currentUserData.takcoin || 0;
@@ -1174,7 +1311,19 @@
                     <div class="stat-card"><i class="fas fa-coins" style="font-size: 32px; color: #f39c12;"></i><div class="coin-balance" style="font-size: 28px; font-weight: bold;">0</div><div>TAKCOIN</div></div>
                     <div class="stat-card"><i class="fas fa-rupee-sign" style="font-size: 32px; color: #2ecc71;"></i><div class="pkr-balance" style="font-size: 28px; font-weight: bold;">0</div><div>PKR Value</div></div>
                     <div class="stat-card"><i class="fas fa-chart-line" style="font-size: 32px; color: #3498db;"></i><div class="tap-count" style="font-size: 28px; font-weight: bold;">${(currentUserData?.totalTaps || 0).toLocaleString()}</div><div>Lifetime Taps</div></div>
-                    <div class="stat-card"><i class="fas fa-gift" style="font-size: 32px; color: #9b59b6;"></i><div style="font-size: 14px; font-weight: bold;">${currentUserData?.referralCode || 'N/A'}</div><div>Referral Code</div></div>
+                    <div class="stat-card">
+                        <i class="fas fa-gift" style="font-size: 32px; color: #9b59b6;"></i>
+                        <div style="font-size: 14px; font-weight: bold;">${currentUserData?.referralCode || 'N/A'}</div>
+                        <div>Referral Code</div>
+                    </div>
+                    <div class="stat-card" style="position: relative;">
+                        <i class="fas fa-users" style="font-size: 32px; color: #f39c12;"></i>
+                        <div class="referral-balance-container">
+                            <span class="referral-balance" style="font-size: 24px; font-weight: bold; color: #f39c12;">0</span>
+                            <i class="fas fa-info-circle referral-info-icon" id="referralInfoIcon" style="margin-left: 5px;"></i>
+                        </div>
+                        <div>Referral Balance</div>
+                    </div>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 25px;">
                     <div class="glass-card" style="flex: 1; min-width: 280px; padding: 30px; text-align: center;"><div id="coinCanvasContainer" class="coin-container"></div><button id="tapButton" class="btn-primary" style="margin-top: 20px; width: 100%; font-size: 18px;"><i class="fas fa-hand-fist"></i> TAP COIN</button><div style="margin-top: 20px; display: flex; gap: 10px;"><button id="historyButton" class="btn-secondary" style="flex: 1;">History</button><button id="withdrawButton" class="btn-secondary" style="flex: 1;">Withdraw</button></div></div>
@@ -1186,6 +1335,8 @@
             init3DCoin();
             document.getElementById('giftBox').addEventListener('click', handleGiftBoxClick);
             startGiftTimer();
+            
+            document.getElementById('referralInfoIcon').addEventListener('click', showReferralRules);
             
             const notifRef = ref(rtdb, `notifications/${currentUser.uid}`);
             onValue(notifRef, (snapshot) => {
@@ -1228,7 +1379,6 @@
             document.getElementById('loginPasswordToggle').addEventListener('click', toggleLoginPassword);
             document.getElementById('signupPasswordToggle').addEventListener('click', toggleSignupPassword);
             
-            // Highlight links to open Terms modal
             const highlightTerms = document.getElementById('highlightPrivacy');
             const highlightPolicy = document.getElementById('highlightPolicy');
             const viewTermsBtn = document.getElementById('viewTerms');
@@ -1289,10 +1439,17 @@
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     const newUser = userCredential.user;
                     const newReferralCode = generateReferralCode(username);
-                    await setDoc(doc(db, "users", newUser.uid), { uid: newUser.uid, username: username, email: email, takcoin: 0, totalTaps: 0, referralCode: newReferralCode, referredBy: referralCode || null, createdAt: serverTimestamp() });
+                    await setDoc(doc(db, "users", newUser.uid), { uid: newUser.uid, username: username, email: email, takcoin: 0, totalTaps: 0, referralBalance: 0, referralCode: newReferralCode, referredBy: referralCode || null, createdAt: serverTimestamp() });
+                    
                     if (referralCode) {
-                        try { const referrerQuery = query(usersRef, where("referralCode", "==", referralCode)); const referrerSnapshot = await getDocs(referrerQuery); if (!referrerSnapshot.empty) { await updateDoc(doc(db, "users", referrerSnapshot.docs[0].id), { takcoin: increment(10000) }); } } catch (refError) { console.error("Referral bonus error:", refError); }
+                        const referrerQuery = query(collection(db, "users"), where("referralCode", "==", referralCode));
+                        const referrerSnapshot = await getDocs(referrerQuery);
+                        if (!referrerSnapshot.empty) {
+                            const referrerId = referrerSnapshot.docs[0].id;
+                            await processReferralBonus(referrerId, newUser.uid);
+                        }
                     }
+                    
                     currentUser = newUser;
                     await updateUserBalance();
                     renderDashboard();
