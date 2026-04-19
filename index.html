@@ -165,7 +165,24 @@
         .notification-text { font-size: 13px; margin-bottom: 4px; color: #eee; }
         .notification-time { font-size: 10px; color: #888; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .notification-toast { position: fixed; bottom: 80px; right: 20px; background: linear-gradient(135deg, #1a1f2e, #0f1222); backdrop-filter: blur(20px); border-radius: 12px; padding: 12px 18px; z-index: 1100; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-left: 4px solid #f39c12; animation: slideInRight 0.3s ease-out, fadeOut 0.5s ease-out 7.5s forwards; min-width: 280px; }
+        
+        /* Live Notification Toast - Screen ke top se thoda niche */
+        .notification-toast { 
+            position: fixed; 
+            top: 80px !important; 
+            right: 20px; 
+            transform: none !important; 
+            background: linear-gradient(135deg, #1a1f2e, #0f1222); 
+            backdrop-filter: blur(20px); 
+            border-radius: 12px; 
+            padding: 12px 18px; 
+            z-index: 1100; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            border-left: 4px solid #f39c12; 
+            animation: slideInRight 0.3s ease-out, fadeOut 0.5s ease-out 4s forwards; 
+            min-width: 280px; 
+            bottom: auto !important;
+        }
         .notification-toast.gift { border-left-color: #f39c12; }
         .notification-toast.follow { border-left-color: #2ecc71; }
         .notification-toast.like { border-left-color: #e74c3c; }
@@ -183,39 +200,71 @@
         .highlight-policy { color: #f39c12; font-weight: bold; text-decoration: underline; cursor: pointer; }
         
         /* Referral Balance Styles */
-        .referral-balance-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 5px;
-        }
-        .referral-info-icon {
-            color: #f39c12;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .referral-info-icon:hover {
-            color: #ffd700;
-            transform: scale(1.1);
-        }
-        .referral-rules-modal {
-            text-align: left;
-            padding: 20px;
-        }
-        .referral-rules-modal h3 {
-            color: #f39c12;
-            margin-bottom: 15px;
-        }
-        .referral-rules-modal p {
-            color: #ddd;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-        .referral-rules-modal .highlight {
-            color: #f39c12;
-            font-weight: bold;
+        .referral-balance-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
+        .referral-info-icon { color: #f39c12; font-size: 16px; cursor: pointer; transition: all 0.3s; }
+        .referral-info-icon:hover { color: #ffd700; transform: scale(1.1); }
+        .referral-rules-modal { text-align: left; padding: 20px; }
+        .referral-rules-modal h3 { color: #f39c12; margin-bottom: 15px; }
+        .referral-rules-modal p { color: #ddd; margin-bottom: 10px; line-height: 1.6; }
+        .referral-rules-modal .highlight { color: #f39c12; font-weight: bold; }
+
+        /* Forgot Password Modal Styles */
+        .forgot-password-modal { width: 90%; max-width: 420px; padding: 0; overflow: hidden; }
+        .forgot-header { background: linear-gradient(135deg, #f39c12, #e67e22); padding: 30px 25px; text-align: center; }
+        .forgot-icon { width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
+        .forgot-icon i { font-size: 36px; color: white; }
+        .forgot-header h3 { font-size: 22px; font-weight: 700; color: white; margin-bottom: 8px; }
+        .forgot-header p { font-size: 13px; color: rgba(255,255,255,0.9); }
+        .forgot-body { padding: 30px 25px; background: rgba(18,22,35,0.95); }
+        .email-input-wrapper { position: relative; margin-bottom: 20px; }
+        .email-input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #f39c12; font-size: 16px; }
+        .forgot-input { width: 100%; padding: 14px 15px 14px 45px; background: rgba(10,12,25,0.8); border: 1px solid rgba(243,156,18,0.3); border-radius: 40px; color: white; font-size: 14px; transition: all 0.3s; }
+        .forgot-input:focus { outline: none; border-color: #f39c12; box-shadow: 0 0 10px rgba(243,156,18,0.3); }
+        .forgot-input.error { border-color: #ff4444; }
+        .status-message { padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; display: none; }
+        .status-message.success { background: rgba(46,204,113,0.15); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); display: block; }
+        .status-message.error { background: rgba(255,68,68,0.15); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); display: block; }
+        .forgot-actions { display: flex; gap: 12px; }
+        .btn-send { flex: 1; background: linear-gradient(135deg, #f39c12, #e67e22); border: none; color: white; font-weight: 600; padding: 14px 20px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-send:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(243,156,18,0.5); }
+        .btn-send:disabled { opacity: 0.7; cursor: not-allowed; }
+        .btn-cancel { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,193,7,0.3); color: white; padding: 14px 20px; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-cancel:hover { background: rgba(255,193,7,0.2); border-color: #f39c12; }
+
+        /* ==================== LEADERBOARD STYLES ==================== */
+        .leaderboard-section { margin: 30px 0; }
+        .leaderboard-header { background: linear-gradient(135deg, #1a1a3a, #0f0c29); border-radius: 24px 24px 0 0; padding: 20px 25px; text-align: center; border: 1px solid rgba(243,156,18,0.3); border-bottom: none; }
+        .leaderboard-header h2 { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #f39c12, #ffd700); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .leaderboard-header i { color: #ffd700; margin: 0 10px; }
+        .leaderboard-container { background: rgba(18,22,35,0.9); backdrop-filter: blur(12px); border-radius: 0 0 24px 24px; border: 1px solid rgba(243,156,18,0.3); border-top: none; overflow: hidden; max-height: 500px; overflow-y: auto; }
+        .leaderboard-table { width: 100%; border-collapse: collapse; }
+        .leaderboard-table th { padding: 15px; text-align: left; background: rgba(243,156,18,0.15); color: #f39c12; font-weight: 600; font-size: 13px; border-bottom: 1px solid rgba(243,156,18,0.3); }
+        .leaderboard-table td { padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .leaderboard-table tr { transition: all 0.2s; }
+        .leaderboard-table tr:hover { background: rgba(243,156,18,0.08); }
+        .rank-cell { font-weight: bold; width: 60px; }
+        .user-cell { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; background: linear-gradient(135deg, #f39c12, #e67e22); color: white; }
+        .coins-cell { color: #f39c12; font-weight: bold; }
+        .taps-cell { color: #888; font-size: 12px; }
+        
+        /* Rank Special Styles */
+        .rank-1-row { background: linear-gradient(90deg, rgba(255,215,0,0.15), transparent); border-left: 4px solid #ffd700; }
+        .rank-2-row { background: linear-gradient(90deg, rgba(192,192,192,0.1), transparent); border-left: 4px solid #c0c0c0; }
+        .rank-3-row { background: linear-gradient(90deg, rgba(205,127,50,0.1), transparent); border-left: 4px solid #cd7f32; }
+        .current-user-row { background: rgba(243,156,18,0.15); border-left: 4px solid #f39c12; }
+        
+        .rank-1-icon { color: #ffd700; font-size: 20px; margin-right: 5px; }
+        .rank-2-icon { color: #c0c0c0; font-size: 18px; margin-right: 5px; }
+        .rank-3-icon { color: #cd7f32; font-size: 16px; margin-right: 5px; }
+        
+        .leaderboard-loading { text-align: center; padding: 40px; color: #888; }
+        .leaderboard-footer { padding: 12px; text-align: center; background: rgba(0,0,0,0.2); color: #666; font-size: 12px; border-top: 1px solid rgba(243,156,18,0.2); }
+        
+        @media (max-width: 600px) {
+            .leaderboard-table th, .leaderboard-table td { padding: 10px 8px; font-size: 12px; }
+            .user-avatar { width: 30px; height: 30px; font-size: 14px; }
+            .rank-cell { width: 45px; }
         }
     </style>
 </head>
@@ -225,7 +274,7 @@
     <script type="module">
         import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, orderBy, onSnapshot, increment, serverTimestamp, deleteDoc, runTransaction, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, push, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -254,6 +303,7 @@
         let giftTimerInterval = null;
         let userDataUnsubscribe = null;
         let notificationUnsubscribe = null;
+        let leaderboardUnsubscribe = null;
         let notificationsPanelOpen = false;
         
         // --- Adsterra Popunder Ad Counter ---
@@ -265,9 +315,7 @@
                 const adLink = "https://motortape.com/8b/d5/73/8bd5733e6b2a78e35208602da4075902.js";
                 window.open(adLink, '_blank');
                 console.log("Adsterra: Popunder shown after", TAPS_NEEDED_FOR_AD, "taps");
-            } catch(e) {
-                console.log("Ad error:", e);
-            }
+            } catch(e) { console.log("Ad error:", e); }
         }
 
         // ==================== REFERRAL SYSTEM ====================
@@ -278,1021 +326,334 @@
         function showReferralRules() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="glass-card" style="width: 90%; max-width: 450px; padding: 30px;">
-                    <div class="referral-rules-modal">
-                        <h3><i class="fas fa-info-circle"></i> Referral Bonus Rules</h3>
-                        <p><span class="highlight">Don't worry, this balance belongs to you.</span> However, there are some rules you need to follow.</p>
-                        <p>When the user you referred taps <span class="highlight">1,000 TAKCOIN</span>, then <span class="highlight">1,000 TAKCOIN</span> will be added to your main balance.</p>
-                        <p>Similarly, the full <span class="highlight">10,000 TAKCOIN</span> will be added to your account as the referred user continues tapping (1,000 coins per 1,000 taps).</p>
-                        <p><i class="fas fa-gift" style="color: #f39c12;"></i> Keep referring to earn more!</p>
-                    </div>
-                    <button id="closeReferralRules" class="btn-primary" style="width: 100%; margin-top: 20px;">Got it!</button>
-                </div>
-            `;
+            modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 450px; padding: 30px;"><div class="referral-rules-modal"><h3><i class="fas fa-info-circle"></i> Referral Bonus Rules</h3><p><span class="highlight">Don't worry, this balance belongs to you.</span> However, there are some rules you need to follow.</p><p>When the user you referred taps <span class="highlight">1,000 TAKCOIN</span>, then <span class="highlight">1,000 TAKCOIN</span> will be added to your main balance.</p><p>Similarly, the full <span class="highlight">10,000 TAKCOIN</span> will be added to your account as the referred user continues tapping (1,000 coins per 1,000 taps).</p><p><i class="fas fa-gift" style="color: #f39c12;"></i> Keep referring to earn more!</p></div><button id="closeReferralRules" class="btn-primary" style="width: 100%; margin-top: 20px;">Got it!</button></div>`;
             document.body.appendChild(modal);
             document.getElementById('closeReferralRules').addEventListener('click', () => modal.remove());
         }
         
         async function processReferralBonus(referrerId, referredUserId) {
             try {
-                const referralData = {
-                    referrerId: referrerId,
-                    referredUserId: referredUserId,
-                    totalBonus: REFERRAL_BONUS_TOTAL,
-                    lockedAmount: REFERRAL_BONUS_TOTAL,
-                    unlockedAmount: 0,
-                    status: 'active',
-                    createdAt: serverTimestamp(),
-                    lastUnlockAt: 0
-                };
-                
+                const referralData = { referrerId, referredUserId, totalBonus: REFERRAL_BONUS_TOTAL, lockedAmount: REFERRAL_BONUS_TOTAL, unlockedAmount: 0, status: 'active', createdAt: serverTimestamp(), lastUnlockAt: 0 };
                 await addDoc(collection(db, "referralBonuses"), referralData);
-                
-                await updateDoc(doc(db, "users", referrerId), {
-                    referralBalance: increment(REFERRAL_BONUS_TOTAL)
-                });
-                
+                await updateDoc(doc(db, "users", referrerId), { referralBalance: increment(REFERRAL_BONUS_TOTAL) });
                 console.log('✅ Referral bonus created for:', referrerId);
-            } catch (error) {
-                console.error('Error processing referral:', error);
-            }
+            } catch (error) { console.error('Error processing referral:', error); }
         }
         
         async function checkAndUnlockReferralBonus(userId, totalTaps) {
             try {
-                const bonusesQuery = query(
-                    collection(db, "referralBonuses"),
-                    where("referredUserId", "==", userId),
-                    where("status", "==", "active")
-                );
-                
+                const bonusesQuery = query(collection(db, "referralBonuses"), where("referredUserId", "==", userId), where("status", "==", "active"));
                 const snapshot = await getDocs(bonusesQuery);
-                
                 snapshot.forEach(async (docSnap) => {
                     const bonus = docSnap.data();
                     const tapsSinceLastUnlock = totalTaps - (bonus.lastUnlockAt || 0);
-                    
                     if (tapsSinceLastUnlock >= UNLOCK_PER_TAPS) {
                         const unlockCount = Math.floor(tapsSinceLastUnlock / UNLOCK_PER_TAPS);
                         const amountToUnlock = Math.min(unlockCount * UNLOCK_AMOUNT, bonus.lockedAmount);
-                        
                         if (amountToUnlock > 0) {
                             await runTransaction(db, async (transaction) => {
                                 const bonusRef = doc(db, "referralBonuses", docSnap.id);
                                 const userRef = doc(db, "users", bonus.referrerId);
-                                
                                 const userDoc = await transaction.get(userRef);
                                 if (!userDoc.exists()) return;
-                                
                                 const newLocked = bonus.lockedAmount - amountToUnlock;
                                 const newUnlocked = bonus.unlockedAmount + amountToUnlock;
-                                
-                                transaction.update(bonusRef, {
-                                    lockedAmount: newLocked,
-                                    unlockedAmount: newUnlocked,
-                                    lastUnlockAt: totalTaps,
-                                    status: newLocked === 0 ? 'completed' : 'active'
-                                });
-                                
-                                transaction.update(userRef, {
-                                    takcoin: increment(amountToUnlock),
-                                    referralBalance: increment(-amountToUnlock)
-                                });
-                                
+                                transaction.update(bonusRef, { lockedAmount: newLocked, unlockedAmount: newUnlocked, lastUnlockAt: totalTaps, status: newLocked === 0 ? 'completed' : 'active' });
+                                transaction.update(userRef, { takcoin: increment(amountToUnlock), referralBalance: increment(-amountToUnlock) });
                                 if (newLocked === 0) {
-                                    await addDoc(collection(db, "notifications"), {
-                                        userId: bonus.referrerId,
-                                        type: 'referral',
-                                        message: `🎉 Your referral bonus of 10,000 TAKCOIN is now fully unlocked!`,
-                                        read: false,
-                                        timestamp: serverTimestamp()
-                                    });
+                                    await addDoc(collection(db, "notifications"), { userId: bonus.referrerId, type: 'referral', message: `🎉 Your referral bonus of 10,000 TAKCOIN is now fully unlocked!`, read: false, timestamp: serverTimestamp() });
                                 }
                             });
-                            
                             console.log(`✅ Unlocked ${amountToUnlock} coins for referrer:`, bonus.referrerId);
                         }
                     }
                 });
-            } catch (error) {
-                console.error('Error unlocking referral bonus:', error);
-            }
+            } catch (error) { console.error('Error unlocking referral bonus:', error); }
         }
 
         const giftsCatalog = [
-            { name: "❤️ Heart", price: 2500, icon: "❤️" },
-            { name: "🔥 Fire", price: 5000, icon: "🔥" },
-            { name: "👍 Thumbs Up", price: 100, icon: "👍" },
-            { name: "💌 Love Letter", price: 5000, icon: "💌" },
-            { name: "💋 Kiss", price: 10000, icon: "💋" },
-            { name: "🐅 Tiger", price: 30000, icon: "🐅" },
-            { name: "😺 Cat", price: 50000, icon: "😺" },
-            { name: "✈️ Plane", price: 100000, icon: "✈️" },
-            { name: "🌹 Rose", price: 200, icon: "🌹" }
+            { name: "❤️ Heart", price: 2500, icon: "❤️" }, { name: "🔥 Fire", price: 5000, icon: "🔥" }, { name: "👍 Thumbs Up", price: 100, icon: "👍" },
+            { name: "💌 Love Letter", price: 5000, icon: "💌" }, { name: "💋 Kiss", price: 10000, icon: "💋" }, { name: "🐅 Tiger", price: 30000, icon: "🐅" },
+            { name: "😺 Cat", price: 50000, icon: "😺" }, { name: "✈️ Plane", price: 100000, icon: "✈️" }, { name: "🌹 Rose", price: 200, icon: "🌹" }
         ];
         
         const coinPackages = [
-            { tak: 50000, price: 100, name: "Starter Pack" },
-            { tak: 100000, price: 200, name: "Popular Pack" },
-            { tak: 200000, price: 300, name: "Premium Pack" },
-            { tak: 500000, price: 700, name: "Elite Pack" },
-            { tak: 1000000, price: 1300, name: "Legendary Pack" }
+            { tak: 50000, price: 100, name: "Starter Pack" }, { tak: 100000, price: 200, name: "Popular Pack" }, { tak: 200000, price: 300, name: "Premium Pack" },
+            { tak: 500000, price: 700, name: "Elite Pack" }, { tak: 1000000, price: 1300, name: "Legendary Pack" }
         ];
 
         function startIntroAnimation() {
-            const bg = document.getElementById('introBg');
-            if (!bg) return;
+            const bg = document.getElementById('introBg'); if (!bg) return;
             const msgs = ["Hi 👋", "Send gift 🎁", "Wow 🔥", "Nice 💬", "Let's play ⚡"];
-            const coinInterval = setInterval(() => {
-                if (!document.getElementById('introScreen')) return;
-                let coin = document.createElement("div");
-                coin.className = "intro-coin";
-                coin.innerText = "🪙";
-                coin.style.left = Math.random() * 100 + "vw";
-                coin.style.top = Math.random() * 100 + "vh";
-                bg.appendChild(coin);
-                setTimeout(() => {
-                    if (!document.getElementById('introScreen')) return;
-                    let blast = document.createElement("div");
-                    blast.className = "intro-blast";
-                    blast.style.left = coin.style.left;
-                    blast.style.top = coin.style.top;
-                    bg.appendChild(blast);
-                    coin.remove();
-                    setTimeout(() => blast.remove(), 1000);
-                }, 700);
-            }, 500);
-            const chatInterval = setInterval(() => {
-                if (!document.getElementById('introScreen')) return;
-                let chat = document.createElement("div");
-                chat.className = "intro-chat";
-                chat.innerText = msgs[Math.floor(Math.random() * msgs.length)];
-                chat.style.left = Math.random() * 80 + "vw";
-                bg.appendChild(chat);
-                setTimeout(() => chat.remove(), 7000);
-            }, 1000);
-            const giftInterval = setInterval(() => {
-                if (!document.getElementById('introScreen')) return;
-                let gift = document.createElement("div");
-                gift.className = "intro-gift";
-                gift.innerText = "🎁";
-                gift.style.left = Math.random() * 100 + "vw";
-                bg.appendChild(gift);
-                setTimeout(() => gift.remove(), 6000);
-            }, 1300);
-            setTimeout(() => {
-                clearInterval(coinInterval);
-                clearInterval(chatInterval);
-                clearInterval(giftInterval);
-                const introScreen = document.getElementById('introScreen');
-                if (introScreen) introScreen.remove();
-            }, 10000);
+            const coinInterval = setInterval(() => { if (!document.getElementById('introScreen')) return; let coin = document.createElement("div"); coin.className = "intro-coin"; coin.innerText = "🪙"; coin.style.left = Math.random() * 100 + "vw"; coin.style.top = Math.random() * 100 + "vh"; bg.appendChild(coin); setTimeout(() => { if (!document.getElementById('introScreen')) return; let blast = document.createElement("div"); blast.className = "intro-blast"; blast.style.left = coin.style.left; blast.style.top = coin.style.top; bg.appendChild(blast); coin.remove(); setTimeout(() => blast.remove(), 1000); }, 700); }, 500);
+            const chatInterval = setInterval(() => { if (!document.getElementById('introScreen')) return; let chat = document.createElement("div"); chat.className = "intro-chat"; chat.innerText = msgs[Math.floor(Math.random() * msgs.length)]; chat.style.left = Math.random() * 80 + "vw"; bg.appendChild(chat); setTimeout(() => chat.remove(), 7000); }, 1000);
+            const giftInterval = setInterval(() => { if (!document.getElementById('introScreen')) return; let gift = document.createElement("div"); gift.className = "intro-gift"; gift.innerText = "🎁"; gift.style.left = Math.random() * 100 + "vw"; bg.appendChild(gift); setTimeout(() => gift.remove(), 6000); }, 1300);
+            setTimeout(() => { clearInterval(coinInterval); clearInterval(chatInterval); clearInterval(giftInterval); const introScreen = document.getElementById('introScreen'); if (introScreen) introScreen.remove(); }, 10000);
         }
-
         window.addEventListener('load', () => { startIntroAnimation(); });
 
-        function showNotificationToast(message, type = 'gift') {
-            const toast = document.createElement('div');
-            toast.className = `notification-toast ${type}`;
-            let icon = '🎁';
-            if (type === 'gift') icon = '🎁';
-            else if (type === 'follow') icon = '👥';
-            else if (type === 'like') icon = '❤️';
-            toast.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="font-size: 24px;">${icon}</div><div style="flex: 1;"><div style="font-weight: bold; color: #f39c12; margin-bottom: 4px;">${type === 'gift' ? 'New Gift!' : type === 'follow' ? 'New Follower!' : 'New Like!'}</div><div style="font-size: 12px; color: #eee;">${message}</div></div></div>`;
-            document.body.appendChild(toast);
-            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 8000);
+        // FIX 2: Sirf receiver ko live notification toast show hoga
+        function showNotificationToast(message, type = 'gift') { 
+            const toast = document.createElement('div'); 
+            toast.className = `notification-toast ${type}`; 
+            let icon = '🎁'; 
+            if (type === 'gift') icon = '🎁'; 
+            else if (type === 'follow') icon = '👥'; 
+            else if (type === 'like') icon = '❤️'; 
+            toast.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><div style="font-size: 24px;">${icon}</div><div style="flex: 1;"><div style="font-weight: bold; color: #f39c12; margin-bottom: 4px;">${type === 'gift' ? 'New Gift!' : type === 'follow' ? 'New Follower!' : 'New Like!'}</div><div style="font-size: 12px; color: #eee;">${message}</div></div></div>`; 
+            document.body.appendChild(toast); 
+            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 5000); 
         }
-
-        function showActionPopup(message, type = 'success') {
-            const popup = document.createElement('div');
-            popup.className = 'action-popup';
-            if (type === 'like') { popup.classList.add('like-popup'); popup.innerHTML = `<i class="fas fa-heart"></i> <span>${message}</span>`; }
-            else if (type === 'follow') { popup.classList.add('follow-popup'); popup.innerHTML = `<i class="fas fa-user-plus"></i> <span>${message}</span>`; }
-            else if (type === 'unfollow') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-user-minus"></i> <span>${message}</span>`; }
-            else if (type === 'unlike') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-heart-broken"></i> <span>${message}</span>`; }
-            else { popup.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`; }
-            document.body.appendChild(popup);
-            setTimeout(() => { popup.classList.add('fade-out'); setTimeout(() => popup.remove(), 300); }, 2800);
+        
+        function showActionPopup(message, type = 'success') { const popup = document.createElement('div'); popup.className = 'action-popup'; if (type === 'like') { popup.classList.add('like-popup'); popup.innerHTML = `<i class="fas fa-heart"></i> <span>${message}</span>`; } else if (type === 'follow') { popup.classList.add('follow-popup'); popup.innerHTML = `<i class="fas fa-user-plus"></i> <span>${message}</span>`; } else if (type === 'unfollow') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-user-minus"></i> <span>${message}</span>`; } else if (type === 'unlike') { popup.classList.add('unfollow-popup'); popup.innerHTML = `<i class="fas fa-heart-broken"></i> <span>${message}</span>`; } else { popup.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`; } document.body.appendChild(popup); setTimeout(() => { popup.classList.add('fade-out'); setTimeout(() => popup.remove(), 300); }, 2800); }
+        function showWithdrawalSuccessPopup(withdrawalData) { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="withdrawal-success-popup"><div class="tick-animation"><i class="fas fa-check"></i></div><h2 style="color: #2ecc71;">Withdrawal Request Sent!</h2><div class="withdrawal-details"><p><strong>💰 Amount:</strong> ${withdrawalData.amount.toLocaleString()} TAK</p><p><strong>💳 Method:</strong> ${withdrawalData.method}</p><p><strong>📱 Account:</strong> ${withdrawalData.accountNumber}</p><p><strong>👤 Account Holder:</strong> ${withdrawalData.accountName}</p><p><strong>⏳ Status:</strong> <span class="status-pending-badge">Pending</span></p></div><button id="closeWithdrawalPopup" class="btn-primary">Close</button></div>`; document.body.appendChild(modal); document.getElementById('closeWithdrawalPopup').addEventListener('click', () => modal.remove()); }
+        
+        // FIX 1: Professional Forgot Password Modal
+        function showForgotPasswordModal() { 
+            const modal = document.createElement('div'); 
+            modal.className = 'modal-overlay'; 
+            modal.innerHTML = `
+                <div class="forgot-password-modal">
+                    <div class="forgot-header">
+                        <div class="forgot-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Forgot Password?</h3>
+                        <p>No worries! Enter your email and we'll send you a reset link</p>
+                    </div>
+                    <div class="forgot-body">
+                        <div class="email-input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="forgotEmailInput" class="forgot-input" placeholder="Enter your email address" autocomplete="off">
+                        </div>
+                        <div id="forgotStatusMsg" class="status-message"></div>
+                        <div class="forgot-actions">
+                            <button id="sendResetBtn" class="btn-send"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
+                            <button id="closeForgotModal" class="btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `; 
+            document.body.appendChild(modal); 
+            const emailInput = document.getElementById('forgotEmailInput'); 
+            const statusMsg = document.getElementById('forgotStatusMsg'); 
+            const sendBtn = document.getElementById('sendResetBtn'); 
+            const showStatus = (message, isSuccess) => { 
+                statusMsg.className = `status-message ${isSuccess ? 'success' : 'error'}`; 
+                statusMsg.innerHTML = isSuccess ? `<i class="fas fa-check-circle"></i> ${message}` : `<i class="fas fa-exclamation-circle"></i> ${message}`; 
+                setTimeout(() => { statusMsg.style.display = 'none'; }, 4000); 
+            }; 
+            sendBtn.addEventListener('click', async () => { 
+                const email = emailInput.value.trim(); 
+                if (!email) { emailInput.classList.add('error'); showStatus('Please enter your email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; } 
+                if (!isValidEmail(email)) { emailInput.classList.add('error'); showStatus('Please enter a valid email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; } 
+                sendBtn.disabled = true; 
+                sendBtn.innerHTML = '<span class="spinner"></span> Sending...'; 
+                try { 
+                    await sendPasswordResetEmail(auth, email); 
+                    showStatus('✨ Password reset email sent! Check your inbox.', true); 
+                    emailInput.value = ''; 
+                    setTimeout(() => modal.remove(), 2500); 
+                } catch (error) { 
+                    let errorMsg = 'Failed to send reset email.'; 
+                    if (error.code === 'auth/user-not-found') errorMsg = 'No account found with this email.'; 
+                    else if (error.code === 'auth/invalid-email') errorMsg = 'Invalid email format.'; 
+                    showStatus(errorMsg, false); 
+                    sendBtn.disabled = false; 
+                    sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link'; 
+                } 
+            }); 
+            document.getElementById('closeForgotModal').addEventListener('click', () => modal.remove()); 
+            emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendBtn.click(); }); 
         }
-
-        function showWithdrawalSuccessPopup(withdrawalData) {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="withdrawal-success-popup"><div class="tick-animation"><i class="fas fa-check"></i></div><h2 style="color: #2ecc71;">Withdrawal Request Sent!</h2><div class="withdrawal-details"><p><strong>💰 Amount:</strong> ${withdrawalData.amount.toLocaleString()} TAK</p><p><strong>💳 Method:</strong> ${withdrawalData.method}</p><p><strong>📱 Account:</strong> ${withdrawalData.accountNumber}</p><p><strong>👤 Account Holder:</strong> ${withdrawalData.accountName}</p><p><strong>⏳ Status:</strong> <span class="status-pending-badge">Pending</span></p></div><button id="closeWithdrawalPopup" class="btn-primary">Close</button></div>`;
-            document.body.appendChild(modal);
-            document.getElementById('closeWithdrawalPopup').addEventListener('click', () => modal.remove());
-        }
-
-        function showForgotPasswordModal() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="forgot-password-modal"><div class="forgot-header"><div class="forgot-icon"><i class="fas fa-key"></i></div><h3>Reset Your Password</h3><p>Enter your email and we'll send you a reset link</p></div><div class="forgot-body"><div class="email-input-wrapper"><i class="fas fa-envelope"></i><input type="email" id="forgotEmailInput" class="forgot-input" placeholder="your@email.com" autocomplete="off"></div><div id="forgotStatusMsg" class="status-message"></div><div class="forgot-actions"><button id="sendResetBtn" class="btn-send"><i class="fas fa-paper-plane"></i> Send Reset Link</button><button id="closeForgotModal" class="btn-cancel">Cancel</button></div></div></div>`;
-            document.body.appendChild(modal);
-            const emailInput = document.getElementById('forgotEmailInput');
-            const statusMsg = document.getElementById('forgotStatusMsg');
-            const sendBtn = document.getElementById('sendResetBtn');
-            const showStatus = (message, isSuccess) => {
-                statusMsg.className = `status-message ${isSuccess ? 'success' : 'error'}`;
-                statusMsg.innerHTML = isSuccess ? `<i class="fas fa-check-circle"></i> ${message}` : `<i class="fas fa-exclamation-circle"></i> ${message}`;
-                statusMsg.style.display = 'block';
-                setTimeout(() => { if (statusMsg.style.display === 'block') { statusMsg.style.opacity = '0'; setTimeout(() => { statusMsg.style.display = 'none'; statusMsg.style.opacity = '1'; }, 300); } }, 4000);
-            };
-            sendBtn.addEventListener('click', async () => {
-                const email = emailInput.value.trim();
-                if (!email) { emailInput.classList.add('error'); showStatus('Please enter your email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; }
-                if (!isValidEmail(email)) { emailInput.classList.add('error'); showStatus('Please enter a valid email address', false); setTimeout(() => emailInput.classList.remove('error'), 500); return; }
-                sendBtn.disabled = true;
-                sendBtn.innerHTML = '<span class="spinner"></span> Sending...';
-                try {
-                    await sendPasswordResetEmail(auth, email);
-                    showStatus('✨ Password reset email sent! Check your inbox/spam folder.', true);
-                    emailInput.value = '';
-                    setTimeout(() => modal.remove(), 3000);
-                } catch (error) {
-                    let errorMsg = 'Failed to send reset email.';
-                    if (error.code === 'auth/user-not-found') errorMsg = 'No account found with this email address.';
-                    else if (error.code === 'auth/invalid-email') errorMsg = 'Invalid email format.';
-                    showStatus(errorMsg, false);
-                    sendBtn.disabled = false;
-                    sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
-                }
-            });
-            document.getElementById('closeForgotModal').addEventListener('click', () => modal.remove());
-            emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendBtn.click(); });
-        }
-
+        
         function isValidEmail(email) { const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return emailRegex.test(email); }
-
-        async function giveRewardToUser(targetUserId, actionType, actorUsername) {
-            if (!targetUserId || targetUserId === currentUser?.uid) return;
-            try {
-                const userRef = doc(db, "users", targetUserId);
-                await updateDoc(userRef, { takcoin: increment(1) });
-                showActionPopup(`✨ +1 TAKCOIN from ${actorUsername} (${actionType})!`, 'success');
-                await addDoc(collection(db, "rewardHistory"), { userId: targetUserId, fromUserId: currentUser.uid, fromUsername: actorUsername, actionType: actionType, reward: 1, timestamp: serverTimestamp() });
-            } catch (error) { console.error("Error giving reward:", error); }
-        }
-
+        async function giveRewardToUser(targetUserId, actionType, actorUsername) { if (!targetUserId || targetUserId === currentUser?.uid) return; try { const userRef = doc(db, "users", targetUserId); await updateDoc(userRef, { takcoin: increment(1) }); showActionPopup(`✨ +1 TAKCOIN from ${actorUsername} (${actionType})!`, 'success'); await addDoc(collection(db, "rewardHistory"), { userId: targetUserId, fromUserId: currentUser.uid, fromUsername: actorUsername, actionType: actionType, reward: 1, timestamp: serverTimestamp() }); } catch (error) { console.error("Error giving reward:", error); } }
         function generateReferralCode(username) { return username.slice(0, 4).toUpperCase() + Math.random().toString(36).substring(2, 8).toUpperCase(); }
         function sanitizeUsername(username) { return username.replace(/\s/g, ''); }
-
-        async function checkEmailExists(email) {
-            const usersRef = collection(db, "users");
-            const q = query(usersRef, where("email", "==", email));
-            const querySnapshot = await getDocs(q);
-            return !querySnapshot.empty;
-        }
+        async function checkEmailExists(email) { const usersRef = collection(db, "users"); const q = query(usersRef, where("email", "==", email)); const querySnapshot = await getDocs(q); return !querySnapshot.empty; }
 
         function setupUserDataListener(userId) {
             if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
             const userRef = doc(db, "users", userId);
-            userDataUnsubscribe = onSnapshot(userRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    currentUserData = docSnap.data();
-                    updateBalancesUI();
-                } else {
-                    setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralBalance: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error);
-                }
-            });
+            userDataUnsubscribe = onSnapshot(userRef, (docSnap) => { if (docSnap.exists()) { currentUserData = docSnap.data(); updateBalancesUI(); } else { setDoc(userRef, { uid: userId, username: currentUser?.displayName || '', email: currentUser?.email || '', takcoin: 0, totalTaps: 0, referralBalance: 0, referralCode: generateReferralCode('user'), createdAt: serverTimestamp() }).catch(console.error); } });
         }
-
         async function updateUserBalance() { if (currentUserData) updateBalancesUI(); }
-
-        function updateBalancesUI() {
-            if (!currentUserData) return;
-            document.querySelectorAll('.coin-balance').forEach(el => el.textContent = Math.floor(currentUserData.takcoin || 0).toLocaleString());
-            document.querySelectorAll('.referral-balance').forEach(el => el.textContent = Math.floor(currentUserData.referralBalance || 0).toLocaleString());
-            document.querySelectorAll('.pkr-balance').forEach(el => el.textContent = ((currentUserData.takcoin || 0) / 1200).toFixed(4));
-            document.querySelectorAll('.tap-count').forEach(el => el.textContent = (currentUserData.totalTaps || 0).toLocaleString());
-        }
+        function updateBalancesUI() { if (!currentUserData) return; document.querySelectorAll('.coin-balance').forEach(el => el.textContent = Math.floor(currentUserData.takcoin || 0).toLocaleString()); document.querySelectorAll('.referral-balance').forEach(el => el.textContent = Math.floor(currentUserData.referralBalance || 0).toLocaleString()); document.querySelectorAll('.pkr-balance').forEach(el => el.textContent = ((currentUserData.takcoin || 0) / 1200).toFixed(4)); document.querySelectorAll('.tap-count').forEach(el => el.textContent = (currentUserData.totalTaps || 0).toLocaleString()); }
 
         async function handleTap(e) {
             if (!currentUser || !currentUserData) { showActionPopup("Please login first!", 'error'); return; }
             try {
                 const userRef = doc(db, "users", currentUser.uid);
                 const newTotalTaps = (currentUserData.totalTaps || 0) + 1;
-                
-                await updateDoc(userRef, { 
-                    takcoin: increment(1), 
-                    totalTaps: increment(1) 
-                });
-                
+                await updateDoc(userRef, { takcoin: increment(1), totalTaps: increment(1) });
                 await addDoc(collection(db, "tapHistory"), { userId: currentUser.uid, username: currentUserData.username, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
-                
-                // Check referral bonus unlock
                 await checkAndUnlockReferralBonus(currentUser.uid, newTotalTaps);
-                
-                const canvas = document.querySelector('#coinCanvasContainer canvas');
-                if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
+                const canvas = document.querySelector('#coinCanvasContainer canvas'); if (canvas) { canvas.classList.add('coin-tap-effect'); setTimeout(() => canvas.classList.remove('coin-tap-effect'), 300); }
                 const coinRect = document.querySelector('.coin-container').getBoundingClientRect();
-                const floatingPlus = document.createElement('div');
-                floatingPlus.className = 'floating-plus';
-                floatingPlus.textContent = '+1';
-                floatingPlus.style.left = coinRect.left + coinRect.width / 2 + 'px';
-                floatingPlus.style.top = coinRect.top + coinRect.height / 2 + 'px';
-                document.body.appendChild(floatingPlus);
-                setTimeout(() => floatingPlus.remove(), 800);
-                
-                tapCountForAd++;
-                if (tapCountForAd >= TAPS_NEEDED_FOR_AD) {
-                    showAdsterraPopunder();
-                    tapCountForAd = 0;
-                }
-                
+                const floatingPlus = document.createElement('div'); floatingPlus.className = 'floating-plus'; floatingPlus.textContent = '+1'; floatingPlus.style.left = coinRect.left + coinRect.width / 2 + 'px'; floatingPlus.style.top = coinRect.top + coinRect.height / 2 + 'px'; document.body.appendChild(floatingPlus); setTimeout(() => floatingPlus.remove(), 800);
+                tapCountForAd++; if (tapCountForAd >= TAPS_NEEDED_FOR_AD) { showAdsterraPopunder(); tapCountForAd = 0; }
             } catch (error) { console.error("Tap error:", error); showActionPopup("Error processing tap.", 'error'); }
         }
 
-        function init3DCoin() {
-            const container = document.getElementById('coinCanvasContainer');
-            if (!container || container.querySelector('canvas')) return;
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(220, 220);
-            renderer.setClearColor(0x000000, 0);
-            container.appendChild(renderer.domElement);
-            const geometry = new THREE.CylinderGeometry(1, 1, 0.2, 128);
-            const material = new THREE.MeshStandardMaterial({ color: 0xffaa33, metalness: 0.85, roughness: 0.25, emissive: 0x442200, emissiveIntensity: 0.3 });
-            coinMesh = new THREE.Mesh(geometry, material);
-            coinMesh.rotation.x = Math.PI / 2;
-            scene.add(coinMesh);
-            const ambientLight = new THREE.AmbientLight(0x404040);
-            scene.add(ambientLight);
-            const directionalLight = new THREE.DirectionalLight(0xffcc88, 1);
-            directionalLight.position.set(5, 10, 7);
-            scene.add(directionalLight);
-            camera.position.z = 2.8;
-            function animate() { requestAnimationFrame(animate); if (coinMesh) coinMesh.rotation.z += 0.015; renderer.render(scene, camera); }
-            animate();
-        }
-
+        function init3DCoin() { const container = document.getElementById('coinCanvasContainer'); if (!container || container.querySelector('canvas')) return; scene = new THREE.Scene(); camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000); renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); renderer.setSize(220, 220); renderer.setClearColor(0x000000, 0); container.appendChild(renderer.domElement); const geometry = new THREE.CylinderGeometry(1, 1, 0.2, 128); const material = new THREE.MeshStandardMaterial({ color: 0xffaa33, metalness: 0.85, roughness: 0.25, emissive: 0x442200, emissiveIntensity: 0.3 }); coinMesh = new THREE.Mesh(geometry, material); coinMesh.rotation.x = Math.PI / 2; scene.add(coinMesh); const ambientLight = new THREE.AmbientLight(0x404040); scene.add(ambientLight); const directionalLight = new THREE.DirectionalLight(0xffcc88, 1); directionalLight.position.set(5, 10, 7); scene.add(directionalLight); camera.position.z = 2.8; function animate() { requestAnimationFrame(animate); if (coinMesh) coinMesh.rotation.z += 0.015; renderer.render(scene, camera); } animate(); }
         async function getGiftStatus() { if (!currentUser) return null; try { const giftRef = doc(db, "dailyGifts", currentUser.uid); const giftSnap = await getDoc(giftRef); return giftSnap.exists() ? giftSnap.data() : null; } catch (error) { return null; } }
         async function updateGiftStatus(lastClaimTime, nextAvailableTime) { if (!currentUser) return; await setDoc(doc(db, "dailyGifts", currentUser.uid), { userId: currentUser.uid, username: currentUserData.username, lastClaimTime, nextAvailableTime, updatedAt: serverTimestamp() }); }
         function getRandomReward() { const rewards = [40, 50, 55, 60, 70, 80, 90, 100, 120, 150, 180, 200, 220, 250, 280, 300]; return rewards[Math.floor(Math.random() * rewards.length)]; }
-
-        function showTimerAlert(hours, minutes, seconds) {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 400px; padding: 30px; text-align: center;"><div class="timer-alert-modal"><div class="timer-alert-icon"><i class="fas fa-hourglass-half"></i></div><div class="timer-alert-title">🎁 Gift Box Locked</div><div class="timer-alert-message">Your next reward is coming soon!</div><div class="timer-alert-time">${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}</div><div class="timer-alert-sub">⏰ Gift will be available after this time</div><button id="closeTimerAlert" class="btn-primary" style="margin-top: 25px; width: 100%;"><i class="fas fa-check-circle"></i> Got it</button></div></div>`;
-            document.body.appendChild(modal);
-            document.getElementById('closeTimerAlert').addEventListener('click', () => modal.remove());
-        }
-
-        function showScratchCard() {
-            const reward = getRandomReward();
-            let scratched = false;
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 450px; padding: 30px; text-align: center;"><h2 style="color: #f39c12; margin-bottom: 15px;">🎁 DAILY REWARD 🎁</h2><div style="margin-bottom: 20px;"><p class="animated-text" style="font-size: 18px; font-weight: bold;">✨ Scratch to reveal your lucky reward! ✨</p><p style="color: #888; margin-top: 5px;">Every day brings new fortune!</p></div><div id="scratchContainer" class="scratch-card" style="position: relative; min-height: 200px;"><div id="scratchCover" class="scratch-cover"><div style="text-align: center;"><i class="fas fa-hand-scissors" style="font-size: 48px; color: #fff;"></i><p style="margin-top: 10px;">Scratch Here!</p></div></div><div id="rewardReveal" style="padding: 30px;"><i class="fas fa-gem" style="font-size: 48px; color: #f39c12;"></i><div class="reward-amount" id="rewardAmount">+0 TAK</div><p style="margin-top: 10px;">Congratulations! 🎉</p></div></div><button id="closeScratchBtn" class="btn-primary" style="margin-top: 20px; width: 100%;">Claim & Continue</button></div>`;
-            document.body.appendChild(modal);
-            const scratchCover = modal.querySelector('#scratchCover');
-            const rewardAmountSpan = modal.querySelector('#rewardAmount');
-            const closeBtn = modal.querySelector('#closeScratchBtn');
-            rewardAmountSpan.textContent = `+${reward} TAK`;
-            scratchCover.addEventListener('click', async () => {
-                if (scratched) return;
-                scratched = true;
-                scratchCover.classList.add('scratched');
-                let current = 0;
-                const target = reward;
-                const step = Math.ceil(target / 20);
-                const interval = setInterval(() => { current += step; if (current >= target) { current = target; clearInterval(interval); } rewardAmountSpan.textContent = `+${current} TAK`; rewardAmountSpan.style.animation = 'none'; setTimeout(() => { rewardAmountSpan.style.animation = 'bounce 0.5s ease-out'; }, 10); }, 30);
-                const userRef = doc(db, "users", currentUser.uid);
-                await updateDoc(userRef, { takcoin: increment(reward) });
-                const now = Date.now();
-                await updateGiftStatus(now, now + (24 * 60 * 60 * 1000));
-                startGiftTimer();
-            });
-            closeBtn.addEventListener('click', () => { if (!scratched) { showActionPopup("Please scratch the card first!", 'error'); return; } modal.remove(); });
-        }
-
-        function startGiftTimer() {
-            if (giftTimerInterval) clearInterval(giftTimerInterval);
-            const updateTimer = async () => {
-                if (!currentUser) return;
-                const giftStatus = await getGiftStatus();
-                const now = Date.now();
-                const timerSpan = document.getElementById('giftTimer');
-                const giftBox = document.getElementById('giftBox');
-                if (!timerSpan) return;
-                if (giftStatus && giftStatus.nextAvailableTime && giftStatus.nextAvailableTime > now) {
-                    const remaining = giftStatus.nextAvailableTime - now;
-                    const hours = Math.floor(remaining / (1000 * 60 * 60));
-                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                    timerSpan.innerHTML = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    if (giftBox) giftBox.classList.add('disabled');
-                } else { timerSpan.innerHTML = '<i class="fas fa-gift"></i> CLAIM NOW!'; if (giftBox) giftBox.classList.remove('disabled'); if (giftTimerInterval) clearInterval(giftTimerInterval); }
-            };
-            updateTimer();
-            giftTimerInterval = setInterval(updateTimer, 1000);
-        }
-
-        async function handleGiftBoxClick() {
-            if (!currentUser) { showActionPopup("Please login first!", 'error'); return; }
-            const giftStatus = await getGiftStatus();
-            const now = Date.now();
-            if (giftStatus && giftStatus.nextAvailableTime && giftStatus.nextAvailableTime > now) {
-                const remaining = giftStatus.nextAvailableTime - now;
-                const hours = Math.floor(remaining / (1000 * 60 * 60));
-                const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                showTimerAlert(hours, minutes, seconds);
-                return;
-            }
-            showScratchCard();
-        }
-
-        function showTermsModal() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 700px; padding: 30px; max-height: 85vh; overflow-y: auto;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;">
-                    <h2 style="color: #f39c12;"><i class="fas fa-file-contract"></i> Terms & Privacy</h2>
-                    <button id="closeTermsX" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button>
-                </div>
-                <div class="terms-tabs">
-                    <button class="terms-tab active" data-tab="terms">📜 Terms & Conditions</button>
-                    <button class="terms-tab" data-tab="privacy">🔒 Privacy Policy</button>
-                </div>
-                <div id="termsContent" class="terms-content">
-                    <h1>TAKTAK – Terms & Conditions</h1>
-                    <p><strong>Effective Date:</strong> April 13, 2026</p>
-                    <h2>1. Acceptance of Terms</h2>
-                    <p>By signing up and using TAKTAK, you agree to these Terms & Conditions. If you do not agree, do not use the app.</p>
-                    <h2>2. Account Registration</h2>
-                    <p>You must provide accurate and complete information during signup. You are responsible for keeping your login details secure. You cannot create fake or multiple accounts.</p>
-                    <h2>3. User Conduct</h2>
-                    <p>You agree not to: use the app for illegal activities, hack/modify the app, post harmful content, or use bots/automated tools.</p>
-                    <h2>4. Virtual Coins & Rewards</h2>
-                    <p>TAKCOIN are virtual and do not represent real currency. Withdrawals are subject to a 2% processing fee. Minimum withdrawal is 120,000 TAK.</p>
-                    <h2>5. Advertising</h2>
-                    <p>TAKTAK is a free app supported by advertisements. You agree to see ads as part of using the app.</p>
-                    <h2>6. Termination</h2>
-                    <p>We may suspend or delete your account if you violate these Terms, provide false information, or misuse the app.</p>
-                    <h2>7. Limitation of Liability</h2>
-                    <p>TAKTAK is provided "as is" without warranties. We are not liable for data loss, device damage, or other issues.</p>
-                    <h2>8. Changes to Terms</h2>
-                    <p>We may update these Terms anytime. Continued use means you accept the changes.</p>
-                    <h2>9. Governing Law</h2>
-                    <p>These terms are governed by applicable laws.</p>
-                    <h2>10. Contact Us</h2>
-                    <p>Email: taktak.customerservice@gmail.com</p>
-                </div>
-                <div id="privacyContent" class="terms-content" style="display: none;">
-                    <h1>PRIVACY POLICY FOR TAKTAK</h1>
-                    <p><strong>Last Updated:</strong> April 13, 2026</p>
-                    <h2>1. Introduction</h2>
-                    <p>Welcome to TAKTAK. This Privacy Policy explains how we collect, use, and protect your information.</p>
-                    <h2>2. Information We Collect</h2>
-                    <p><strong>Personal Information:</strong> Name, email address, profile picture.<br>
-                    <strong>Device Information:</strong> Device model, OS version, Advertising ID.<br>
-                    <strong>Usage Data:</strong> App opens, taps, session duration.<br>
-                    <strong>Location Data:</strong> Approximate location (IP-based) for ads.</p>
-                    <h2>3. How We Use Your Information</h2>
-                    <p>To create/manage your account, improve app performance, show relevant advertisements, prevent fraud.</p>
-                    <h2>4. Advertising & Third-Party SDKs</h2>
-                    <p>We use ad networks including IronSource (Unity Ads) and Google AdMob. These networks may collect data using device identifiers.</p>
-                    <p><strong>IronSource Privacy Policy:</strong> <a href="https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/" target="_blank">https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/</a></p>
-                    <p><strong>Google AdMob Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
-                    <h2>5. Data Sharing</h2>
-                    <p>We do not sell your personal data. We share data only with ad networks or if required by law.</p>
-                    <h2>6. Your Rights (GDPR & CCPA)</h2>
-                    <p>You can request access, correction, or deletion of your data. Contact us at taktak.customerservice@gmail.com</p>
-                    <h2>7. Children's Privacy</h2>
-                    <p>TAKTAK is not for children under 13. We do not knowingly collect data from children under 13.</p>
-                    <h2>8. Data Security</h2>
-                    <p>We use standard security measures. No method is 100% secure.</p>
-                    <h2>9. Changes to This Policy</h2>
-                    <p>We may update this policy. Changes will be posted in the app.</p>
-                    <h2>10. Contact Us</h2>
-                    <p>Email: taktak.customerservice@gmail.com</p>
-                </div>
-                <div style="margin-top: 25px; display: flex; gap: 15px;">
-                    <button id="understandBtn" class="btn-primary" style="flex: 1;"><i class="fas fa-check-circle"></i> I UNDERSTAND</button>
-                    <button id="closeTermsBtn" class="btn-secondary" style="flex: 1;">Close</button>
-                </div>
-            </div>`;
-            document.body.appendChild(modal);
+        function showTimerAlert(hours, minutes, seconds) { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 400px; padding: 30px; text-align: center;"><div class="timer-alert-modal"><div class="timer-alert-icon"><i class="fas fa-hourglass-half"></i></div><div class="timer-alert-title">🎁 Gift Box Locked</div><div class="timer-alert-message">Your next reward is coming soon!</div><div class="timer-alert-time">${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}</div><div class="timer-alert-sub">⏰ Gift will be available after this time</div><button id="closeTimerAlert" class="btn-primary" style="margin-top: 25px; width: 100%;"><i class="fas fa-check-circle"></i> Got it</button></div></div>`; document.body.appendChild(modal); document.getElementById('closeTimerAlert').addEventListener('click', () => modal.remove()); }
+        function showScratchCard() { const reward = getRandomReward(); let scratched = false; const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 450px; padding: 30px; text-align: center;"><h2 style="color: #f39c12; margin-bottom: 15px;">🎁 DAILY REWARD 🎁</h2><div style="margin-bottom: 20px;"><p class="animated-text" style="font-size: 18px; font-weight: bold;">✨ Scratch to reveal your lucky reward! ✨</p><p style="color: #888; margin-top: 5px;">Every day brings new fortune!</p></div><div id="scratchContainer" class="scratch-card" style="position: relative; min-height: 200px;"><div id="scratchCover" class="scratch-cover"><div style="text-align: center;"><i class="fas fa-hand-scissors" style="font-size: 48px; color: #fff;"></i><p style="margin-top: 10px;">Scratch Here!</p></div></div><div id="rewardReveal" style="padding: 30px;"><i class="fas fa-gem" style="font-size: 48px; color: #f39c12;"></i><div class="reward-amount" id="rewardAmount">+0 TAK</div><p style="margin-top: 10px;">Congratulations! 🎉</p></div></div><button id="closeScratchBtn" class="btn-primary" style="margin-top: 20px; width: 100%;">Claim & Continue</button></div>`; document.body.appendChild(modal); const scratchCover = modal.querySelector('#scratchCover'); const rewardAmountSpan = modal.querySelector('#rewardAmount'); const closeBtn = modal.querySelector('#closeScratchBtn'); rewardAmountSpan.textContent = `+${reward} TAK`; scratchCover.addEventListener('click', async () => { if (scratched) return; scratched = true; scratchCover.classList.add('scratched'); let current = 0; const target = reward; const step = Math.ceil(target / 20); const interval = setInterval(() => { current += step; if (current >= target) { current = target; clearInterval(interval); } rewardAmountSpan.textContent = `+${current} TAK`; rewardAmountSpan.style.animation = 'none'; setTimeout(() => { rewardAmountSpan.style.animation = 'bounce 0.5s ease-out'; }, 10); }, 30); const userRef = doc(db, "users", currentUser.uid); await updateDoc(userRef, { takcoin: increment(reward) }); const now = Date.now(); await updateGiftStatus(now, now + (24 * 60 * 60 * 1000)); startGiftTimer(); }); closeBtn.addEventListener('click', () => { if (!scratched) { showActionPopup("Please scratch the card first!", 'error'); return; } modal.remove(); }); }
+        function startGiftTimer() { if (giftTimerInterval) clearInterval(giftTimerInterval); const updateTimer = async () => { if (!currentUser) return; const giftStatus = await getGiftStatus(); const now = Date.now(); const timerSpan = document.getElementById('giftTimer'); const giftBox = document.getElementById('giftBox'); if (!timerSpan) return; if (giftStatus && giftStatus.nextAvailableTime && giftStatus.nextAvailableTime > now) { const remaining = giftStatus.nextAvailableTime - now; const hours = Math.floor(remaining / (1000 * 60 * 60)); const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((remaining % (1000 * 60)) / 1000); timerSpan.innerHTML = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; if (giftBox) giftBox.classList.add('disabled'); } else { timerSpan.innerHTML = '<i class="fas fa-gift"></i> CLAIM NOW!'; if (giftBox) giftBox.classList.remove('disabled'); if (giftTimerInterval) clearInterval(giftTimerInterval); } }; updateTimer(); giftTimerInterval = setInterval(updateTimer, 1000); }
+        async function handleGiftBoxClick() { if (!currentUser) { showActionPopup("Please login first!", 'error'); return; } const giftStatus = await getGiftStatus(); const now = Date.now(); if (giftStatus && giftStatus.nextAvailableTime && giftStatus.nextAvailableTime > now) { const remaining = giftStatus.nextAvailableTime - now; const hours = Math.floor(remaining / (1000 * 60 * 60)); const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((remaining % (1000 * 60)) / 1000); showTimerAlert(hours, minutes, seconds); return; } showScratchCard(); }
+        function showTermsModal() { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 700px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;"><h2 style="color: #f39c12;"><i class="fas fa-file-contract"></i> Terms & Privacy</h2><button id="closeTermsX" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div class="terms-tabs"><button class="terms-tab active" data-tab="terms">📜 Terms & Conditions</button><button class="terms-tab" data-tab="privacy">🔒 Privacy Policy</button></div><div id="termsContent" class="terms-content"><h1>TAKTAK – Terms & Conditions</h1><p><strong>Effective Date:</strong> April 13, 2026</p><h2>1. Acceptance of Terms</h2><p>By signing up and using TAKTAK, you agree to these Terms & Conditions. If you do not agree, do not use the app.</p><h2>2. Account Registration</h2><p>You must provide accurate and complete information during signup. You are responsible for keeping your login details secure. You cannot create fake or multiple accounts.</p><h2>3. User Conduct</h2><p>You agree not to: use the app for illegal activities, hack/modify the app, post harmful content, or use bots/automated tools.</p><h2>4. Virtual Coins & Rewards</h2><p>TAKCOIN are virtual and do not represent real currency. Withdrawals are subject to a 2% processing fee. Minimum withdrawal is 120,000 TAK.</p><h2>5. Advertising</h2><p>TAKTAK is a free app supported by advertisements. You agree to see ads as part of using the app.</p><h2>6. Termination</h2><p>We may suspend or delete your account if you violate these Terms, provide false information, or misuse the app.</p><h2>7. Limitation of Liability</h2><p>TAKTAK is provided "as is" without warranties. We are not liable for data loss, device damage, or other issues.</p><h2>8. Changes to Terms</h2><p>We may update these Terms anytime. Continued use means you accept the changes.</p><h2>9. Governing Law</h2><p>These terms are governed by applicable laws.</p><h2>10. Contact Us</h2><p>Email: taktak.customerservice@gmail.com</p></div><div id="privacyContent" class="terms-content" style="display: none;"><h1>PRIVACY POLICY FOR TAKTAK</h1><p><strong>Last Updated:</strong> April 13, 2026</p><h2>1. Introduction</h2><p>Welcome to TAKTAK. This Privacy Policy explains how we collect, use, and protect your information.</p><h2>2. Information We Collect</h2><p><strong>Personal Information:</strong> Name, email address, profile picture.<br><strong>Device Information:</strong> Device model, OS version, Advertising ID.<br><strong>Usage Data:</strong> App opens, taps, session duration.<br><strong>Location Data:</strong> Approximate location (IP-based) for ads.</p><h2>3. How We Use Your Information</h2><p>To create/manage your account, improve app performance, show relevant advertisements, prevent fraud.</p><h2>4. Advertising & Third-Party SDKs</h2><p>We use ad networks including IronSource (Unity Ads) and Google AdMob. These networks may collect data using device identifiers.</p><p><strong>IronSource Privacy Policy:</strong> <a href="https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/" target="_blank">https://developers.ironsrc.com/ironsource-mobile/air/ironsource-privacy-policy/</a></p><p><strong>Google AdMob Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p><h2>5. Data Sharing</h2><p>We do not sell your personal data. We share data only with ad networks or if required by law.</p><h2>6. Your Rights (GDPR & CCPA)</h2><p>You can request access, correction, or deletion of your data. Contact us at taktak.customerservice@gmail.com</p><h2>7. Children's Privacy</h2><p>TAKTAK is not for children under 13. We do not knowingly collect data from children under 13.</p><h2>8. Data Security</h2><p>We use standard security measures. No method is 100% secure.</p><h2>9. Changes to This Policy</h2><p>We may update this policy. Changes will be posted in the app.</p><h2>10. Contact Us</h2><p>Email: taktak.customerservice@gmail.com</p></div><div style="margin-top: 25px; display: flex; gap: 15px;"><button id="understandBtn" class="btn-primary" style="flex: 1;"><i class="fas fa-check-circle"></i> I UNDERSTAND</button><button id="closeTermsBtn" class="btn-secondary" style="flex: 1;">Close</button></div></div>`; document.body.appendChild(modal); const termsTab = modal.querySelector('[data-tab="terms"]'); const privacyTab = modal.querySelector('[data-tab="privacy"]'); const termsContent = modal.querySelector('#termsContent'); const privacyContent = modal.querySelector('#privacyContent'); termsTab.addEventListener('click', () => { termsTab.classList.add('active'); privacyTab.classList.remove('active'); termsContent.style.display = 'block'; privacyContent.style.display = 'none'; }); privacyTab.addEventListener('click', () => { privacyTab.classList.add('active'); termsTab.classList.remove('active'); termsContent.style.display = 'none'; privacyContent.style.display = 'block'; }); const understandBtn = modal.querySelector('#understandBtn'); understandBtn.addEventListener('click', () => { const termsCheckbox = document.getElementById('termsCheck'); if (termsCheckbox) { termsCheckbox.checked = true; showActionPopup("✓ You have agreed to Terms & Privacy Policy", 'success'); } modal.remove(); }); modal.querySelector('#closeTermsBtn').addEventListener('click', () => modal.remove()); modal.querySelector('#closeTermsX').addEventListener('click', () => modal.remove()); }
+        async function sendGift(receiverId, receiverUsername, gift) { if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; } const senderBalance = currentUserData.takcoin || 0; if (senderBalance < gift.price) { showActionPopup(`❌ Insufficient Balance! Need ${gift.price.toLocaleString()} TAK.`, 'error'); return false; } try { await updateDoc(doc(db, "users", currentUser.uid), { takcoin: increment(-gift.price) }); await updateDoc(doc(db, "users", receiverId), { takcoin: increment(gift.price) }); await addDoc(collection(db, "gifts"), { fromUserId: currentUser.uid, fromUsername: currentUserData.username, toUserId: receiverId, toUsername: receiverUsername, giftName: gift.name, price: gift.price, icon: gift.icon, timestamp: serverTimestamp() }); await set(ref(rtdb, `gift_live/${currentUser.uid}/${receiverId}`), { fromUser: currentUserData.username, toUser: receiverUsername, coins: gift.price, giftName: gift.name, icon: gift.icon, timestamp: Date.now() }); await addDoc(collection(db, "chatMessages"), { userId: "system", username: "🎁 GIFT SYSTEM", message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() }); const notificationRef = ref(rtdb, `notifications/${receiverId}`); const newNotificationRef = push(notificationRef); await set(newNotificationRef, { id: newNotificationRef.key, type: "gift", fromUser: currentUserData.username, fromUserId: currentUser.uid, giftName: gift.name, giftIcon: gift.icon, amount: gift.price, message: `${currentUserData.username} sent you ${gift.name} ${gift.icon} worth ${gift.price.toLocaleString()} TAK!`, timestamp: Date.now(), read: false }); showActionPopup(`✅ Gift sent! ${gift.price.toLocaleString()} TAK deducted.`, 'success'); return true; } catch (error) { console.error("Gift error:", error); showActionPopup(`❌ Error: ${error.message || "Failed to send gift"}`, 'error'); return false; } }
+        async function getUserGiftStats(userId) { try { const sentQuery = query(collection(db, "gifts"), where("fromUserId", "==", userId)); const receivedQuery = query(collection(db, "gifts"), where("toUserId", "==", userId)); const sentSnap = await getDocs(sentQuery); const receivedSnap = await getDocs(receivedQuery); const sentTotal = sentSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0); const receivedTotal = receivedSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0); return { sentTotal, receivedTotal }; } catch (error) { return { sentTotal: 0, receivedTotal: 0 }; } }
+        
+        // FIX 3: Bell badge instant clear on panel open
+        function showNotificationsPanel() { 
+            if (notificationsPanelOpen) return; 
+            notificationsPanelOpen = true; 
+            const panel = document.createElement('div'); 
+            panel.className = 'notifications-panel'; 
+            panel.innerHTML = `<h3><i class="fas fa-bell"></i> Notifications History</h3><div id="notificationsList" style="max-height: 400px; overflow-y: auto;"><div class="empty-history" style="text-align:center; padding:30px;">Loading...</div></div><button id="closeNotificationsPanel" class="btn-secondary" style="width:100%; padding:12px; border-radius:0 0 16px 16px;">Close</button>`; 
+            document.body.appendChild(panel); 
             
-            const termsTab = modal.querySelector('[data-tab="terms"]');
-            const privacyTab = modal.querySelector('[data-tab="privacy"]');
-            const termsContent = modal.querySelector('#termsContent');
-            const privacyContent = modal.querySelector('#privacyContent');
+            // INSTANTLY clear badge when panel opens
+            const badge = document.getElementById('notifBadge');
+            if (badge) { badge.style.display = 'none'; badge.textContent = '0'; }
             
-            termsTab.addEventListener('click', () => {
-                termsTab.classList.add('active');
-                privacyTab.classList.remove('active');
-                termsContent.style.display = 'block';
-                privacyContent.style.display = 'none';
-            });
-            
-            privacyTab.addEventListener('click', () => {
-                privacyTab.classList.add('active');
-                termsTab.classList.remove('active');
-                termsContent.style.display = 'none';
-                privacyContent.style.display = 'block';
-            });
-            
-            const understandBtn = modal.querySelector('#understandBtn');
-            understandBtn.addEventListener('click', () => {
-                const termsCheckbox = document.getElementById('termsCheck');
-                if (termsCheckbox) {
-                    termsCheckbox.checked = true;
-                    showActionPopup("✓ You have agreed to Terms & Privacy Policy", 'success');
-                }
-                modal.remove();
-            });
-            
-            modal.querySelector('#closeTermsBtn').addEventListener('click', () => modal.remove());
-            modal.querySelector('#closeTermsX').addEventListener('click', () => modal.remove());
-        }
-
-        async function sendGift(receiverId, receiverUsername, gift) {
-            if (!currentUserData) { showActionPopup("User data not loaded!", 'error'); return false; }
-            const senderBalance = currentUserData.takcoin || 0;
-            if (senderBalance < gift.price) { showActionPopup(`❌ Insufficient Balance! Need ${gift.price.toLocaleString()} TAK.`, 'error'); return false; }
-            try {
-                await updateDoc(doc(db, "users", currentUser.uid), { takcoin: increment(-gift.price) });
-                await updateDoc(doc(db, "users", receiverId), { takcoin: increment(gift.price) });
-                await addDoc(collection(db, "gifts"), { fromUserId: currentUser.uid, fromUsername: currentUserData.username, toUserId: receiverId, toUsername: receiverUsername, giftName: gift.name, price: gift.price, icon: gift.icon, timestamp: serverTimestamp() });
-                await set(ref(rtdb, `gift_live/${currentUser.uid}/${receiverId}`), { fromUser: currentUserData.username, toUser: receiverUsername, coins: gift.price, giftName: gift.name, icon: gift.icon, timestamp: Date.now() });
-                await addDoc(collection(db, "chatMessages"), { userId: "system", username: "🎁 GIFT SYSTEM", message: `✨ ${currentUserData.username} sent ${gift.name} ${gift.icon} to ${receiverUsername}! ✨`, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() });
+            const notificationsRef = ref(rtdb, `notifications/${currentUser.uid}`); 
+            onValue(notificationsRef, (snapshot) => { 
+                const data = snapshot.val(); 
+                const listDiv = document.getElementById('notificationsList'); 
+                if (!listDiv) return; 
+                if (!data || Object.keys(data).length === 0) { 
+                    listDiv.innerHTML = '<div class="empty-history" style="text-align:center; padding:30px;">No notifications yet</div>'; 
+                    return; 
+                } 
+                const notifications = Object.entries(data).map(([key, val]) => ({ id: key, ...val })).sort((a,b) => b.timestamp - a.timestamp); 
+                listDiv.innerHTML = notifications.map(n => { 
+                    let icon = '🔔'; 
+                    let typeText = ''; 
+                    if (n.type === 'gift') { icon = n.giftIcon || '🎁'; typeText = `sent you ${n.giftName} worth ${n.amount?.toLocaleString()} TAK`; } 
+                    else if (n.type === 'follow') { icon = '👥'; typeText = `started following you`; } 
+                    else if (n.type === 'like') { icon = '❤️'; typeText = `liked your profile`; } 
+                    const time = new Date(n.timestamp).toLocaleString(); 
+                    return `<div class="notification-item ${n.read ? '' : 'unread'}" data-id="${n.id}"><div class="notification-icon">${icon}</div><div class="notification-content"><div class="notification-text"><strong>${n.fromUser}</strong> ${typeText}</div><div class="notification-time">${time}</div></div></div>`; 
+                }).join(''); 
                 
-                const notificationRef = ref(rtdb, `notifications/${receiverId}`);
-                const newNotificationRef = push(notificationRef);
-                await set(newNotificationRef, {
-                    id: newNotificationRef.key,
-                    type: "gift",
-                    fromUser: currentUserData.username,
-                    fromUserId: currentUser.uid,
-                    giftName: gift.name,
-                    giftIcon: gift.icon,
-                    amount: gift.price,
-                    message: `${currentUserData.username} sent you ${gift.name} ${gift.icon} worth ${gift.price.toLocaleString()} TAK!`,
-                    timestamp: Date.now(),
-                    read: false
-                });
-                
-                showActionPopup(`✅ Gift sent! ${gift.price.toLocaleString()} TAK deducted.`, 'success');
-                return true;
-            } catch (error) { console.error("Gift error:", error); showActionPopup(`❌ Error: ${error.message || "Failed to send gift"}`, 'error'); return false; }
+                // Mark all as read in database
+                Object.keys(data).forEach(key => { 
+                    if (!data[key].read) { 
+                        update(ref(rtdb, `notifications/${currentUser.uid}/${key}/read`), true); 
+                    } 
+                }); 
+            }); 
+            document.getElementById('closeNotificationsPanel').addEventListener('click', () => { panel.remove(); notificationsPanelOpen = false; }); 
         }
+        
+        async function showUserProfile(targetUsername) { try { const usersRef = collection(db, "users"); const q = query(usersRef, where("username", "==", targetUsername)); const querySnapshot = await getDocs(q); if (querySnapshot.empty) { showActionPopup("User not found!", 'error'); return; } const userDoc = querySnapshot.docs[0]; const userData = userDoc.data(); const userId = userDoc.id; const { sentTotal, receivedTotal } = await getUserGiftStats(userId); const followersQuery = query(collection(db, "followers"), where("followingId", "==", userId)); const followersSnapshot = await getDocs(followersQuery); const followersCount = followersSnapshot.size; const likesCount = (await getDocs(query(collection(db, "likes"), where("targetUserId", "==", userId)))).size; let isFollowing = false, isLiked = false; if (currentUser && currentUser.uid !== userId) { const followCheckQuery = query(collection(db, "followers"), where("followerId", "==", currentUser.uid), where("followingId", "==", userId)); const followCheckSnapshot = await getDocs(followCheckQuery); isFollowing = !followCheckSnapshot.empty; const likeCheckQuery = query(collection(db, "likes"), where("userId", "==", currentUser.uid), where("targetUserId", "==", userId)); const likeCheckSnapshot = await getDocs(likeCheckQuery); isLiked = !likeCheckSnapshot.empty; } const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-user-circle"></i> ${userData.username}</h2><button id="closeProfileModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="text-align: center; margin-bottom: 20px;"><div style="background: linear-gradient(135deg, #f39c12, #e67e22); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;"><i class="fas fa-user" style="font-size: 40px; color: white;"></i></div></div><div class="profile-stats-grid"><div class="profile-stat-item"><div class="profile-stat-value">${Math.floor(userData.takcoin || 0).toLocaleString()}</div><div class="profile-stat-label">TAKCOIN</div></div><div class="profile-stat-item"><div class="profile-stat-value">${(userData.totalTaps || 0).toLocaleString()}</div><div class="profile-stat-label">Total Taps</div></div><div class="profile-stat-item"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">Followers</div></div><div class="profile-stat-item"><div class="profile-stat-value">${likesCount}</div><div class="profile-stat-label">Total Likes</div></div><div class="profile-stat-item"><div class="profile-stat-value">${receivedTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Received</div></div><div class="profile-stat-item"><div class="profile-stat-value">${sentTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Sent</div></div></div>${targetUsername !== currentUserData?.username ? `<div class="action-buttons-container"><button id="likeBtn" class="btn-secondary like-btn ${isLiked ? 'liked' : ''}" style="flex: 1;"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart'}"></i> ${isLiked ? 'Liked' : 'Like'}</button><button id="followBtn" class="btn-secondary" style="flex: 1;"><i class="fas ${isFollowing ? 'fa-user-minus' : 'fa-user-plus'}"></i> ${isFollowing ? 'Unfollow' : 'Follow'}</button></div><button id="sendGiftBtn" class="btn-primary" style="width: 100%; margin-top: 12px;"><i class="fas fa-gift"></i> Send Gift</button>` : ''}<div id="giftSelectionContainer" style="display: none; margin-top: 20px;"><h4 style="color: #f39c12; text-align: center; margin-bottom: 15px;">✨ Select a Gift ✨</h4><div class="gift-selection-grid" id="giftGrid"></div><div id="giftConfirmationArea" style="display: none;"></div></div><button id="closeProfileBtn" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`; document.body.appendChild(modal); const giftContainer = document.getElementById('giftSelectionContainer'); const giftGrid = document.getElementById('giftGrid'); const confirmationArea = document.getElementById('giftConfirmationArea'); if (targetUsername !== currentUserData?.username) { giftGrid.innerHTML = giftsCatalog.map(gift => `<div class="gift-option" data-price="${gift.price}" data-name="${gift.name}" data-icon="${gift.icon}"><div class="gift-icon">${gift.icon}</div><div class="gift-name">${gift.name}</div><div class="gift-price">${gift.price.toLocaleString()} TAK</div></div>`).join(''); document.getElementById('sendGiftBtn').addEventListener('click', () => { giftContainer.style.display = 'block'; }); let selectedGift = null; document.querySelectorAll('.gift-option').forEach(option => { option.addEventListener('click', () => { document.querySelectorAll('.gift-option').forEach(opt => opt.classList.remove('selected')); option.classList.add('selected'); const price = parseInt(option.dataset.price); const name = option.dataset.name; const icon = option.dataset.icon; selectedGift = { name, price, icon }; confirmationArea.style.display = 'block'; confirmationArea.innerHTML = `<div class="gift-confirmation"><p>🎁 <strong>${name} ${icon}</strong> worth <strong style="color:#f39c12;">${price.toLocaleString()} TAK</strong></p><p>Are you sure to send this gift to <strong>${targetUsername}</strong>?</p><div class="gift-confirmation-buttons"><button id="confirmSendGift" class="btn-confirm">✅ OK</button><button id="cancelSendGift" class="btn-cancel-gift">❌ Cancel</button></div></div>`; document.getElementById('confirmSendGift').addEventListener('click', async () => { const success = await sendGift(userId, targetUsername, selectedGift); if (success) { modal.remove(); } else { confirmationArea.style.display = 'none'; selectedGift = null; } }); document.getElementById('cancelSendGift').addEventListener('click', () => { confirmationArea.style.display = 'none'; option.classList.remove('selected'); selectedGift = null; }); }); }); 
+            // FIX 2: Follow button - sirf receiver ko notification
+            document.getElementById('followBtn').addEventListener('click', async () => { 
+                const followBtn = document.getElementById('followBtn'); 
+                const followRef = collection(db, "followers"); 
+                if (isFollowing) { 
+                    const followQuery = query(followRef, where("followerId", "==", currentUser.uid), where("followingId", "==", userId)); 
+                    const followSnapshot = await getDocs(followQuery); 
+                    followSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); }); 
+                    showActionPopup(`Unfollowed ${targetUsername}`, 'unfollow'); 
+                    followBtn.innerHTML = '<i class="fas fa-user-plus"></i> Follow'; 
+                    isFollowing = false; 
+                } else { 
+                    await addDoc(followRef, { followerId: currentUser.uid, followerName: currentUserData.username, followingId: userId, followingName: targetUsername, timestamp: serverTimestamp() }); 
+                    await giveRewardToUser(userId, "Follow", currentUserData.username); 
+                    const notificationRef = ref(rtdb, `notifications/${userId}`); 
+                    const newNotificationRef = push(notificationRef); 
+                    await set(newNotificationRef, { id: newNotificationRef.key, type: "follow", fromUser: currentUserData.username, fromUserId: currentUser.uid, message: `${currentUserData.username} started following you!`, timestamp: Date.now(), read: false }); 
+                    showNotificationToast(`${currentUserData.username} started following you!`, 'follow'); 
+                    showActionPopup(`🎉 You are now following ${targetUsername}! + They earned 1 TAKCOIN`, 'follow'); 
+                    followBtn.innerHTML = '<i class="fas fa-user-minus"></i> Unfollow'; 
+                    isFollowing = true; 
+                } 
+            }); 
+            // FIX 2: Like button - sirf receiver ko notification
+            document.getElementById('likeBtn').addEventListener('click', async () => { 
+                const likeBtn = document.getElementById('likeBtn'); 
+                const likesRef = collection(db, "likes"); 
+                if (isLiked) { 
+                    const likeQuery = query(likesRef, where("userId", "==", currentUser.uid), where("targetUserId", "==", userId)); 
+                    const likeSnapshot = await getDocs(likeQuery); 
+                    likeSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); }); 
+                    const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`); 
+                    await set(likeRtdbRef, null); 
+                    showActionPopup(`Removed like from ${targetUsername} 💔`, 'unlike'); 
+                    likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like'; 
+                    likeBtn.classList.remove('liked'); 
+                    isLiked = false; 
+                } else { 
+                    await addDoc(likesRef, { userId: currentUser.uid, username: currentUserData.username, targetUserId: userId, targetUsername: targetUsername, timestamp: serverTimestamp() }); 
+                    const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`); 
+                    await set(likeRtdbRef, { fromUser: currentUserData.username, timestamp: Date.now() }); 
+                    await giveRewardToUser(userId, "Like", currentUserData.username); 
+                    const notificationRef = ref(rtdb, `notifications/${userId}`); 
+                    const newNotificationRef = push(notificationRef); 
+                    await set(newNotificationRef, { id: newNotificationRef.key, type: "like", fromUser: currentUserData.username, fromUserId: currentUser.uid, message: `${currentUserData.username} liked your profile!`, timestamp: Date.now(), read: false }); 
+                    showNotificationToast(`${currentUserData.username} liked your profile!`, 'like'); 
+                    showActionPopup(`❤️ You liked ${targetUsername}! + They earned 1 TAKCOIN`, 'like'); 
+                    likeBtn.innerHTML = '<i class="fas fa-heart"></i> Liked'; 
+                    likeBtn.classList.add('liked'); 
+                    isLiked = true; 
+                } 
+            }); 
+        } const closeBtns = ['closeProfileModal', 'closeProfileBtn']; closeBtns.forEach(id => { const btn = document.getElementById(id); if(btn) btn.addEventListener('click', () => modal.remove()); }); } catch (error) { console.error("Error loading profile:", error); showActionPopup("Error loading profile.", 'error'); } }
+        function showTapHistoryModal() { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 500px; padding: 24px; max-height: 80vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-history"></i> Tap History</h2><button id="closeHistoryBtn" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div id="historyList" style="max-height: 60vh; overflow-y: auto;"><div class="empty-history">Loading history...</div></div><button id="closeHistoryModal" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`; document.body.appendChild(modal); const historyQuery = query(collection(db, "tapHistory"), where("userId", "==", currentUser.uid), orderBy("timestamp", "desc")); const unsubscribe = onSnapshot(historyQuery, (snapshot) => { const historyList = document.getElementById('historyList'); if (snapshot.empty) { historyList.innerHTML = '<div class="empty-history">No taps yet. Start tapping!</div>'; return; } historyList.innerHTML = snapshot.docs.map(doc => { const data = doc.data(); return `<div class="history-item"><div><div>${data.date}</div><div class="history-date">${data.time}</div></div><div class="history-taps">+1 tap</div></div>`; }).join(''); }); document.getElementById('closeHistoryBtn').addEventListener('click', () => { unsubscribe(); modal.remove(); }); document.getElementById('closeHistoryModal').addEventListener('click', () => { unsubscribe(); modal.remove(); }); }
+        function showPurchaseModal() { let selectedPackage = null; const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 600px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;"><h2 style="color: #f39c12;"><i class="fas fa-shopping-cart"></i> Purchase TAKCOIN</h2><button id="closePurchaseModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="margin-bottom: 25px;"><h3 style="color: #f39c12; margin-bottom: 15px;">📦 Select Package</h3><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">${coinPackages.map(pkg => `<div class="package-card" data-tak="${pkg.tak}" data-price="${pkg.price}" data-name="${pkg.name}"><div style="font-size: 32px; margin-bottom: 10px;">💰</div><div style="font-size: 20px; font-weight: bold; color: #f39c12;">${pkg.tak.toLocaleString()} TAK</div><div style="font-size: 16px; margin: 8px 0;">₨ ${pkg.price}</div><div style="font-size: 12px; color: #888;">${pkg.name}</div></div>`).join('')}</div></div><div id="paymentSection" style="display: none;"><div class="payment-info-card"><h3 style="color: #f39c12; margin-bottom: 15px;">💳 Payment Details</h3><div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; margin-bottom: 20px;"><p><i class="fas fa-university"></i> <strong>Bank:</strong> MCB</p><p><i class="fas fa-user"></i> <strong>Account Title:</strong> Nouman Khan</p><p><i class="fas fa-credit-card"></i> <strong>Account Number:</strong> 1067329901000199</p><p><i class="fas fa-coins"></i> <strong>Amount to Pay:</strong> <span id="amountToPay">₨ 0</span></p><p><i class="fas fa-gem"></i> <strong>You Will Get:</strong> <span id="takToGet">0</span> TAKCOIN</p></div><div style="margin-top: 15px;"><label><i class="fas fa-user-circle"></i> Sender Name:</label><input type="text" id="senderName" class="input-modern" style="margin-bottom: 15px;"><label><i class="fas fa-rupee-sign"></i> Payment Amount (PKR):</label><input type="number" id="paymentAmount" class="input-modern" style="margin-bottom: 15px;"><label><i class="fas fa-receipt"></i> Transaction ID (TID):</label><input type="text" id="transactionId" class="input-modern" style="margin-bottom: 20px;"><button id="submitPurchaseBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-check-circle"></i> Submit Purchase Request</button></div></div></div><div id="successMessage" style="display: none; text-align: center; padding: 30px; background: rgba(46, 204, 113, 0.2); border-radius: 20px; margin-top: 20px;"><i class="fas fa-check-circle" style="font-size: 48px; color: #2ecc71;"></i><h3 style="color: #2ecc71; margin-top: 15px;">Request Submitted!</h3><p>Your purchase request has been recorded. Admin will verify and add TAKCOIN to your account within 24 hours.</p><button id="closeSuccessBtn" class="btn-primary" style="margin-top: 20px;">Close</button></div></div>`; document.body.appendChild(modal); const packageCards = modal.querySelectorAll('.package-card'); const paymentSection = modal.querySelector('#paymentSection'); const amountToPaySpan = modal.querySelector('#amountToPay'); const takToGetSpan = modal.querySelector('#takToGet'); const senderNameInput = modal.querySelector('#senderName'); const paymentAmountInput = modal.querySelector('#paymentAmount'); const transactionIdInput = modal.querySelector('#transactionId'); const submitBtn = modal.querySelector('#submitPurchaseBtn'); const successDiv = modal.querySelector('#successMessage'); packageCards.forEach(card => { card.addEventListener('click', () => { packageCards.forEach(c => c.classList.remove('selected')); card.classList.add('selected'); card.classList.add('pulse'); setTimeout(() => card.classList.remove('pulse'), 500); const takAmount = parseInt(card.dataset.tak); const price = parseInt(card.dataset.price); selectedPackage = { tak: takAmount, price: price, name: card.dataset.name }; amountToPaySpan.textContent = `₨ ${price}`; takToGetSpan.textContent = takAmount.toLocaleString(); paymentSection.style.display = 'block'; senderNameInput.value = currentUserData?.username || ''; paymentAmountInput.value = price; }); }); submitBtn.addEventListener('click', async () => { const senderName = senderNameInput.value.trim(); const paymentAmount = parseFloat(paymentAmountInput.value); const transactionId = transactionIdInput.value.trim(); if (!senderName || !paymentAmount || !transactionId || !selectedPackage) { showActionPopup('Please fill all fields', 'error'); return; } if (paymentAmount !== selectedPackage.price) { showActionPopup(`Amount should be ₨ ${selectedPackage.price}`, 'error'); return; } try { await addDoc(collection(db, "takdeposit"), { userId: currentUser.uid, username: currentUserData.username, senderName, packageName: selectedPackage.name, takAmount: selectedPackage.tak, amountPaid: paymentAmount, transactionId, status: "pending", timestamp: serverTimestamp() }); paymentSection.style.display = 'none'; successDiv.style.display = 'block'; setTimeout(() => modal.remove(), 3000); } catch (error) { showActionPopup("Error submitting request.", 'error'); } }); modal.querySelector('#closePurchaseModal').addEventListener('click', () => modal.remove()); modal.querySelector('#closeSuccessBtn')?.addEventListener('click', () => modal.remove()); }
+        async function showWithdrawalModal() { let selectedMethod = null; let historyExpanded = true; const methods = ['Easypaisa', 'Jazzcash']; const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;"><h2 style="color: #f39c12;"><i class="fas fa-money-bill-wave"></i> Withdraw Funds</h2><button id="closeWithdrawModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="margin-bottom: 20px;"><div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 15px; margin-bottom: 20px;"><p><i class="fas fa-coins" style="color: #f39c12;"></i> <strong>Available Balance:</strong> <span style="font-size: 20px; color: #f39c12;">${Math.floor(currentUserData?.takcoin || 0).toLocaleString()} TAK</span></p><p><i class="fas fa-info-circle"></i> <strong>Minimum Withdrawal:</strong> 120,000 TAK</p><p><i class="fas fa-percent"></i> <strong>Processing Fee:</strong> 2%</p></div></div><div style="margin-bottom: 20px;"><h3 style="color: #f39c12; margin-bottom: 12px;">📱 Select Payment Method</h3><div id="methodOptions" style="display: flex; gap: 15px;">${methods.map(m => `<div class="method-option" data-method="${m}"><i class="fas ${m === 'Easypaisa' ? 'fa-mobile-alt' : 'fa-mobile'}"></i> ${m}</div>`).join('')}</div></div><div id="withdrawForm" style="display: none;"><div style="margin-bottom: 15px;"><label><i class="fas fa-coins"></i> Withdrawal Amount (TAK):</label><input type="number" id="withdrawAmount" class="input-modern" placeholder="Enter amount (min 120,000 TAK)" style="margin-top: 5px;"><div id="amountError" class="error-message" style="display: none;"></div></div><div style="margin-bottom: 15px;"><label><i class="fas fa-user"></i> Account Holder Name:</label><input type="text" id="accountName" class="input-modern" placeholder="Enter account holder name" style="margin-top: 5px;"></div><div style="margin-bottom: 20px;"><label><i class="fas fa-phone"></i> Account Number/Phone:</label><input type="text" id="accountNumber" class="input-modern" placeholder="Enter account number or phone" style="margin-top: 5px;"></div><button id="requestWithdrawBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Request Withdrawal</button></div><div style="margin-top: 25px;"><div id="historyToggleBtn" class="history-toggle-btn"><i class="fas fa-history"></i> Withdrawal History <i class="fas fa-chevron-down" id="historyToggleIcon"></i></div><div id="historyContainer" class="history-container expanded"><div id="withdrawHistoryList" style="max-height: 300px; overflow-y: auto;"><div class="empty-history">Loading history...</div></div></div></div></div>`; document.body.appendChild(modal); const historyContainer = modal.querySelector('#historyContainer'); const historyToggleIcon = modal.querySelector('#historyToggleIcon'); const historyToggleBtn = modal.querySelector('#historyToggleBtn'); historyToggleBtn.addEventListener('click', () => { historyExpanded = !historyExpanded; if (historyExpanded) { historyContainer.classList.remove('collapsed'); historyContainer.classList.add('expanded'); historyToggleIcon.classList.remove('fa-chevron-up'); historyToggleIcon.classList.add('fa-chevron-down'); } else { historyContainer.classList.remove('expanded'); historyContainer.classList.add('collapsed'); historyToggleIcon.classList.remove('fa-chevron-down'); historyToggleIcon.classList.add('fa-chevron-up'); } }); const withdrawHistoryList = modal.querySelector('#withdrawHistoryList'); const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid)); const unsubscribe = onSnapshot(withdrawQuery, (snapshot) => { if (snapshot.empty) { withdrawHistoryList.innerHTML = '<div class="empty-history">No withdrawal requests yet</div>'; return; } const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); docs.sort((a, b) => { const timeA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : 0; const timeB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : 0; return timeB - timeA; }); withdrawHistoryList.innerHTML = docs.map(data => { const date = data.timestamp?.toDate ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now'; const status = (data.status || '').toLowerCase(); let statusClass = 'status-pending'; let statusText = '⏳ Pending'; if (status === 'approved') { statusClass = 'status-approved'; statusText = '✅ Approved'; } else if (status === 'rejected') { statusClass = 'status-rejected'; statusText = '❌ Rejected'; } return `<div class="history-item"><div><div><strong>${data.amount?.toLocaleString() || 0} TAK</strong></div><div class="history-date">📅 ${date}</div><div class="history-date">💳 ${data.method || 'N/A'} | 👤 ${data.accountName || 'N/A'}</div></div><div><span class="${statusClass}">${statusText}</span></div></div>`; }).join(''); }); const methodOptions = modal.querySelectorAll('.method-option'); const withdrawForm = modal.querySelector('#withdrawForm'); const withdrawAmount = modal.querySelector('#withdrawAmount'); const accountName = modal.querySelector('#accountName'); const accountNumber = modal.querySelector('#accountNumber'); const requestBtn = modal.querySelector('#requestWithdrawBtn'); const amountError = modal.querySelector('#amountError'); methodOptions.forEach(opt => { opt.addEventListener('click', () => { methodOptions.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); selectedMethod = opt.dataset.method; withdrawForm.style.display = 'block'; }); }); requestBtn.addEventListener('click', async () => { const amount = parseFloat(withdrawAmount.value); const name = accountName.value.trim(); const accNum = accountNumber.value.trim(); amountError.style.display = 'none'; if (!selectedMethod) { showActionPopup('Please select payment method', 'error'); return; } if (!amount || amount < 120000) { amountError.textContent = 'Minimum withdrawal is 120,000 TAK'; amountError.style.display = 'block'; return; } if (amount > (currentUserData?.takcoin || 0)) { amountError.textContent = 'Insufficient balance!'; amountError.style.display = 'block'; return; } if (!name) { showActionPopup('Please enter account holder name', 'error'); return; } if (!accNum) { showActionPopup('Please enter account number/phone', 'error'); return; } const fee = Math.floor(amount * 0.02); const netAmount = amount - fee; const confirmModal = document.createElement('div'); confirmModal.className = 'modal-overlay'; confirmModal.innerHTML = `<div class="withdrawal-confirm-popup"><div><i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #f39c12;"></i></div><h2 style="color: #f39c12;">Confirm Withdrawal</h2><div class="confirm-details"><p><span class="label">💰 Amount:</span> <span class="value">${amount.toLocaleString()} TAK</span></p><p><span class="label">💸 Fee (2%):</span> <span class="value">${fee.toLocaleString()} TAK</span></p><p><span class="label">💵 Net Amount:</span> <span class="value">${netAmount.toLocaleString()} TAK</span></p><p><span class="label">📱 Method:</span> <span class="value">${selectedMethod}</span></p><p><span class="label">👤 Account:</span> <span class="value">${name} (${accNum})</span></p></div><div class="confirm-actions"><button id="confirmWithdrawBtn" class="btn-primary">Confirm</button><button id="cancelWithdrawBtn" class="btn-cancel-popup">Cancel</button></div></div>`; document.body.appendChild(confirmModal); document.getElementById('confirmWithdrawBtn').addEventListener('click', async () => { confirmModal.remove(); try { await runTransaction(db, async (transaction) => { const userRef = doc(db, "users", currentUser.uid); const userDoc = await transaction.get(userRef); if (!userDoc.exists()) throw new Error("User not found!"); const currentBalance = userDoc.data().takcoin || 0; if (currentBalance < amount) throw new Error("Insufficient balance!"); transaction.update(userRef, { takcoin: currentBalance - amount }); const withdrawalData = { userId: currentUser.uid, username: currentUserData.username, amount, fee, netAmount, method: selectedMethod, accountName: name, accountNumber: accNum, status: "pending", timestamp: serverTimestamp(), refunded: false }; const withdrawalRef = doc(collection(db, "withdrawals")); transaction.set(withdrawalRef, withdrawalData); showWithdrawalSuccessPopup(withdrawalData); }); withdrawAmount.value = ''; accountName.value = ''; accountNumber.value = ''; methodOptions.forEach(o => o.classList.remove('selected')); selectedMethod = null; withdrawForm.style.display = 'none'; showActionPopup(`✅ Withdrawal of ${amount.toLocaleString()} TAK requested! Check history.`, 'success'); } catch (error) { showActionPopup(error.message || "Error processing withdrawal.", 'error'); } }); document.getElementById('cancelWithdrawBtn').addEventListener('click', () => { confirmModal.remove(); }); }); modal.querySelector('#closeWithdrawModal').addEventListener('click', () => { unsubscribe(); modal.remove(); }); }
+        function setupWithdrawalRefundListener(userId) { if (!userId) return; const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", userId)); onSnapshot(withdrawQuery, async (snapshot) => { snapshot.docChanges().forEach(async (change) => { if (change.type === 'modified') { const withdrawalData = change.doc.data(); const withdrawalId = change.doc.id; const status = (withdrawalData.status || '').toLowerCase(); if (status === 'rejected' && withdrawalData.refunded !== true) { try { await runTransaction(db, async (transaction) => { const userRef = doc(db, "users", userId); const userDoc = await transaction.get(userRef); if (!userDoc.exists()) throw new Error("User not found!"); const currentBalance = userDoc.data().takcoin || 0; const refundAmount = withdrawalData.amount || 0; transaction.update(userRef, { takcoin: currentBalance + refundAmount }); const withdrawalRef = doc(db, "withdrawals", withdrawalId); transaction.update(withdrawalRef, { refunded: true, refundedAt: serverTimestamp() }); await addDoc(collection(db, "refundLogs"), { withdrawalId, userId, amount: refundAmount, reason: "Withdrawal rejected - automatic refund", refundedAt: serverTimestamp(), previousStatus: withdrawalData.status }); }); showActionPopup(`💰 Refund of ${withdrawalData.amount?.toLocaleString()} TAK has been credited to your balance!`, 'success'); } catch (error) { console.error("Refund error:", error); } } } }); }); }
+        function setupRealtimeNotificationListener(userId) { if (notificationUnsubscribe) notificationUnsubscribe(); const notificationsRef = ref(rtdb, `notifications/${userId}`); notificationUnsubscribe = onValue(notificationsRef, (snapshot) => { const data = snapshot.val(); if (data) { Object.entries(data).forEach(([key, notif]) => { if (notif && !notif.read) { if (notif.type === 'gift') showNotificationToast(notif.message || `${notif.fromUser} sent you ${notif.giftName}!`, 'gift'); else if (notif.type === 'follow') showNotificationToast(notif.message || `${notif.fromUser} started following you!`, 'follow'); else if (notif.type === 'like') showNotificationToast(notif.message || `${notif.fromUser} liked your profile!`, 'like'); update(ref(rtdb, `notifications/${userId}/${key}/read`), true); } }); } }); }
 
-        async function getUserGiftStats(userId) {
-            try {
-                const sentQuery = query(collection(db, "gifts"), where("fromUserId", "==", userId));
-                const receivedQuery = query(collection(db, "gifts"), where("toUserId", "==", userId));
-                const sentSnap = await getDocs(sentQuery);
-                const receivedSnap = await getDocs(receivedQuery);
-                const sentTotal = sentSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
-                const receivedTotal = receivedSnap.docs.reduce((sum, d) => sum + (d.data().price || 0), 0);
-                return { sentTotal, receivedTotal };
-            } catch (error) { return { sentTotal: 0, receivedTotal: 0 }; }
-        }
-
-        function showNotificationsPanel() {
-            if (notificationsPanelOpen) return;
-            notificationsPanelOpen = true;
-            const panel = document.createElement('div');
-            panel.className = 'notifications-panel';
-            panel.innerHTML = `<h3><i class="fas fa-bell"></i> Notifications History</h3><div id="notificationsList" style="max-height: 400px; overflow-y: auto;"><div class="empty-history" style="text-align:center; padding:30px;">Loading...</div></div><button id="closeNotificationsPanel" class="btn-secondary" style="width:100%; padding:12px; border-radius:0 0 16px 16px;">Close</button>`;
-            document.body.appendChild(panel);
+        // ==================== LEADERBOARD FUNCTION ====================
+        function loadLeaderboard() {
+            if (leaderboardUnsubscribe) leaderboardUnsubscribe();
+            const usersRef = collection(db, "users");
+            const leaderboardQuery = query(usersRef, orderBy("takcoin", "desc"), limit(50));
             
-            const notificationsRef = ref(rtdb, `notifications/${currentUser.uid}`);
-            onValue(notificationsRef, (snapshot) => {
-                const data = snapshot.val();
-                const listDiv = document.getElementById('notificationsList');
-                if (!listDiv) return;
-                if (!data || Object.keys(data).length === 0) {
-                    listDiv.innerHTML = '<div class="empty-history" style="text-align:center; padding:30px;">No notifications yet</div>';
+            leaderboardUnsubscribe = onSnapshot(leaderboardQuery, (snapshot) => {
+                const leaderboardBody = document.getElementById('leaderboardBody');
+                if (!leaderboardBody) return;
+                
+                if (snapshot.empty) {
+                    leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">No users yet</td></tr>';
                     return;
                 }
-                const notifications = Object.entries(data).map(([key, val]) => ({ id: key, ...val })).sort((a,b) => b.timestamp - a.timestamp);
-                listDiv.innerHTML = notifications.map(n => {
-                    let icon = '🔔';
-                    let typeText = '';
-                    if (n.type === 'gift') { icon = n.giftIcon || '🎁'; typeText = `sent you ${n.giftName} worth ${n.amount?.toLocaleString()} TAK`; }
-                    else if (n.type === 'follow') { icon = '👥'; typeText = `started following you`; }
-                    else if (n.type === 'like') { icon = '❤️'; typeText = `liked your profile`; }
-                    const time = new Date(n.timestamp).toLocaleString();
-                    return `<div class="notification-item ${n.read ? '' : 'unread'}" data-id="${n.id}">
-                        <div class="notification-icon">${icon}</div>
-                        <div class="notification-content">
-                            <div class="notification-text"><strong>${n.fromUser}</strong> ${typeText}</div>
-                            <div class="notification-time">${time}</div>
-                        </div>
-                    </div>`;
+                
+                const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                users.sort((a, b) => (b.takcoin || 0) - (a.takcoin || 0));
+                
+                leaderboardBody.innerHTML = users.map((user, index) => {
+                    const rank = index + 1;
+                    let rankClass = '';
+                    let rankIcon = '';
+                    
+                    if (rank === 1) { rankClass = 'rank-1-row'; rankIcon = '<i class="fas fa-crown rank-1-icon"></i>'; }
+                    else if (rank === 2) { rankClass = 'rank-2-row'; rankIcon = '<i class="fas fa-medal rank-2-icon"></i>'; }
+                    else if (rank === 3) { rankClass = 'rank-3-row'; rankIcon = '<i class="fas fa-medal rank-3-icon"></i>'; }
+                    
+                    const isCurrentUser = currentUser && user.id === currentUser.uid;
+                    const rowClass = isCurrentUser ? 'current-user-row' : rankClass;
+                    
+                    return `
+                        <tr class="${rowClass}">
+                            <td class="rank-cell">${rankIcon}${rank}</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar">${(user.username || 'U').charAt(0).toUpperCase()}</div>
+                                    <span>${user.username || 'Unknown'} ${isCurrentUser ? '<span style="color:#f39c12;">(You)</span>' : ''}</span>
+                                </div>
+                            </td>
+                            <td class="coins-cell"><i class="fas fa-coins" style="margin-right:5px;"></i>${Math.floor(user.takcoin || 0).toLocaleString()}</td>
+                            <td class="taps-cell"><i class="fas fa-hand-fist"></i> ${(user.totalTaps || 0).toLocaleString()}</td>
+                        </tr>
+                    `;
                 }).join('');
-                
-                Object.keys(data).forEach(key => {
-                    if (!data[key].read) {
-                        update(ref(rtdb, `notifications/${currentUser.uid}/${key}/read`), true);
-                    }
-                });
-            });
-            
-            document.getElementById('closeNotificationsPanel').addEventListener('click', () => {
-                panel.remove();
-                notificationsPanelOpen = false;
-            });
-        }
-
-        async function showUserProfile(targetUsername) {
-            try {
-                const usersRef = collection(db, "users");
-                const q = query(usersRef, where("username", "==", targetUsername));
-                const querySnapshot = await getDocs(q);
-                if (querySnapshot.empty) { showActionPopup("User not found!", 'error'); return; }
-                const userDoc = querySnapshot.docs[0];
-                const userData = userDoc.data();
-                const userId = userDoc.id;
-                const { sentTotal, receivedTotal } = await getUserGiftStats(userId);
-                const followersQuery = query(collection(db, "followers"), where("followingId", "==", userId));
-                const followersSnapshot = await getDocs(followersQuery);
-                const followersCount = followersSnapshot.size;
-                const likesCount = (await getDocs(query(collection(db, "likes"), where("targetUserId", "==", userId)))).size;
-                let isFollowing = false, isLiked = false;
-                if (currentUser && currentUser.uid !== userId) {
-                    const followCheckQuery = query(collection(db, "followers"), where("followerId", "==", currentUser.uid), where("followingId", "==", userId));
-                    const followCheckSnapshot = await getDocs(followCheckQuery);
-                    isFollowing = !followCheckSnapshot.empty;
-                    const likeCheckQuery = query(collection(db, "likes"), where("userId", "==", currentUser.uid), where("targetUserId", "==", userId));
-                    const likeCheckSnapshot = await getDocs(likeCheckQuery);
-                    isLiked = !likeCheckSnapshot.empty;
-                }
-                const modal = document.createElement('div');
-                modal.className = 'modal-overlay';
-                modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-user-circle"></i> ${userData.username}</h2><button id="closeProfileModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="text-align: center; margin-bottom: 20px;"><div style="background: linear-gradient(135deg, #f39c12, #e67e22); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;"><i class="fas fa-user" style="font-size: 40px; color: white;"></i></div></div><div class="profile-stats-grid"><div class="profile-stat-item"><div class="profile-stat-value">${Math.floor(userData.takcoin || 0).toLocaleString()}</div><div class="profile-stat-label">TAKCOIN</div></div><div class="profile-stat-item"><div class="profile-stat-value">${(userData.totalTaps || 0).toLocaleString()}</div><div class="profile-stat-label">Total Taps</div></div><div class="profile-stat-item"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">Followers</div></div><div class="profile-stat-item"><div class="profile-stat-value">${likesCount}</div><div class="profile-stat-label">Total Likes</div></div><div class="profile-stat-item"><div class="profile-stat-value">${receivedTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Received</div></div><div class="profile-stat-item"><div class="profile-stat-value">${sentTotal.toLocaleString()}</div><div class="profile-stat-label">Gifts Sent</div></div></div>${targetUsername !== currentUserData?.username ? `<div class="action-buttons-container"><button id="likeBtn" class="btn-secondary like-btn ${isLiked ? 'liked' : ''}" style="flex: 1;"><i class="fas ${isLiked ? 'fa-heart' : 'fa-heart'}"></i> ${isLiked ? 'Liked' : 'Like'}</button><button id="followBtn" class="btn-secondary" style="flex: 1;"><i class="fas ${isFollowing ? 'fa-user-minus' : 'fa-user-plus'}"></i> ${isFollowing ? 'Unfollow' : 'Follow'}</button></div><button id="sendGiftBtn" class="btn-primary" style="width: 100%; margin-top: 12px;"><i class="fas fa-gift"></i> Send Gift</button>` : ''}<div id="giftSelectionContainer" style="display: none; margin-top: 20px;"><h4 style="color: #f39c12; text-align: center; margin-bottom: 15px;">✨ Select a Gift ✨</h4><div class="gift-selection-grid" id="giftGrid"></div><div id="giftConfirmationArea" style="display: none;"></div></div><button id="closeProfileBtn" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`;
-                document.body.appendChild(modal);
-                const giftContainer = document.getElementById('giftSelectionContainer');
-                const giftGrid = document.getElementById('giftGrid');
-                const confirmationArea = document.getElementById('giftConfirmationArea');
-                if (targetUsername !== currentUserData?.username) {
-                    giftGrid.innerHTML = giftsCatalog.map(gift => `<div class="gift-option" data-price="${gift.price}" data-name="${gift.name}" data-icon="${gift.icon}"><div class="gift-icon">${gift.icon}</div><div class="gift-name">${gift.name}</div><div class="gift-price">${gift.price.toLocaleString()} TAK</div></div>`).join('');
-                    document.getElementById('sendGiftBtn').addEventListener('click', () => { giftContainer.style.display = 'block'; });
-                    let selectedGift = null;
-                    document.querySelectorAll('.gift-option').forEach(option => {
-                        option.addEventListener('click', () => {
-                            document.querySelectorAll('.gift-option').forEach(opt => opt.classList.remove('selected'));
-                            option.classList.add('selected');
-                            const price = parseInt(option.dataset.price);
-                            const name = option.dataset.name;
-                            const icon = option.dataset.icon;
-                            selectedGift = { name, price, icon };
-                            confirmationArea.style.display = 'block';
-                            confirmationArea.innerHTML = `<div class="gift-confirmation"><p>🎁 <strong>${name} ${icon}</strong> worth <strong style="color:#f39c12;">${price.toLocaleString()} TAK</strong></p><p>Are you sure to send this gift to <strong>${targetUsername}</strong>?</p><div class="gift-confirmation-buttons"><button id="confirmSendGift" class="btn-confirm">✅ OK</button><button id="cancelSendGift" class="btn-cancel-gift">❌ Cancel</button></div></div>`;
-                            document.getElementById('confirmSendGift').addEventListener('click', async () => { const success = await sendGift(userId, targetUsername, selectedGift); if (success) { modal.remove(); } else { confirmationArea.style.display = 'none'; selectedGift = null; } });
-                            document.getElementById('cancelSendGift').addEventListener('click', () => { confirmationArea.style.display = 'none'; option.classList.remove('selected'); selectedGift = null; });
-                        });
-                    });
-                    document.getElementById('followBtn').addEventListener('click', async () => {
-                        const followBtn = document.getElementById('followBtn');
-                        const followRef = collection(db, "followers");
-                        if (isFollowing) {
-                            const followQuery = query(followRef, where("followerId", "==", currentUser.uid), where("followingId", "==", userId));
-                            const followSnapshot = await getDocs(followQuery);
-                            followSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); });
-                            showActionPopup(`Unfollowed ${targetUsername}`, 'unfollow');
-                            followBtn.innerHTML = '<i class="fas fa-user-plus"></i> Follow';
-                            isFollowing = false;
-                        } else {
-                            await addDoc(followRef, { followerId: currentUser.uid, followerName: currentUserData.username, followingId: userId, followingName: targetUsername, timestamp: serverTimestamp() });
-                            await giveRewardToUser(userId, "Follow", currentUserData.username);
-                            
-                            const notificationRef = ref(rtdb, `notifications/${userId}`);
-                            const newNotificationRef = push(notificationRef);
-                            await set(newNotificationRef, {
-                                id: newNotificationRef.key,
-                                type: "follow",
-                                fromUser: currentUserData.username,
-                                fromUserId: currentUser.uid,
-                                message: `${currentUserData.username} started following you!`,
-                                timestamp: Date.now(),
-                                read: false
-                            });
-                            
-                            showNotificationToast(`${currentUserData.username} started following you!`, 'follow');
-                            showActionPopup(`🎉 You are now following ${targetUsername}! + They earned 1 TAKCOIN`, 'follow');
-                            followBtn.innerHTML = '<i class="fas fa-user-minus"></i> Unfollow';
-                            isFollowing = true;
-                        }
-                    });
-                    document.getElementById('likeBtn').addEventListener('click', async () => {
-                        const likeBtn = document.getElementById('likeBtn');
-                        const likesRef = collection(db, "likes");
-                        if (isLiked) {
-                            const likeQuery = query(likesRef, where("userId", "==", currentUser.uid), where("targetUserId", "==", userId));
-                            const likeSnapshot = await getDocs(likeQuery);
-                            likeSnapshot.forEach(async (doc) => { await deleteDoc(doc.ref); });
-                            const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`);
-                            await set(likeRtdbRef, null);
-                            showActionPopup(`Removed like from ${targetUsername} 💔`, 'unlike');
-                            likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like';
-                            likeBtn.classList.remove('liked');
-                            isLiked = false;
-                        } else {
-                            await addDoc(likesRef, { userId: currentUser.uid, username: currentUserData.username, targetUserId: userId, targetUsername: targetUsername, timestamp: serverTimestamp() });
-                            const likeRtdbRef = ref(rtdb, `likes/${userId}/${currentUser.uid}`);
-                            await set(likeRtdbRef, { fromUser: currentUserData.username, timestamp: Date.now() });
-                            await giveRewardToUser(userId, "Like", currentUserData.username);
-                            
-                            const notificationRef = ref(rtdb, `notifications/${userId}`);
-                            const newNotificationRef = push(notificationRef);
-                            await set(newNotificationRef, {
-                                id: newNotificationRef.key,
-                                type: "like",
-                                fromUser: currentUserData.username,
-                                fromUserId: currentUser.uid,
-                                message: `${currentUserData.username} liked your profile!`,
-                                timestamp: Date.now(),
-                                read: false
-                            });
-                            
-                            showNotificationToast(`${currentUserData.username} liked your profile!`, 'like');
-                            showActionPopup(`❤️ You liked ${targetUsername}! + They earned 1 TAKCOIN`, 'like');
-                            likeBtn.innerHTML = '<i class="fas fa-heart"></i> Liked';
-                            likeBtn.classList.add('liked');
-                            isLiked = true;
-                        }
-                    });
-                }
-                const closeBtns = ['closeProfileModal', 'closeProfileBtn'];
-                closeBtns.forEach(id => { const btn = document.getElementById(id); if(btn) btn.addEventListener('click', () => modal.remove()); });
-            } catch (error) { console.error("Error loading profile:", error); showActionPopup("Error loading profile.", 'error'); }
-        }
-
-        function showTapHistoryModal() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 90%; max-width: 500px; padding: 24px; max-height: 80vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="color: #f39c12;"><i class="fas fa-history"></i> Tap History</h2><button id="closeHistoryBtn" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div id="historyList" style="max-height: 60vh; overflow-y: auto;"><div class="empty-history">Loading history...</div></div><button id="closeHistoryModal" class="btn-primary" style="width: 100%; margin-top: 20px;">Close</button></div>`;
-            document.body.appendChild(modal);
-            const historyQuery = query(collection(db, "tapHistory"), where("userId", "==", currentUser.uid), orderBy("timestamp", "desc"));
-            const unsubscribe = onSnapshot(historyQuery, (snapshot) => {
-                const historyList = document.getElementById('historyList');
-                if (snapshot.empty) { historyList.innerHTML = '<div class="empty-history">No taps yet. Start tapping!</div>'; return; }
-                historyList.innerHTML = snapshot.docs.map(doc => { const data = doc.data(); return `<div class="history-item"><div><div>${data.date}</div><div class="history-date">${data.time}</div></div><div class="history-taps">+1 tap</div></div>`; }).join('');
-            });
-            document.getElementById('closeHistoryBtn').addEventListener('click', () => { unsubscribe(); modal.remove(); });
-            document.getElementById('closeHistoryModal').addEventListener('click', () => { unsubscribe(); modal.remove(); });
-        }
-        
-        function showPurchaseModal() {
-            let selectedPackage = null;
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 600px; padding: 30px; max-height: 85vh; overflow-y: auto;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;"><h2 style="color: #f39c12;"><i class="fas fa-shopping-cart"></i> Purchase TAKCOIN</h2><button id="closePurchaseModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button></div><div style="margin-bottom: 25px;"><h3 style="color: #f39c12; margin-bottom: 15px;">📦 Select Package</h3><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">${coinPackages.map(pkg => `<div class="package-card" data-tak="${pkg.tak}" data-price="${pkg.price}" data-name="${pkg.name}"><div style="font-size: 32px; margin-bottom: 10px;">💰</div><div style="font-size: 20px; font-weight: bold; color: #f39c12;">${pkg.tak.toLocaleString()} TAK</div><div style="font-size: 16px; margin: 8px 0;">₨ ${pkg.price}</div><div style="font-size: 12px; color: #888;">${pkg.name}</div></div>`).join('')}</div></div><div id="paymentSection" style="display: none;"><div class="payment-info-card"><h3 style="color: #f39c12; margin-bottom: 15px;">💳 Payment Details</h3><div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; margin-bottom: 20px;"><p><i class="fas fa-university"></i> <strong>Bank:</strong> MCB</p><p><i class="fas fa-user"></i> <strong>Account Title:</strong> Nouman Khan</p><p><i class="fas fa-credit-card"></i> <strong>Account Number:</strong> 1067329901000199</p><p><i class="fas fa-coins"></i> <strong>Amount to Pay:</strong> <span id="amountToPay">₨ 0</span></p><p><i class="fas fa-gem"></i> <strong>You Will Get:</strong> <span id="takToGet">0</span> TAKCOIN</p></div><div style="margin-top: 15px;"><label><i class="fas fa-user-circle"></i> Sender Name:</label><input type="text" id="senderName" class="input-modern" style="margin-bottom: 15px;"><label><i class="fas fa-rupee-sign"></i> Payment Amount (PKR):</label><input type="number" id="paymentAmount" class="input-modern" style="margin-bottom: 15px;"><label><i class="fas fa-receipt"></i> Transaction ID (TID):</label><input type="text" id="transactionId" class="input-modern" style="margin-bottom: 20px;"><button id="submitPurchaseBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-check-circle"></i> Submit Purchase Request</button></div></div></div><div id="successMessage" style="display: none; text-align: center; padding: 30px; background: rgba(46, 204, 113, 0.2); border-radius: 20px; margin-top: 20px;"><i class="fas fa-check-circle" style="font-size: 48px; color: #2ecc71;"></i><h3 style="color: #2ecc71; margin-top: 15px;">Request Submitted!</h3><p>Your purchase request has been recorded. Admin will verify and add TAKCOIN to your account within 24 hours.</p><button id="closeSuccessBtn" class="btn-primary" style="margin-top: 20px;">Close</button></div></div>`;
-            document.body.appendChild(modal);
-            const packageCards = modal.querySelectorAll('.package-card');
-            const paymentSection = modal.querySelector('#paymentSection');
-            const amountToPaySpan = modal.querySelector('#amountToPay');
-            const takToGetSpan = modal.querySelector('#takToGet');
-            const senderNameInput = modal.querySelector('#senderName');
-            const paymentAmountInput = modal.querySelector('#paymentAmount');
-            const transactionIdInput = modal.querySelector('#transactionId');
-            const submitBtn = modal.querySelector('#submitPurchaseBtn');
-            const successDiv = modal.querySelector('#successMessage');
-            packageCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    packageCards.forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    card.classList.add('pulse');
-                    setTimeout(() => card.classList.remove('pulse'), 500);
-                    const takAmount = parseInt(card.dataset.tak);
-                    const price = parseInt(card.dataset.price);
-                    selectedPackage = { tak: takAmount, price: price, name: card.dataset.name };
-                    amountToPaySpan.textContent = `₨ ${price}`;
-                    takToGetSpan.textContent = takAmount.toLocaleString();
-                    paymentSection.style.display = 'block';
-                    senderNameInput.value = currentUserData?.username || '';
-                    paymentAmountInput.value = price;
-                });
-            });
-            submitBtn.addEventListener('click', async () => {
-                const senderName = senderNameInput.value.trim();
-                const paymentAmount = parseFloat(paymentAmountInput.value);
-                const transactionId = transactionIdInput.value.trim();
-                if (!senderName || !paymentAmount || !transactionId || !selectedPackage) { showActionPopup('Please fill all fields', 'error'); return; }
-                if (paymentAmount !== selectedPackage.price) { showActionPopup(`Amount should be ₨ ${selectedPackage.price}`, 'error'); return; }
-                try {
-                    await addDoc(collection(db, "takdeposit"), { userId: currentUser.uid, username: currentUserData.username, senderName, packageName: selectedPackage.name, takAmount: selectedPackage.tak, amountPaid: paymentAmount, transactionId, status: "pending", timestamp: serverTimestamp() });
-                    paymentSection.style.display = 'none';
-                    successDiv.style.display = 'block';
-                    setTimeout(() => modal.remove(), 3000);
-                } catch (error) { showActionPopup("Error submitting request.", 'error'); }
-            });
-            modal.querySelector('#closePurchaseModal').addEventListener('click', () => modal.remove());
-            modal.querySelector('#closeSuccessBtn')?.addEventListener('click', () => modal.remove());
-        }
-        
-        async function showWithdrawalModal() {
-            let selectedMethod = null;
-            let historyExpanded = true;
-            const methods = ['Easypaisa', 'Jazzcash'];
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `<div class="glass-card" style="width: 95%; max-width: 550px; padding: 30px; max-height: 85vh; overflow-y: auto;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(243,156,18,0.3); padding-bottom: 15px;">
-                    <h2 style="color: #f39c12;"><i class="fas fa-money-bill-wave"></i> Withdraw Funds</h2>
-                    <button id="closeWithdrawModal" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer;">&times;</button>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 15px; margin-bottom: 20px;">
-                        <p><i class="fas fa-coins" style="color: #f39c12;"></i> <strong>Available Balance:</strong> <span style="font-size: 20px; color: #f39c12;">${Math.floor(currentUserData?.takcoin || 0).toLocaleString()} TAK</span></p>
-                        <p><i class="fas fa-info-circle"></i> <strong>Minimum Withdrawal:</strong> 120,000 TAK</p>
-                        <p><i class="fas fa-percent"></i> <strong>Processing Fee:</strong> 2%</p>
-                    </div>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #f39c12; margin-bottom: 12px;">📱 Select Payment Method</h3>
-                    <div id="methodOptions" style="display: flex; gap: 15px;">${methods.map(m => `<div class="method-option" data-method="${m}"><i class="fas ${m === 'Easypaisa' ? 'fa-mobile-alt' : 'fa-mobile'}"></i> ${m}</div>`).join('')}</div>
-                </div>
-                <div id="withdrawForm" style="display: none;">
-                    <div style="margin-bottom: 15px;">
-                        <label><i class="fas fa-coins"></i> Withdrawal Amount (TAK):</label>
-                        <input type="number" id="withdrawAmount" class="input-modern" placeholder="Enter amount (min 120,000 TAK)" style="margin-top: 5px;">
-                        <div id="amountError" class="error-message" style="display: none;"></div>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <label><i class="fas fa-user"></i> Account Holder Name:</label>
-                        <input type="text" id="accountName" class="input-modern" placeholder="Enter account holder name" style="margin-top: 5px;">
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        <label><i class="fas fa-phone"></i> Account Number/Phone:</label>
-                        <input type="text" id="accountNumber" class="input-modern" placeholder="Enter account number or phone" style="margin-top: 5px;">
-                    </div>
-                    <button id="requestWithdrawBtn" class="btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Request Withdrawal</button>
-                </div>
-                <div style="margin-top: 25px;">
-                    <div id="historyToggleBtn" class="history-toggle-btn"><i class="fas fa-history"></i> Withdrawal History <i class="fas fa-chevron-down" id="historyToggleIcon"></i></div>
-                    <div id="historyContainer" class="history-container expanded">
-                        <div id="withdrawHistoryList" style="max-height: 300px; overflow-y: auto;">
-                            <div class="empty-history">Loading history...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-            document.body.appendChild(modal);
-            
-            const historyContainer = modal.querySelector('#historyContainer');
-            const historyToggleIcon = modal.querySelector('#historyToggleIcon');
-            const historyToggleBtn = modal.querySelector('#historyToggleBtn');
-            
-            historyToggleBtn.addEventListener('click', () => {
-                historyExpanded = !historyExpanded;
-                if (historyExpanded) {
-                    historyContainer.classList.remove('collapsed');
-                    historyContainer.classList.add('expanded');
-                    historyToggleIcon.classList.remove('fa-chevron-up');
-                    historyToggleIcon.classList.add('fa-chevron-down');
-                } else {
-                    historyContainer.classList.remove('expanded');
-                    historyContainer.classList.add('collapsed');
-                    historyToggleIcon.classList.remove('fa-chevron-down');
-                    historyToggleIcon.classList.add('fa-chevron-up');
-                }
-            });
-            
-            const withdrawHistoryList = modal.querySelector('#withdrawHistoryList');
-            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid));
-            
-            const unsubscribe = onSnapshot(withdrawQuery, (snapshot) => {
-                if (snapshot.empty) { withdrawHistoryList.innerHTML = '<div class="empty-history">No withdrawal requests yet</div>'; return; }
-                const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                docs.sort((a, b) => {
-                    const timeA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : 0;
-                    const timeB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : 0;
-                    return timeB - timeA;
-                });
-                withdrawHistoryList.innerHTML = docs.map(data => { 
-                    const date = data.timestamp?.toDate ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
-                    const status = (data.status || '').toLowerCase();
-                    let statusClass = 'status-pending';
-                    let statusText = '⏳ Pending';
-                    if (status === 'approved') { statusClass = 'status-approved'; statusText = '✅ Approved'; }
-                    else if (status === 'rejected') { statusClass = 'status-rejected'; statusText = '❌ Rejected'; }
-                    return `<div class="history-item"><div><div><strong>${data.amount?.toLocaleString() || 0} TAK</strong></div><div class="history-date">📅 ${date}</div><div class="history-date">💳 ${data.method || 'N/A'} | 👤 ${data.accountName || 'N/A'}</div></div><div><span class="${statusClass}">${statusText}</span></div></div>`;
-                }).join('');
-            });
-            
-            const methodOptions = modal.querySelectorAll('.method-option');
-            const withdrawForm = modal.querySelector('#withdrawForm');
-            const withdrawAmount = modal.querySelector('#withdrawAmount');
-            const accountName = modal.querySelector('#accountName');
-            const accountNumber = modal.querySelector('#accountNumber');
-            const requestBtn = modal.querySelector('#requestWithdrawBtn');
-            const amountError = modal.querySelector('#amountError');
-            
-            methodOptions.forEach(opt => { opt.addEventListener('click', () => { methodOptions.forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); selectedMethod = opt.dataset.method; withdrawForm.style.display = 'block'; }); });
-            
-            requestBtn.addEventListener('click', async () => {
-                const amount = parseFloat(withdrawAmount.value);
-                const name = accountName.value.trim();
-                const accNum = accountNumber.value.trim();
-                amountError.style.display = 'none';
-                if (!selectedMethod) { showActionPopup('Please select payment method', 'error'); return; }
-                if (!amount || amount < 120000) { amountError.textContent = 'Minimum withdrawal is 120,000 TAK'; amountError.style.display = 'block'; return; }
-                if (amount > (currentUserData?.takcoin || 0)) { amountError.textContent = 'Insufficient balance!'; amountError.style.display = 'block'; return; }
-                if (!name) { showActionPopup('Please enter account holder name', 'error'); return; }
-                if (!accNum) { showActionPopup('Please enter account number/phone', 'error'); return; }
-                
-                const fee = Math.floor(amount * 0.02);
-                const netAmount = amount - fee;
-                
-                const confirmModal = document.createElement('div');
-                confirmModal.className = 'modal-overlay';
-                confirmModal.innerHTML = `<div class="withdrawal-confirm-popup"><div><i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #f39c12;"></i></div><h2 style="color: #f39c12;">Confirm Withdrawal</h2><div class="confirm-details"><p><span class="label">💰 Amount:</span> <span class="value">${amount.toLocaleString()} TAK</span></p><p><span class="label">💸 Fee (2%):</span> <span class="value">${fee.toLocaleString()} TAK</span></p><p><span class="label">💵 Net Amount:</span> <span class="value">${netAmount.toLocaleString()} TAK</span></p><p><span class="label">📱 Method:</span> <span class="value">${selectedMethod}</span></p><p><span class="label">👤 Account:</span> <span class="value">${name} (${accNum})</span></p></div><div class="confirm-actions"><button id="confirmWithdrawBtn" class="btn-primary">Confirm</button><button id="cancelWithdrawBtn" class="btn-cancel-popup">Cancel</button></div></div>`;
-                document.body.appendChild(confirmModal);
-                
-                document.getElementById('confirmWithdrawBtn').addEventListener('click', async () => {
-                    confirmModal.remove();
-                    try {
-                        await runTransaction(db, async (transaction) => {
-                            const userRef = doc(db, "users", currentUser.uid);
-                            const userDoc = await transaction.get(userRef);
-                            if (!userDoc.exists()) throw new Error("User not found!");
-                            const currentBalance = userDoc.data().takcoin || 0;
-                            if (currentBalance < amount) throw new Error("Insufficient balance!");
-                            transaction.update(userRef, { takcoin: currentBalance - amount });
-                            
-                            const withdrawalData = {
-                                userId: currentUser.uid,
-                                username: currentUserData.username,
-                                amount: amount,
-                                fee: fee,
-                                netAmount: netAmount,
-                                method: selectedMethod,
-                                accountName: name,
-                                accountNumber: accNum,
-                                status: "pending",
-                                timestamp: serverTimestamp(),
-                                refunded: false
-                            };
-                            const withdrawalRef = doc(collection(db, "withdrawals"));
-                            transaction.set(withdrawalRef, withdrawalData);
-                            showWithdrawalSuccessPopup(withdrawalData);
-                        });
-                        withdrawAmount.value = '';
-                        accountName.value = '';
-                        accountNumber.value = '';
-                        methodOptions.forEach(o => o.classList.remove('selected'));
-                        selectedMethod = null;
-                        withdrawForm.style.display = 'none';
-                        showActionPopup(`✅ Withdrawal of ${amount.toLocaleString()} TAK requested! Check history.`, 'success');
-                    } catch (error) { showActionPopup(error.message || "Error processing withdrawal.", 'error'); }
-                });
-                document.getElementById('cancelWithdrawBtn').addEventListener('click', () => { confirmModal.remove(); });
-            });
-            modal.querySelector('#closeWithdrawModal').addEventListener('click', () => { unsubscribe(); modal.remove(); });
-        }
-
-        function setupWithdrawalRefundListener(userId) {
-            if (!userId) return;
-            const withdrawQuery = query(collection(db, "withdrawals"), where("userId", "==", userId));
-            onSnapshot(withdrawQuery, async (snapshot) => {
-                snapshot.docChanges().forEach(async (change) => {
-                    if (change.type === 'modified') {
-                        const withdrawalData = change.doc.data();
-                        const withdrawalId = change.doc.id;
-                        const status = (withdrawalData.status || '').toLowerCase();
-                        if (status === 'rejected' && withdrawalData.refunded !== true) {
-                            try {
-                                await runTransaction(db, async (transaction) => {
-                                    const userRef = doc(db, "users", userId);
-                                    const userDoc = await transaction.get(userRef);
-                                    if (!userDoc.exists()) throw new Error("User not found!");
-                                    const currentBalance = userDoc.data().takcoin || 0;
-                                    const refundAmount = withdrawalData.amount || 0;
-                                    transaction.update(userRef, { takcoin: currentBalance + refundAmount });
-                                    const withdrawalRef = doc(db, "withdrawals", withdrawalId);
-                                    transaction.update(withdrawalRef, { refunded: true, refundedAt: serverTimestamp() });
-                                    await addDoc(collection(db, "refundLogs"), { withdrawalId: withdrawalId, userId: userId, amount: refundAmount, reason: "Withdrawal rejected - automatic refund", refundedAt: serverTimestamp(), previousStatus: withdrawalData.status });
-                                });
-                                showActionPopup(`💰 Refund of ${withdrawalData.amount?.toLocaleString()} TAK has been credited to your balance!`, 'success');
-                            } catch (error) { console.error("Refund error:", error); }
-                        }
-                    }
-                });
-            });
-        }
-
-        function setupRealtimeNotificationListener(userId) {
-            if (notificationUnsubscribe) notificationUnsubscribe();
-            const notificationsRef = ref(rtdb, `notifications/${userId}`);
-            notificationUnsubscribe = onValue(notificationsRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    Object.entries(data).forEach(([key, notif]) => {
-                        if (notif && !notif.read) {
-                            if (notif.type === 'gift') showNotificationToast(notif.message || `${notif.fromUser} sent you ${notif.giftName}!`, 'gift');
-                            else if (notif.type === 'follow') showNotificationToast(notif.message || `${notif.fromUser} started following you!`, 'follow');
-                            else if (notif.type === 'like') showNotificationToast(notif.message || `${notif.fromUser} liked your profile!`, 'like');
-                            update(ref(rtdb, `notifications/${userId}/${key}/read`), true);
-                        }
-                    });
-                }
-            });
+            }, (error) => { console.error("Leaderboard error:", error); });
         }
 
         async function renderDashboard() {
@@ -1300,10 +661,7 @@
             app.innerHTML = `<div style="max-width: 1400px; margin: 0 auto; padding: 20px;">
                 <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
                     <div class="header-right">
-                        <div id="notificationsBell" class="stat-card notification-bell" style="padding: 10px 15px; cursor: pointer;">
-                            <i class="fas fa-bell"></i>
-                            <span id="notifBadge" class="notification-badge" style="display: none;">0</span>
-                        </div>
+                        <div id="notificationsBell" class="stat-card notification-bell" style="padding: 10px 15px; cursor: pointer;"><i class="fas fa-bell"></i><span id="notifBadge" class="notification-badge" style="display: none;">0</span></div>
                         <div id="profileBtn" class="stat-card" style="padding: 10px 20px; cursor: pointer;"><i class="fas fa-user"></i> ${currentUserData?.username || 'User'}</div>
                     </div>
                 </div>
@@ -1311,55 +669,66 @@
                     <div class="stat-card"><i class="fas fa-coins" style="font-size: 32px; color: #f39c12;"></i><div class="coin-balance" style="font-size: 28px; font-weight: bold;">0</div><div>TAKCOIN</div></div>
                     <div class="stat-card"><i class="fas fa-rupee-sign" style="font-size: 32px; color: #2ecc71;"></i><div class="pkr-balance" style="font-size: 28px; font-weight: bold;">0</div><div>PKR Value</div></div>
                     <div class="stat-card"><i class="fas fa-chart-line" style="font-size: 32px; color: #3498db;"></i><div class="tap-count" style="font-size: 28px; font-weight: bold;">${(currentUserData?.totalTaps || 0).toLocaleString()}</div><div>Lifetime Taps</div></div>
-                    <div class="stat-card">
-                        <i class="fas fa-gift" style="font-size: 32px; color: #9b59b6;"></i>
-                        <div style="font-size: 14px; font-weight: bold;">${currentUserData?.referralCode || 'N/A'}</div>
-                        <div>Referral Code</div>
-                    </div>
-                    <div class="stat-card" style="position: relative;">
-                        <i class="fas fa-users" style="font-size: 32px; color: #f39c12;"></i>
-                        <div class="referral-balance-container">
-                            <span class="referral-balance" style="font-size: 24px; font-weight: bold; color: #f39c12;">0</span>
-                            <i class="fas fa-info-circle referral-info-icon" id="referralInfoIcon" style="margin-left: 5px;"></i>
-                        </div>
-                        <div>Referral Balance</div>
-                    </div>
+                    <div class="stat-card"><i class="fas fa-gift" style="font-size: 32px; color: #9b59b6;"></i><div style="font-size: 14px; font-weight: bold;">${currentUserData?.referralCode || 'N/A'}</div><div>Referral Code</div></div>
+                    <div class="stat-card" style="position: relative;"><i class="fas fa-users" style="font-size: 32px; color: #f39c12;"></i><div class="referral-balance-container"><span class="referral-balance" style="font-size: 24px; font-weight: bold; color: #f39c12;">0</span><i class="fas fa-info-circle referral-info-icon" id="referralInfoIcon" style="margin-left: 5px;"></i></div><div>Referral Balance</div></div>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 25px;">
                     <div class="glass-card" style="flex: 1; min-width: 280px; padding: 30px; text-align: center;"><div id="coinCanvasContainer" class="coin-container"></div><button id="tapButton" class="btn-primary" style="margin-top: 20px; width: 100%; font-size: 18px;"><i class="fas fa-hand-fist"></i> TAP COIN</button><div style="margin-top: 20px; display: flex; gap: 10px;"><button id="historyButton" class="btn-secondary" style="flex: 1;">History</button><button id="withdrawButton" class="btn-secondary" style="flex: 1;">Withdraw</button></div></div>
                     <div class="glass-card" style="flex: 2; min-width: 320px; display: flex; flex-direction: column; height: 550px;"><div style="padding: 20px; border-bottom: 1px solid rgba(243,156,18,0.2);"><h3><i class="fas fa-comments" style="color: #f39c12;"></i> TAK COMMUNITY LIVE CHAT</h3></div><div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 20px;"><div style="text-align: center; color: #888;">Loading messages...</div></div><div style="padding: 20px; border-top: 1px solid rgba(243,156,18,0.2); display: flex; gap: 10px;"><input type="text" id="chatInput" class="input-modern" placeholder="Type your message..." style="flex: 1;"><button id="sendMessageBtn" class="btn-primary">Send</button></div><div style="padding: 0 20px 20px 20px; text-align: center;"><small>💡 Click any username to view profile and send gifts!</small></div></div>
                 </div>
+                
+                <!-- LEADERBOARD SECTION -->
+                <div class="leaderboard-section">
+                    <div class="leaderboard-header">
+                        <h2><i class="fas fa-trophy"></i> LIVE LEADERBOARD <i class="fas fa-trophy"></i></h2>
+                        <p style="color:#aaa; font-size:14px; margin-top:5px;">Top 50 Champions • Real-time Updates</p>
+                    </div>
+                    <div class="leaderboard-container">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr><th>#</th><th>CHAMPION</th><th>TAKCOINS</th><th>TAPS</th></tr>
+                            </thead>
+                            <tbody id="leaderboardBody">
+                                <tr><td colspan="4" class="leaderboard-loading"><i class="fas fa-spinner fa-spin"></i> Loading leaderboard...</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="leaderboard-footer"><i class="fas fa-chart-line"></i> Rankings update live • Keep tapping to climb!</div>
+                    </div>
+                </div>
+                
                 <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;"><div id="giftBox" class="gift-box" style="cursor: pointer;"><i class="fas fa-gift" style="font-size: 48px; margin-bottom: 10px;"></i><h3 style="color: #fff;">Daily Gift Box</h3><p style="color: #ffe0b3;">Claim your daily reward!</p><div id="giftTimer" class="timer-text" style="margin-top: 10px;"><i class="fas fa-spinner fa-spin"></i> Loading...</div></div><button id="buyCoinBtn" class="btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-shopping-cart"></i> Purchase TAKCOIN</button></div>
                 <div style="margin-top: 30px; text-align: right;"><button id="logoutButton" class="btn-secondary">Logout</button></div>
             </div>`;
             init3DCoin();
             document.getElementById('giftBox').addEventListener('click', handleGiftBoxClick);
             startGiftTimer();
-            
             document.getElementById('referralInfoIcon').addEventListener('click', showReferralRules);
-            
-            const notifRef = ref(rtdb, `notifications/${currentUser.uid}`);
-            onValue(notifRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    const unreadCount = Object.values(data).filter(n => !n.read).length;
-                    const badge = document.getElementById('notifBadge');
-                    if (badge) {
-                        if (unreadCount > 0) { badge.style.display = 'inline-block'; badge.textContent = unreadCount > 9 ? '9+' : unreadCount; }
-                        else { badge.style.display = 'none'; }
-                    }
-                } else { const badge = document.getElementById('notifBadge'); if (badge) badge.style.display = 'none'; }
+            const notifRef = ref(rtdb, `notifications/${currentUser.uid}`); 
+            onValue(notifRef, (snapshot) => { 
+                const data = snapshot.val(); 
+                const badge = document.getElementById('notifBadge'); 
+                if (data) { 
+                    const unreadCount = Object.values(data).filter(n => !n.read).length; 
+                    if (badge) { 
+                        if (unreadCount > 0) { 
+                            badge.style.display = 'inline-block'; 
+                            badge.textContent = unreadCount > 9 ? '9+' : unreadCount; 
+                        } else { 
+                            badge.style.display = 'none'; 
+                        } 
+                    } 
+                } else { 
+                    if (badge) badge.style.display = 'none'; 
+                } 
             });
-            
             document.getElementById('notificationsBell').addEventListener('click', showNotificationsPanel);
-            
-            const chatQuery = query(collection(db, "chatMessages"), orderBy("timestamp", "desc"));
-            onSnapshot(chatQuery, (snapshot) => { const messages = []; snapshot.forEach(doc => messages.unshift({ id: doc.id, ...doc.data() })); const chatArea = document.getElementById('chatMessages'); if(chatArea){ chatArea.innerHTML = messages.slice(-50).map(msg => `<div class="chat-message"><div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span class="username-click" data-user="${msg.username}" style="cursor: pointer;"><i class="fas fa-user-circle"></i> ${msg.username}</span><span style="font-size: 11px; color: #888;">${msg.time || new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span></div><div style="color: #ddd;">${escapeHtml(msg.message)}</div></div>`).join(''); document.querySelectorAll('.username-click').forEach(el => el.addEventListener('click', () => showUserProfile(el.dataset.user))); chatArea.scrollTop = chatArea.scrollHeight; } });
+            loadLeaderboard();
+            const chatQuery = query(collection(db, "chatMessages"), orderBy("timestamp", "desc")); onSnapshot(chatQuery, (snapshot) => { const messages = []; snapshot.forEach(doc => messages.unshift({ id: doc.id, ...doc.data() })); const chatArea = document.getElementById('chatMessages'); if(chatArea){ chatArea.innerHTML = messages.slice(-50).map(msg => `<div class="chat-message"><div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span class="username-click" data-user="${msg.username}" style="cursor: pointer;"><i class="fas fa-user-circle"></i> ${msg.username}</span><span style="font-size: 11px; color: #888;">${msg.time || new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span></div><div style="color: #ddd;">${escapeHtml(msg.message)}</div></div>`).join(''); document.querySelectorAll('.username-click').forEach(el => el.addEventListener('click', () => showUserProfile(el.dataset.user))); chatArea.scrollTop = chatArea.scrollHeight; } });
             document.getElementById('tapButton').addEventListener('click', handleTap);
             document.getElementById('withdrawButton').addEventListener('click', showWithdrawalModal);
             document.getElementById('sendMessageBtn').addEventListener('click', async () => { const input = document.getElementById('chatInput'); const message = input.value.trim(); if(!message) return; await addDoc(collection(db, "chatMessages"), { userId: currentUser.uid, username: currentUserData.username, message: message, time: new Date().toLocaleTimeString(), timestamp: serverTimestamp() }); input.value = ''; });
             document.getElementById('chatInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') document.getElementById('sendMessageBtn').click(); });
-            document.getElementById('logoutButton').addEventListener('click', () => { auth.signOut(); currentUser = null; currentUserData = null; if(giftTimerInterval) clearInterval(giftTimerInterval); if(userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; } if(notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; } renderAuth(); });
+            document.getElementById('logoutButton').addEventListener('click', () => { auth.signOut(); currentUser = null; currentUserData = null; if(giftTimerInterval) clearInterval(giftTimerInterval); if(userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; } if(notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; } if(leaderboardUnsubscribe) { leaderboardUnsubscribe(); leaderboardUnsubscribe = null; } renderAuth(); });
             document.getElementById('profileBtn').addEventListener('click', () => showUserProfile(currentUserData.username));
             document.getElementById('historyButton').addEventListener('click', showTapHistoryModal);
             document.getElementById('buyCoinBtn').addEventListener('click', showPurchaseModal);
@@ -1373,92 +742,37 @@
         function renderAuth() {
             const app = document.getElementById('app');
             app.innerHTML = `<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;"><div class="glass-card" style="width: 100%; max-width: 450px; padding: 40px;"><div style="text-align: center; margin-bottom: 30px;"><i class="fas fa-crown" style="font-size: 60px; color: #f39c12;"></i><h1 style="font-size: 36px; margin-top: 10px; background: linear-gradient(135deg, #f39c12, #e67e22); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TAKTAK</h1><p class="animated-text" style="font-size: 14px; margin-top: 5px;">Connect with others, tap for fun, and share gifts 💬🎁</p></div><div class="login-options"><div class="login-tab active" id="loginTab">LOGIN</div><div class="login-tab" id="signupTab">SIGN UP</div></div><div id="loginForm"><div class="input-group" style="margin-bottom: 15px;"><input type="text" id="loginUsername" class="input-modern" placeholder="Username" style="margin-bottom: 15px;"></div><div class="input-group" style="margin-bottom: 15px; position: relative;"><input type="password" id="loginPassword" class="input-modern" placeholder="Password"><i class="fas fa-eye password-toggle" id="loginPasswordToggle" style="position: absolute; right: 15px; top: 15px; cursor: pointer;"></i></div><div class="forgot-link" id="forgotPasswordLink">Forgot Password?</div><button id="loginBtn" class="btn-primary" style="width: 100%;">Login</button><div class="already-user">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></div></div><div id="signupForm" style="display: none;"><div class="input-group" style="margin-bottom: 15px;"><input type="text" id="signupUsername" class="input-modern" placeholder="Username (no spaces)"><div class="error-message" id="usernameErrorMsg"></div></div><div class="input-group" style="margin-bottom: 15px;"><input type="email" id="signupEmail" class="input-modern" placeholder="Email Address" style="margin-bottom: 15px;"><div class="error-message" id="emailErrorMsg"></div></div><div class="input-group" style="margin-bottom: 15px; position: relative;"><input type="password" id="signupPassword" class="input-modern" placeholder="Password (min 6 characters)"><i class="fas fa-eye password-toggle" id="signupPasswordToggle" style="position: absolute; right: 15px; top: 15px; cursor: pointer;"></i></div><div class="input-group" style="margin-bottom: 15px;"><input type="password" id="signupRepeat" class="input-modern" placeholder="Repeat Password"></div><div class="input-group" style="margin-bottom: 15px;"><input type="text" id="referralCode" class="input-modern" placeholder="Referral Code (Optional)"><div class="error-message" id="referralErrorMsg"></div></div><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;"><input type="checkbox" id="termsCheck" style="width: 18px; height: 18px;"><label style="color: #ddd;">I have read and agree to the <span id="highlightPrivacy" style="color: #f39c12; font-weight: bold; text-decoration: underline; cursor: pointer;">Terms & Conditions</span> and <span id="highlightPolicy" style="color: #f39c12; font-weight: bold; text-decoration: underline; cursor: pointer;">Privacy Policy</span></label><button id="viewTerms" class="btn-secondary" style="padding: 5px 15px; margin-left: auto;">View Full</button></div><button id="signupBtn" class="btn-primary" style="width: 100%;">Create Account</button><div class="already-user">Already have an account? <a href="#" id="switchToLogin">Login</a></div></div><div class="auth-footer"><div class="copyright-text">TAKTAK All Rights Reserved</div><div class="company-logo">TapNex Technologies</div><div class="tagline-text">Innovating the future of digital rewards</div></div></div></div>`;
-            
             function showError(inputId, message) { const input = document.getElementById(inputId); if(!input) return; input.classList.add('input-error'); const errorDiv = document.createElement('div'); errorDiv.className = 'error-message'; errorDiv.style.display = 'block'; errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`; input.parentElement?.appendChild(errorDiv); setTimeout(() => { input.classList.remove('input-error'); if(errorDiv.parentElement) errorDiv.remove(); }, 4000); }
-            
             document.getElementById('loginPasswordToggle').addEventListener('click', toggleLoginPassword);
             document.getElementById('signupPasswordToggle').addEventListener('click', toggleSignupPassword);
-            
-            const highlightTerms = document.getElementById('highlightPrivacy');
-            const highlightPolicy = document.getElementById('highlightPolicy');
-            const viewTermsBtn = document.getElementById('viewTerms');
-            
+            const highlightTerms = document.getElementById('highlightPrivacy'); const highlightPolicy = document.getElementById('highlightPolicy'); const viewTermsBtn = document.getElementById('viewTerms');
             const openTermsModal = () => showTermsModal();
-            if (highlightTerms) highlightTerms.addEventListener('click', openTermsModal);
-            if (highlightPolicy) highlightPolicy.addEventListener('click', openTermsModal);
-            if (viewTermsBtn) viewTermsBtn.addEventListener('click', openTermsModal);
-            
+            if (highlightTerms) highlightTerms.addEventListener('click', openTermsModal); if (highlightPolicy) highlightPolicy.addEventListener('click', openTermsModal); if (viewTermsBtn) viewTermsBtn.addEventListener('click', openTermsModal);
             document.getElementById('loginBtn').addEventListener('click', async () => { const username = document.getElementById('loginUsername').value.trim(); const password = document.getElementById('loginPassword').value; if(!username || !password){ showError('loginUsername','Enter credentials'); return; } const btn = document.getElementById('loginBtn'); btn.innerHTML = '<span class="spinner"></span> Logging in...'; btn.disabled=true; try{ const q = query(collection(db,"users"), where("username","==",username)); const snap=await getDocs(q); if(snap.empty){ showError('loginUsername','Username not found'); btn.innerHTML='Login'; btn.disabled=false; return; } const userData = snap.docs[0].data(); const email = userData.email; const cred=await signInWithEmailAndPassword(auth, email, password); currentUser=cred.user; await updateUserBalance(); renderDashboard(); } catch(e){ showError('loginPassword','Invalid credentials'); btn.innerHTML='Login'; btn.disabled=false; } });
-            
-            const emailInput = document.getElementById('signupEmail');
-            const usernameInput = document.getElementById('signupUsername');
-            const referralInput = document.getElementById('referralCode');
-            const emailErrorMsg = document.getElementById('emailErrorMsg');
-            const usernameErrorMsg = document.getElementById('usernameErrorMsg');
-            const referralErrorMsg = document.getElementById('referralErrorMsg');
-            
+            const emailInput = document.getElementById('signupEmail'); const usernameInput = document.getElementById('signupUsername'); const referralInput = document.getElementById('referralCode'); const emailErrorMsg = document.getElementById('emailErrorMsg'); const usernameErrorMsg = document.getElementById('usernameErrorMsg'); const referralErrorMsg = document.getElementById('referralErrorMsg');
             usernameInput.addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\s/g, ''); });
             usernameInput.addEventListener('blur', async () => { const username = usernameInput.value.trim(); if (!username) return; if (username.includes(' ')) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username cannot contain spaces!'; usernameInput.classList.add('input-error'); return; } try { const usersRef = collection(db, "users"); const q = query(usersRef, where("username", "==", username)); const querySnapshot = await getDocs(q); if (!querySnapshot.empty) { usernameErrorMsg.style.display = 'block'; usernameErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Username already taken!'; usernameInput.classList.add('input-error'); } else { usernameErrorMsg.style.display = 'none'; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); setTimeout(() => usernameInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Username check error:", error); } });
-            
             emailInput.addEventListener('input', (e) => { emailErrorMsg.style.display = 'none'; emailInput.classList.remove('input-error'); });
             emailInput.addEventListener('blur', async () => { const email = emailInput.value.trim(); if (!email) return; if (!isValidEmail(email)) { emailErrorMsg.style.display = 'block'; emailErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address!'; emailInput.classList.add('input-error'); return; } try { const emailExists = await checkEmailExists(email); if (emailExists) { emailErrorMsg.style.display = 'block'; emailErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Email already registered!'; emailInput.classList.add('input-error'); } else { emailErrorMsg.style.display = 'none'; emailInput.classList.remove('input-error'); emailInput.classList.add('input-success'); setTimeout(() => emailInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Email check error:", error); } });
-            
             referralInput.addEventListener('blur', async () => { const code = referralInput.value.trim(); if (!code) { referralErrorMsg.style.display = 'none'; return; } try { const usersRef = collection(db, "users"); const q = query(usersRef, where("referralCode", "==", code)); const querySnapshot = await getDocs(q); if (querySnapshot.empty) { referralErrorMsg.style.display = 'block'; referralErrorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid referral code!'; referralInput.classList.add('input-error'); } else { referralErrorMsg.style.display = 'none'; referralInput.classList.remove('input-error'); referralInput.classList.add('input-success'); setTimeout(() => referralInput.classList.remove('input-success'), 2000); } } catch (error) { console.error("Referral check error:", error); } });
-            
             document.getElementById('forgotPasswordLink').addEventListener('click', showForgotPasswordModal);
             document.getElementById('switchToSignup').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('loginForm').style.display='none'; document.getElementById('signupForm').style.display='block'; document.getElementById('loginTab').classList.remove('active'); document.getElementById('signupTab').classList.add('active'); });
             document.getElementById('switchToLogin').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('signupForm').style.display='none'; document.getElementById('loginForm').style.display='block'; document.getElementById('signupTab').classList.remove('active'); document.getElementById('loginTab').classList.add('active'); });
             document.getElementById('loginTab').addEventListener('click', () => { document.getElementById('signupForm').style.display='none'; document.getElementById('loginForm').style.display='block'; document.getElementById('signupTab').classList.remove('active'); document.getElementById('loginTab').classList.add('active'); });
             document.getElementById('signupTab').addEventListener('click', () => { document.getElementById('loginForm').style.display='none'; document.getElementById('signupForm').style.display='block'; document.getElementById('loginTab').classList.remove('active'); document.getElementById('signupTab').classList.add('active'); });
-            
             document.getElementById('signupBtn').addEventListener('click', async () => {
-                const signupBtn = document.getElementById('signupBtn');
-                let username = usernameInput.value.trim();
-                const email = emailInput.value.trim();
-                const password = document.getElementById('signupPassword').value;
-                const repeat = document.getElementById('signupRepeat').value;
-                const referralCode = referralInput.value.trim();
-                const terms = document.getElementById('termsCheck').checked;
-                username = sanitizeUsername(username);
-                if (!username) { showError('signupUsername', 'Username is required!'); return; }
-                if (username.includes(' ')) { showError('signupUsername', 'Username cannot contain spaces!'); return; }
-                if (!email) { showError('signupEmail', 'Email is required!'); return; }
-                if (!isValidEmail(email)) { showError('signupEmail', 'Please enter a valid email address!'); return; }
-                if (password.length < 6) { showError('signupPassword', 'Password must be at least 6 characters!'); return; }
-                if (password !== repeat) { showError('signupRepeat', 'Passwords do not match!'); return; }
-                if (!terms) { showActionPopup("Please accept Terms & Conditions and Privacy Policy", 'error'); return; }
-                const emailExists = await checkEmailExists(email);
-                if (emailExists) { showError('signupEmail', 'Email already registered!'); return; }
-                signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
-                signupBtn.disabled = true;
+                const signupBtn = document.getElementById('signupBtn'); let username = usernameInput.value.trim(); const email = emailInput.value.trim(); const password = document.getElementById('signupPassword').value; const repeat = document.getElementById('signupRepeat').value; const referralCode = referralInput.value.trim(); const terms = document.getElementById('termsCheck').checked; username = sanitizeUsername(username);
+                if (!username) { showError('signupUsername', 'Username is required!'); return; } if (username.includes(' ')) { showError('signupUsername', 'Username cannot contain spaces!'); return; } if (!email) { showError('signupEmail', 'Email is required!'); return; } if (!isValidEmail(email)) { showError('signupEmail', 'Please enter a valid email address!'); return; } if (password.length < 6) { showError('signupPassword', 'Password must be at least 6 characters!'); return; } if (password !== repeat) { showError('signupRepeat', 'Passwords do not match!'); return; } if (!terms) { showActionPopup("Please accept Terms & Conditions and Privacy Policy", 'error'); return; }
+                const emailExists = await checkEmailExists(email); if (emailExists) { showError('signupEmail', 'Email already registered!'); return; }
+                signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...'; signupBtn.disabled = true;
                 try {
-                    const usersRef = collection(db, "users");
-                    const usernameQuery = query(usersRef, where("username", "==", username));
-                    const usernameExists = await getDocs(usernameQuery);
+                    const usersRef = collection(db, "users"); const usernameQuery = query(usersRef, where("username", "==", username)); const usernameExists = await getDocs(usernameQuery);
                     if (!usernameExists.empty) { showError('signupUsername', 'Username already taken!'); signupBtn.innerHTML = 'Create Account'; signupBtn.disabled = false; return; }
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    const newUser = userCredential.user;
-                    const newReferralCode = generateReferralCode(username);
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password); const newUser = userCredential.user; const newReferralCode = generateReferralCode(username);
                     await setDoc(doc(db, "users", newUser.uid), { uid: newUser.uid, username: username, email: email, takcoin: 0, totalTaps: 0, referralBalance: 0, referralCode: newReferralCode, referredBy: referralCode || null, createdAt: serverTimestamp() });
-                    
-                    if (referralCode) {
-                        const referrerQuery = query(collection(db, "users"), where("referralCode", "==", referralCode));
-                        const referrerSnapshot = await getDocs(referrerQuery);
-                        if (!referrerSnapshot.empty) {
-                            const referrerId = referrerSnapshot.docs[0].id;
-                            await processReferralBonus(referrerId, newUser.uid);
-                        }
-                    }
-                    
-                    currentUser = newUser;
-                    await updateUserBalance();
-                    renderDashboard();
-                } catch (error) {
-                    console.error("Signup error:", error);
-                    if (error.code === 'auth/email-already-in-use') { showError('signupEmail', 'Email already registered!'); } else if (error.code === 'auth/weak-password') { showError('signupPassword', 'Password is too weak!'); } else { showError('signupEmail', error.message || 'Signup failed. Please try again.'); }
-                    signupBtn.innerHTML = 'Create Account';
-                    signupBtn.disabled = false;
-                }
+                    if (referralCode) { const referrerQuery = query(collection(db, "users"), where("referralCode", "==", referralCode)); const referrerSnapshot = await getDocs(referrerQuery); if (!referrerSnapshot.empty) { const referrerId = referrerSnapshot.docs[0].id; await processReferralBonus(referrerId, newUser.uid); } }
+                    currentUser = newUser; await updateUserBalance(); renderDashboard();
+                } catch (error) { console.error("Signup error:", error); if (error.code === 'auth/email-already-in-use') { showError('signupEmail', 'Email already registered!'); } else if (error.code === 'auth/weak-password') { showError('signupPassword', 'Password is too weak!'); } else { showError('signupEmail', error.message || 'Signup failed. Please try again.'); } signupBtn.innerHTML = 'Create Account'; signupBtn.disabled = false; }
             });
         }
         
@@ -1469,12 +783,11 @@
                 setupUserDataListener(user.uid);
                 setupRealtimeNotificationListener(user.uid);
                 setupWithdrawalRefundListener(user.uid);
-                setTimeout(() => {
-                    if (currentUserData) { renderDashboard(); } else { setTimeout(() => { if (currentUserData) { renderDashboard(); } else { renderAuth(); } }, 1000); }
-                }, 500);
+                setTimeout(() => { if (currentUserData) { renderDashboard(); } else { setTimeout(() => { if (currentUserData) { renderDashboard(); } else { renderAuth(); } }, 1000); } }, 500);
             } else { 
                 if (userDataUnsubscribe) { userDataUnsubscribe(); userDataUnsubscribe = null; }
                 if (notificationUnsubscribe) { notificationUnsubscribe(); notificationUnsubscribe = null; }
+                if (leaderboardUnsubscribe) { leaderboardUnsubscribe(); leaderboardUnsubscribe = null; }
                 renderAuth(); 
             } 
         });
